@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using LojaVirtual.Database;
 using LojaVirtual.Libraries.Email;
+using LojaVirtual.Libraries.Login;
 using LojaVirtual.Models;
 using LojaVirtual.Repositories;
 using LojaVirtual.Repositories.Contracts;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -20,12 +19,14 @@ namespace LojaVirtual.Controllers
         //interface precisa ser publica
         private IClienteRepository _repositoryCliente ;
         private INewsletterRepository _repositoryNewsLettler;
+        private LoginCliente _loginCliente;
 
         //Injecao de dependencias 
-        public HomeController(IClienteRepository repositoryCliente, INewsletterRepository repositoryNewsLettler)
+        public HomeController(IClienteRepository repositoryCliente, INewsletterRepository repositoryNewsLettler,LoginCliente logincliente)
         {
             _repositoryCliente = repositoryCliente;
             _repositoryNewsLettler = repositoryNewsLettler;
+            _loginCliente = logincliente;
         }
         
         // GET: /<controller>/
@@ -137,17 +138,48 @@ namespace LojaVirtual.Controllers
         [HttpPost]
         public IActionResult Login([FromForm]Cliente cliente)
         {
-            if (cliente.Email == "gabi@teste.com" && cliente.Senha == "123456")
+            //Persistir cliente no banco de dados
+            Cliente clienteDB = _repositoryCliente.Login(cliente.Email, cliente.Senha);
+
+            if (clienteDB != null)
             {
-                return new ContentResult() { Content = "Logado!" };
-                //logado
+                //Logado
+                _loginCliente.Login(clienteDB);
+
+                return new RedirectResult(Url.Action(nameof(Painel)));
             }
             else
             {
-                return new ContentResult() { Content = "NÃO Logado!" };
                 //nao logado
+                ViewData["MSG_E"] = "Usuário não encontrado, verifique o e-mail e senha digitado!";
+                return new ContentResult() { Content = "Não logado!" };
             }
-            return View();
+            
+        }
+
+        [HttpGet]
+        public IActionResult Painel()
+        {
+            Cliente cliente = _loginCliente.GetCliente();
+
+            if (cliente!= null)
+            {
+                return new ContentResult() { Content = "Usuário " + cliente.Id + ". E-mail: " + cliente.Email + " . Idade: " + DateTime.Now.AddYears(-cliente.Nascimento.Year).ToString("yyyy") + ". Logado!" };
+            }
+            else
+            {
+                return new ContentResult() { Content = "Acesso Negado. " };
+            }
+
+            //if (HttpContext.Session.TryGetValue("ID",out UsuarioID))
+            //{
+            //    return new ContentResult() { Content = "Usuário " + UsuarioID[0] + ". E-mail: " + HttpContext.Session.GetString("Email")  + " - Idade: " + HttpContext.Session.GetInt32("Idade")  + ". Logado!" };
+            //}
+            //else
+            //{
+            //    return new ContentResult() { Content = "Acesso Negado. "};
+            //}
+
         }
 
         [HttpGet]

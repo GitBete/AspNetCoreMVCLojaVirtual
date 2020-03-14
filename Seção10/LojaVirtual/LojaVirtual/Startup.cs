@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using LojaVirtual.Database;
+using LojaVirtual.Libraries.Login;
+using LojaVirtual.Libraries.Sessao;
 using LojaVirtual.Repositories;
 using LojaVirtual.Repositories.Contracts;
 using Microsoft.AspNetCore.Builder;
@@ -31,6 +33,9 @@ namespace LojaVirtual
         {
             services.AddControllersWithViews();
 
+            //Sessao
+            services.AddHttpContextAccessor();
+
             /*  
              *  padrao repository  ..
              */
@@ -48,6 +53,10 @@ namespace LojaVirtual
             });
 
             //services.AddMvc().SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0);
+
+            //Sessao - injetar a classe sessao em todas as outras
+            services.AddScoped<Sessao>();
+            services.AddScoped<LoginCliente>();
 
             //Associar o contexto a conexao com o banco de dados
             //Apos isso poderafazer as Migrations ... Add Microsoft.EntityFramework.Tools

@@ -490,11 +490,11 @@ C:\CursosProgramacao\ASPNetCore\LojaVirtual\AspNetCoreMVCLojaVirtual\Seção10\L
 C:\CursosProgramacao\ASPNetCore\LojaVirtual\AspNetCoreMVCLojaVirtual\Seção10\LojaVirtual\LojaVirtual\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.0\System.Runtime.Caching.dll
 C:\CursosProgramacao\ASPNetCore\LojaVirtual\AspNetCoreMVCLojaVirtual\Seção10\LojaVirtual\LojaVirtual\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll
 C:\CursosProgramacao\ASPNetCore\LojaVirtual\AspNetCoreMVCLojaVirtual\Seção10\LojaVirtual\LojaVirtual\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+C:\CursosProgramacao\ASPNetCore\LojaVirtual\AspNetCoreMVCLojaVirtual\Seção10\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\LojaVirtual.csprojAssemblyReference.cache
 C:\CursosProgramacao\ASPNetCore\LojaVirtual\AspNetCoreMVCLojaVirtual\Seção10\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\staticwebassets\LojaVirtual.StaticWebAssets.Manifest.cache
 C:\CursosProgramacao\ASPNetCore\LojaVirtual\AspNetCoreMVCLojaVirtual\Seção10\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\staticwebassets\LojaVirtual.StaticWebAssets.xml
 C:\CursosProgramacao\ASPNetCore\LojaVirtual\AspNetCoreMVCLojaVirtual\Seção10\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\LojaVirtual.Libraries.Lang.Mensagem.resources
 C:\CursosProgramacao\ASPNetCore\LojaVirtual\AspNetCoreMVCLojaVirtual\Seção10\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\LojaVirtual.csproj.GenerateResource.cache
-C:\CursosProgramacao\ASPNetCore\LojaVirtual\AspNetCoreMVCLojaVirtual\Seção10\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\LojaVirtual.MvcApplicationPartsAssemblyInfo.cache
 C:\CursosProgramacao\ASPNetCore\LojaVirtual\AspNetCoreMVCLojaVirtual\Seção10\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\LojaVirtual.RazorAssemblyInfo.cache
 C:\CursosProgramacao\ASPNetCore\LojaVirtual\AspNetCoreMVCLojaVirtual\Seção10\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\LojaVirtual.RazorAssemblyInfo.cs
 C:\CursosProgramacao\ASPNetCore\LojaVirtual\AspNetCoreMVCLojaVirtual\Seção10\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\LojaVirtual.AssemblyInfoInputs.cache
@@ -509,6 +509,7 @@ C:\CursosProgramacao\ASPNetCore\LojaVirtual\AspNetCoreMVCLojaVirtual\Seção10\L
 C:\CursosProgramacao\ASPNetCore\LojaVirtual\AspNetCoreMVCLojaVirtual\Seção10\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\Razor\Views\Home\Login.cshtml.g.cs
 C:\CursosProgramacao\ASPNetCore\LojaVirtual\AspNetCoreMVCLojaVirtual\Seção10\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\Razor\Views\Produto\Visualizar.cshtml.g.cs
 C:\CursosProgramacao\ASPNetCore\LojaVirtual\AspNetCoreMVCLojaVirtual\Seção10\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_Layout.cshtml.g.cs
+C:\CursosProgramacao\ASPNetCore\LojaVirtual\AspNetCoreMVCLojaVirtual\Seção10\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\Razor\Views\_ViewImports.cshtml.g.cs
 C:\CursosProgramacao\ASPNetCore\LojaVirtual\AspNetCoreMVCLojaVirtual\Seção10\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\Razor\Views\_ViewStart.cshtml.g.cs
 C:\CursosProgramacao\ASPNetCore\LojaVirtual\AspNetCoreMVCLojaVirtual\Seção10\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\LojaVirtual.RazorTargetAssemblyInfo.cache
 C:\CursosProgramacao\ASPNetCore\LojaVirtual\AspNetCoreMVCLojaVirtual\Seção10\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\LojaVirtual.RazorTargetAssemblyInfo.cs
@@ -516,5 +517,4 @@ C:\CursosProgramacao\ASPNetCore\LojaVirtual\AspNetCoreMVCLojaVirtual\Seção10\L
 C:\CursosProgramacao\ASPNetCore\LojaVirtual\AspNetCoreMVCLojaVirtual\Seção10\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\LojaVirtual.csproj.CopyComplete
 C:\CursosProgramacao\ASPNetCore\LojaVirtual\AspNetCoreMVCLojaVirtual\Seção10\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\LojaVirtual.dll
 C:\CursosProgramacao\ASPNetCore\LojaVirtual\AspNetCoreMVCLojaVirtual\Seção10\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\LojaVirtual.pdb
-C:\CursosProgramacao\ASPNetCore\LojaVirtual\AspNetCoreMVCLojaVirtual\Seção10\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\Razor\Views\_ViewImports.cshtml.g.cs
-C:\CursosProgramacao\ASPNetCore\LojaVirtual\AspNetCoreMVCLojaVirtual\Seção10\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\LojaVirtual.csprojAssemblyReference.cache
+C:\CursosProgramacao\ASPNetCore\LojaVirtual\AspNetCoreMVCLojaVirtual\Seção10\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\LojaVirtual.MvcApplicationPartsAssemblyInfo.cache

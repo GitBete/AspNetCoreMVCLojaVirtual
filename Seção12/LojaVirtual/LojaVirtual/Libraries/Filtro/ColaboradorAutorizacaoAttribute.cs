@@ -1,4 +1,5 @@
-﻿using LojaVirtual.Libraries.Login;
+﻿using LojaVirtual.Areas.Colaborador.Controllers;
+using LojaVirtual.Libraries.Login;
 using LojaVirtual.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -30,7 +31,8 @@ namespace LojaVirtual.Libraries.Filtro
 
             if (colaborador == null)
             {
-                context.Result = new ContentResult() { Content = "Colaborador com acesso Negado!" };
+                //context.Result = new ContentResult() { Content = "Colaborador com acesso Negado!" };
+                context.Result = new RedirectToActionResult("Login","Home",null);
             }
 
         }

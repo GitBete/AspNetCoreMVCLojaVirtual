@@ -63,8 +63,9 @@ namespace LojaVirtual
 
             //Associar o contexto a conexao com o banco de dados
             //Apos isso poderafazer as Migrations ... Add Microsoft.EntityFramework.Tools
-            string connection = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=LojaVirtual;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-           
+            //string connection = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=LojaVirtual;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+            string connection = "Data Source=ACERGAME\\SQL2019;Initial Catalog=LojaVirtual;Trusted_Connection=True;";
+
             services.AddDbContext<LojaVirtualContext>(options =>
             options.UseSqlServer(connection));
         }

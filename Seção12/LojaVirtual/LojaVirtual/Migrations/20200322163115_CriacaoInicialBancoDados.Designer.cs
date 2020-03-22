@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LojaVirtual.Migrations
 {
     [DbContext(typeof(LojaVirtualContext))]
-    [Migration("20200320051816_AjusteTabelaCategoria")]
-    partial class AjusteTabelaCategoria
+    [Migration("20200322163115_CriacaoInicialBancoDados")]
+    partial class CriacaoInicialBancoDados
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

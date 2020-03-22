@@ -6,6 +6,10 @@
     <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile></DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <Compile Remove="Areas\Colaborador\Views\NovaPasta1\**" />
     <Compile Remove="Areas\Colaborador\Views\NovaPasta2\**" />

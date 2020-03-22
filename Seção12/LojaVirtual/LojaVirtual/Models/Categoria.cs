@@ -10,6 +10,7 @@ namespace LojaVirtual.Models
 {
     public class Categoria
     {
+        [Display(Name = "Código")]
         public int Id { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(Mensagem), ErrorMessageResourceName = "MSG_E001")]
@@ -35,12 +36,15 @@ namespace LojaVirtual.Models
          * 3 --- Mouse sem fio Pai:2
          * 4 ---- Mouse Gamer Pai:3
          */
+        
          public int? CategoriaPaiId{ get; set; }
 
         /*
          * CRM - EntityFrameworkCore
          */
         [ForeignKey("CategoriaPaiId")]
+        [Display(Name = "Categoria Pai")]
+
         public virtual Categoria CategoriaPai { get; set; }
     }
 }

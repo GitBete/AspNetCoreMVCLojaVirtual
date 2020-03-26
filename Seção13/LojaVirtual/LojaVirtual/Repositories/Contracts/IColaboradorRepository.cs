@@ -12,13 +12,14 @@ namespace LojaVirtual.Repositories
         Colaborador Login(string Email, string Senha);
 
         //Crud
-        void Cadastrar(Colaborador colaborador);
-        Colaborador ObterColaborador(int Id);
+        void Cadastrar(Colaborador colaborador);        
         void Atualizar(Colaborador colaborador);
+        void AtualizarSenha(Colaborador colaborador);
         void Excluir(int Id);
 
         //IEnumerable<Colaborador> ObterTodosColaboradores();        
-
+        Colaborador ObterColaborador(int Id);
+        List <Colaborador> ObterColaboradorPorEmail(string email);
         IPagedList<Colaborador> ObterTodosColaboradores(int? pagina);
 
     }

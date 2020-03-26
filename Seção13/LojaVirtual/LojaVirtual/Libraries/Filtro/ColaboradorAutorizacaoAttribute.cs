@@ -12,18 +12,25 @@ namespace LojaVirtual.Libraries.Filtro
 {
     public class ColaboradorAutorizacaoAttribute : Attribute, IAuthorizationFilter
     {
-        /*
-        *  Tipos de filtro:
-        *  - Autorizacao ... IAuthorizationFilter
-        *  - Recurso ....... IResourceFilter 
-        *  - Ação .......... IActionFilter
-        *  - Exceção ....... IExceptionFilter
-        *  - Resultado ..... IResultFilter
-        */
-        LoginColaborador _loginColaborador;
+        public String _tipoColaboradorAutorizado;
+           
+        public ColaboradorAutorizacaoAttribute (string TipoColaboradorAutorizado = "C")
+        {
+                _tipoColaboradorAutorizado = TipoColaboradorAutorizado;
+        }
 
         public void OnAuthorization(AuthorizationFilterContext context)
         {
+
+            /*
+            *  Tipos de filtro:
+            *  - Autorizacao ... IAuthorizationFilter
+            *  - Recurso ....... IResourceFilter 
+            *  - Ação .......... IActionFilter
+            *  - Exceção ....... IExceptionFilter
+            *  - Resultado ..... IResultFilter
+            */
+            LoginColaborador _loginColaborador;
 
             _loginColaborador = (LoginColaborador)context.HttpContext.RequestServices.GetService(typeof(LoginColaborador));
 
@@ -33,6 +40,15 @@ namespace LojaVirtual.Libraries.Filtro
             {
                 //context.Result = new ContentResult() { Content = "Colaborador com acesso Negado!" };
                 context.Result = new RedirectToActionResult("Login","Home",null);
+            }
+            else
+            {
+                //Verificar se  tipo do colaborador podera acessar
+                if (colaborador.Tipo == "C" && _tipoColaboradorAutorizado == "G")
+                {
+                    //Negado
+                    context.Result = new ForbidResult();
+                }
             }
 
         }

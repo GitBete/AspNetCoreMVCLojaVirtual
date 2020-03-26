@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using LojaVirtual.Libraries.Email;
+using LojaVirtual.Libraries.Filtro;
 using LojaVirtual.Libraries.Lang;
 using LojaVirtual.Libraries.Texto;
 using LojaVirtual.Repositories;
@@ -12,8 +13,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using X.PagedList;
 
 namespace LojaVirtual.Controllers
-{    
+{
     [Area("Colaborador")]
+    [ColaboradorAutorizacao("G")]
     public class ColaboradorController : Controller
     {
         private IColaboradorRepository _colaboradorRepositorio;
@@ -40,10 +42,16 @@ namespace LojaVirtual.Controllers
         [HttpPost]
         public IActionResult Cadastrar([FromForm]Models.Colaborador colaborador)
         {
+            ModelState.Remove("Senha");
             if (ModelState.IsValid)
             {
                 //Gerar nova senha, salvar e enviar email
                 colaborador.Tipo = "C";
+                //criamos essa classe copiando uma ja pronta da internet
+                colaborador.Senha = KeyGenerator.GetUniqueKey(8);
+                //Enviar email
+                _gerenciarEmail.EnviarSenhaParaColabradorPorEmail(colaborador);
+
                 _colaboradorRepositorio.Cadastrar(colaborador);
 
                 TempData["MSG_S"] = Mensagem.MSG_S001;
@@ -59,7 +67,8 @@ namespace LojaVirtual.Controllers
             //todo, gerar senha aleatoria, salvar a senha nova, enviar email
             Models.Colaborador colaborador = _colaboradorRepositorio.ObterColaborador(id);
             colaborador.Senha = KeyGenerator.GetUniqueKey(8);
-            _colaboradorRepositorio.Atualizar(colaborador);
+            //_colaboradorRepositorio.Atualizar(colaborador);
+            _colaboradorRepositorio.AtualizarSenha(colaborador);
 
             //Enviar email
             _gerenciarEmail.EnviarSenhaParaColabradorPorEmail(colaborador);
@@ -79,6 +88,7 @@ namespace LojaVirtual.Controllers
         [HttpPost]
         public IActionResult Atualizar([FromForm]Models.Colaborador colaborador,int id)
         {
+            ModelState.Remove("Senha");
             if (ModelState.IsValid)
             {
                 _colaboradorRepositorio.Atualizar(colaborador);

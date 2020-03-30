@@ -1,4 +1,5 @@
-﻿using LojaVirtual.Models;
+﻿using LojaVirtual.Libraries.Filtro;
+using LojaVirtual.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,7 @@ namespace LojaVirtual.Libraries.Login
             _sessao = sessao;
         }
 
+        [ValidateHttpReferer]
         public void Login(Colaborador colaborador)
         {
             //Serializar
@@ -26,6 +28,7 @@ namespace LojaVirtual.Libraries.Login
             _sessao.Cadastrar(Key, ColaboradorJSONString);
         }
 
+        [ValidateHttpReferer]
         public Colaborador GetColaborador()
         {
             if (_sessao.Existe(Key))

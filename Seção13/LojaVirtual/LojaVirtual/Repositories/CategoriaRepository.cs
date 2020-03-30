@@ -14,12 +14,12 @@ namespace LojaVirtual.Repositories
     public class CategoriaRepository : ICategoriaRepository
     {
         private IConfiguration _configuration;
-        const int _registroPorPagina = 7;
-
+        //const int _registroPorPagina = 7;
         private LojaVirtualContext _banco;
+
         public CategoriaRepository( LojaVirtualContext banco, IConfiguration configuration)
         {
-             _banco = banco;
+            _banco = banco;
             _configuration = configuration;
         }
               

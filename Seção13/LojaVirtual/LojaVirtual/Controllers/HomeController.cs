@@ -139,6 +139,7 @@ namespace LojaVirtual.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Login([FromForm]Cliente cliente)
         {
             //Persistir cliente no banco de dados
@@ -164,8 +165,6 @@ namespace LojaVirtual.Controllers
         [ClienteAutorizacao]
         public IActionResult Painel()
         {
-
-
             //if (HttpContext.Session.TryGetValue("ID",out UsuarioID))
             //{
             //    return new ContentResult() { Content = "Usuário " + UsuarioID[0] + ". E-mail: " + HttpContext.Session.GetString("Email")  + " - Idade: " + HttpContext.Session.GetInt32("Idade")  + ". Logado!" };

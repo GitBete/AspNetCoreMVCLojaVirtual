@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using LojaVirtual.Database;
 using LojaVirtual.Libraries.Email;
 using LojaVirtual.Libraries.Login;
+using LojaVirtual.Libraries.Middleware;
 using LojaVirtual.Libraries.Sessao;
 using LojaVirtual.Repositories;
 using LojaVirtual.Repositories.Contracts;
@@ -46,6 +47,8 @@ namespace LojaVirtual
             services.AddScoped<INewsletterRepository, NewsletterRepository>();
             services.AddScoped<IColaboradorRepository, ColaboradorRepository>();
             services.AddScoped<ICategoriaRepository, CategoriaRepository>();
+            services.AddScoped<IProdutoRepository, ProdutoRepository>();
+            services.AddScoped<IImagenRepository, ImagemRepository>();
 
             /*
              * SMTP - Envio de Email appsetting.Development
@@ -106,17 +109,16 @@ namespace LojaVirtual
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
-
             //usar arquivos default
             app.UseDefaultFiles();
             //usado para deixar acessar os arquivos estaticos
             app.UseStaticFiles();
-
             //para utilizar sessao
             app.UseSession();
-
+            
+            app.UseMiddleware<ValidateAntiForgeryTokenMiddleware>();
+            
             app.UseRouting();
-
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

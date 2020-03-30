@@ -1,5 +1,7 @@
 ﻿using LojaVirtual.Database;
 using LojaVirtual.Models;
+using LojaVirtual.Models.Constants;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -72,12 +74,12 @@ namespace LojaVirtual.Repositories
             int RegistroPorPagina = _configuration.GetValue<int>("RegistroPorPagina");
 
             int NumeroPagina = pagina ?? 1;
-            return _banco.Colaboradores.Where(a => a.Tipo != "G").ToPagedList<Colaborador>(NumeroPagina, RegistroPorPagina);
+            return _banco.Colaboradores.Where(a => a.Tipo != ColaboradorTipoConstant.Gerente).ToPagedList<Colaborador>(NumeroPagina, RegistroPorPagina);
         }
 
         public List<Colaborador> ObterColaboradorPorEmail(string email)
         {
-            return _banco.Colaboradores.Where(a => a.Email ==email).ToList();
+            return _banco.Colaboradores.Where(a => a.Email ==email).AsNoTracking().ToList();
         }
     }
 }

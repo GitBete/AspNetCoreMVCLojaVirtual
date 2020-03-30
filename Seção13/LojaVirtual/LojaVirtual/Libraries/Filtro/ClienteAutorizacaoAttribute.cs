@@ -19,6 +19,8 @@ namespace LojaVirtual.Libraries.Filtro
          *  - Exceção ....... IExceptionFilter
          *  - Resultado ..... IResultFilter
          */
+
+        //injecao de dependencia em atributo nao é legal
         LoginCliente _loginCliente;
 
         public void OnAuthorization(AuthorizationFilterContext context)
@@ -30,7 +32,7 @@ namespace LojaVirtual.Libraries.Filtro
 
             if (cliente == null)
             {
-                context.Result = new ContentResult() { Content = "acesso Negado!" };
+                context.Result = new ContentResult() { Content = "Acesso Negado !" };
             }
            
         }

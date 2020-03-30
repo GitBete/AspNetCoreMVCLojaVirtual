@@ -9,25 +9,29 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LojaVirtual.Areas.Colaborador.Controllers
 {
-    [Area("Colaborador")]
-    public class HomeController : Controller
+    [Area("Colaborador")]      
+     public class HomeController : Controller
     {
         private IColaboradorRepository _repositoryColaborador;
         private LoginColaborador _loginColaborador;
+        private LoginCliente _loginCliente;
 
-        public HomeController(IColaboradorRepository repositoryColaborador, LoginColaborador loginColaborador)
+        public HomeController(IColaboradorRepository repositoryColaborador, LoginColaborador loginColaborador, LoginCliente loginCliente)
         {
             _repositoryColaborador = repositoryColaborador;
             _loginColaborador = loginColaborador;
+            _loginCliente = loginCliente;
         }
 
         [HttpGet]
+        //[ValidateHttpReferer] //... tem uma falha se nao colocar aquie e tentar entrar ede outra tela e nao tiver logado ... passa tudo
         public IActionResult Login()
         {
             return View();
         }
 
-        [HttpPost]
+        [HttpPost]        
+        //[ValidateAntiForgeryToken] .. colocou no middleway
         public IActionResult Login([FromForm]Models.Colaborador colaborador)
         {
             //Persistir cliente no banco de dados
@@ -50,6 +54,7 @@ namespace LojaVirtual.Areas.Colaborador.Controllers
                 
 
         [ColaboradorAutorizacao]
+        [ValidateHttpReferer]
         public IActionResult Logout()
         {
             _loginColaborador.Logout();
@@ -67,7 +72,7 @@ namespace LojaVirtual.Areas.Colaborador.Controllers
         }
 
         [HttpGet]
-        [ColaboradorAutorizacao]
+        [ColaboradorAutorizacao]        
         public IActionResult Painel()
         {
             //return new ContentResult() { Content = "Esse é o painel do Colaborador. " };

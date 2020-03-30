@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@inject LojaVirtual.Libraries.Login.LoginColaborador colaborador
+<!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="utf-8">
@@ -61,14 +62,25 @@
                                 Categorias
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link">
+                        <li class="nav-item" >
+                            <a class="nav-link" asp-controller="Produto" asp-action="Index">
                                 <span data-feather="shopping-cart"></span>
                                 Produtos
                             </a>
                         </li>
+
+                        @if (colaborador.GetColaborador() != null && colaborador.GetColaborador().Tipo == ColaboradorTipoConstant.Gerente)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Colaborador" asp-action="Index">
+                                    <span data-feather="users"></span>
+                                    Colaborador
+                                </a>
+                            </li>
+                        }
+
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" asp-controller="Cliente" asp-action="Index">
                                 <span data-feather="users"></span>
                                 Clientes
                             </a>
@@ -84,7 +96,7 @@
                                 <span data-feather="bar-chart-2"></span>
                                 Relatórios
                             </a>
-                        </li>                       
+                        </li>
                     </ul>
 
                     <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">

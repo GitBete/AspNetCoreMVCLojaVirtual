@@ -27,5 +27,7 @@ namespace LojaVirtual.Database
         public DbSet<NewsletterEmail> NewsletterEmails { get; set; }
         public DbSet<Colaborador> Colaboradores { get; set; }
         public DbSet<Categoria> Categoria { get; set; }
+        public DbSet<Produto> Produto { get; set; }
+        public DbSet<Imagem> Imagem { get; set; }
     }
 }

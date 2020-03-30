@@ -13,24 +13,25 @@ namespace LojaVirtual.Libraries.Validacao
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             //Pegar o valor do campo e-mail, Obter repository Colaborador, fazer verificacao
+            //Campo da verificacao no modelo de dados
            string Email = (value as string).Trim();
 
             //Pega de Servico, configuracoes
            IColaboradorRepository _colaboradorRepository = (IColaboradorRepository)validationContext.GetService(typeof(IColaboradorRepository));
-
+            //consulta colaborador por email
            List<Colaborador> colaboradores = _colaboradorRepository.ObterColaboradorPorEmail(Email);
 
            //pegar o objeto como todo
-           Colaborador objetoColaborador = (Colaborador)validationContext.ObjectInstance;
+           Colaborador objColaborador = (Colaborador) validationContext.ObjectInstance;
 
            //Colaborador > 1 = REJEITA
            if (colaboradores.Count > 1)
-            {
+           {
                 return new ValidationResult("E-Mail já existente!");
-            }
+           }
 
             //Colaborador = 1 verificar se o Id for diferente = REJEITAR
-            if (colaboradores.Count == 1 && objetoColaborador.Id != colaboradores[0].Id)
+            if (colaboradores.Count == 1 && objColaborador.Id != colaboradores[0].Id)
             {
                 return new ValidationResult("E-Mail já existente!");
             }

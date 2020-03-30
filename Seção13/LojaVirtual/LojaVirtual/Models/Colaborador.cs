@@ -33,7 +33,7 @@ namespace LojaVirtual.Models
         [Compare("Senha", ErrorMessageResourceType = typeof(Mensagem), ErrorMessageResourceName = "MSG_E005")]
         public string ConfirmacaoSenha { get; set; }
         /*
-         * Tipo do colaborador
+         * Tipo do colaborador = ColaboradorTipoConstant ... Definida constante no viewimports para verificar em todos os lugares ate .html
          * - C=Comum
          * - G=Gerente
         */

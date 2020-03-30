@@ -34,6 +34,12 @@
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary btn-block"> Acessar </button>
                             </div> <!-- form-group// -->
+
+                            @{
+                                /* cria campo invisivel se voce usa html helper (tag helper é gerado automaticamente)
+                                * @Html.AntiForgeryToken
+                                */
+                            }
                         </form>
                     </article>
                 </div> <!-- card.// -->

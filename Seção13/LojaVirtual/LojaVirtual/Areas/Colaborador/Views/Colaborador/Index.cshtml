@@ -1,6 +1,6 @@
 ﻿@model X.PagedList.PagedList<LojaVirtual.Models.Colaborador>
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Index";   
 }
 
 <h1>Colaborador</h1>
@@ -41,13 +41,13 @@
                         </td>
                     </tr>
                 }
-                <br />
+           
             </tbody>
         </table>
     </div>
 
     <!-- output a paging control that lets the user navigation to the previous page, next page, etc -->
-    @Html.PagedListPager((IPagedList)Model, pagina => Url.Action("Index", new { pagina }))
+    @Html.PagedListPager((IPagedList)Model, pagina => Url.Action("Index", new { pagina}))
 
 }
 else

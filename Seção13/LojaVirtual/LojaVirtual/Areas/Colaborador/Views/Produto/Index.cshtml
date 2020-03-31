@@ -6,7 +6,6 @@
 
 <h1>Produto</h1>
 
-<a asp-action="Cadastrar" class="btn btn-primary">Cadastrar</a>
 <br />
 <br />
 <!-- formulario -->
@@ -29,6 +28,8 @@
 {
     <p class="alert alert-info">@Html.Raw(TempData["MSG_S"])</p>
 }
+
+<a asp-action="Cadastrar" class="btn btn-primary">Cadastrar</a>
 
 @if (Model.Count > 0)
 {

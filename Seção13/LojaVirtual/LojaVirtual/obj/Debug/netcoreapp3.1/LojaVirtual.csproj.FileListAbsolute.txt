@@ -1165,6 +1165,7 @@ C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção13\LojaVirtual\L
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção13\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\Razor\Areas\Colaborador\Views\Categoria\Atualizar.cshtml.g.cs
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção13\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\Razor\Areas\Colaborador\Views\Categoria\Cadastrar.cshtml.g.cs
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção13\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\Razor\Areas\Colaborador\Views\Categoria\Index.cshtml.g.cs
+C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção13\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\Razor\Areas\Colaborador\Views\Cliente\Index.cshtml.g.cs
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção13\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\Razor\Areas\Colaborador\Views\Colaborador\Atualizar.cshtml.g.cs
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção13\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\Razor\Areas\Colaborador\Views\Colaborador\Cadastrar.cshtml.g.cs
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção13\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\Razor\Areas\Colaborador\Views\Colaborador\Index.cshtml.g.cs
@@ -1172,6 +1173,8 @@ C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção13\LojaVirtual\L
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção13\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\Razor\Areas\Colaborador\Views\Home\Login.cshtml.g.cs
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção13\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\Razor\Areas\Colaborador\Views\Home\Painel.cshtml.g.cs
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção13\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\Razor\Areas\Colaborador\Views\Home\RecuperarSenha.cshtml.g.cs
+C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção13\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\Razor\Areas\Colaborador\Views\Produto\Cadastrar.cshtml.g.cs
+C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção13\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\Razor\Areas\Colaborador\Views\Produto\Index.cshtml.g.cs
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção13\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\Razor\Areas\Colaborador\Views\Shared\_Layout.cshtml.g.cs
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção13\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\Razor\Areas\Colaborador\Views\_ViewImports.cshtml.g.cs
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção13\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\Razor\Areas\Colaborador\Views\_ViewStart.cshtml.g.cs
@@ -1193,6 +1196,3 @@ C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção13\LojaVirtual\L
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção13\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\LojaVirtual.dll
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção13\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\LojaVirtual.pdb
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção13\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\LojaVirtual.genruntimeconfig.cache
-C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção13\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\Razor\Areas\Colaborador\Views\Cliente\Index.cshtml.g.cs
-C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção13\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\LojaVirtual.csprojAssemblyReference.cache
-C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção13\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\Razor\Areas\Colaborador\Views\Produto\Index.cshtml.g.cs

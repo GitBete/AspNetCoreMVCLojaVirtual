@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using LojaVirtual.Repositories.Contracts;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace LojaVirtual.Areas.Colaborador.Controllers
 {
@@ -12,16 +13,26 @@ namespace LojaVirtual.Areas.Colaborador.Controllers
     public class ProdutoController : Controller
     {
         private IProdutoRepository _produtoRepository;
-        
-        public ProdutoController(IProdutoRepository produtoRepository)
+        private ICategoriaRepository _categoriaRepository;
+
+        public ProdutoController(IProdutoRepository produtoRepository, ICategoriaRepository categoriaRepository)
         {
             _produtoRepository = produtoRepository;
+            _categoriaRepository = categoriaRepository;
+        } 
+
+        public IActionResult Index(int? pagina, string pesquisa)
+        {
+            var produto = _produtoRepository.ObterTodosProdutos(pagina, pesquisa);
+            return View(produto);
         }
 
-        public IActionResult Index(int? pagina,string pesquisa)
+        [HttpGet]
+        public ActionResult Cadastrar()
         {
-            var produtos = _produtoRepository.ObterTodosProdutos(pagina, pesquisa);
-            return View(produtos);
+            //joga a propriedade la para tela Cadastrar.cshtml - SelectListItem usado para ser compativel
+            ViewBag.Categorias =  _categoriaRepository.ObterTodasCategorias().Select(a=>new SelectListItem(a.Nome,a.Id.ToString()));
+            return View();
         }
     }
 }

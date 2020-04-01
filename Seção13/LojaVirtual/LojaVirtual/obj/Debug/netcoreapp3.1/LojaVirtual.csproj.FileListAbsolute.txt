@@ -1196,3 +1196,4 @@ C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção13\LojaVirtual\L
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção13\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\LojaVirtual.dll
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção13\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\LojaVirtual.pdb
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção13\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\LojaVirtual.genruntimeconfig.cache
+C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção13\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\LojaVirtual.csprojAssemblyReference.cache

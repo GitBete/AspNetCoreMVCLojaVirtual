@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Antiforgery;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 
@@ -17,9 +18,23 @@ namespace LojaVirtual.Libraries.Middleware
 
         public async Task Invoke(HttpContext context)
         {
-            if (HttpMethods.IsPost(context.Request.Method))
+            var Cabecalho = context.Request.Headers["x-requested-with"];
+            bool AJAX = (Cabecalho == "XMLHttpRequest") ? true : false;
+
+            if (HttpMethods.IsPost(context.Request.Method) )
             {
-                await _antiforgery.ValidateRequestAsync(context);
+                if ( AJAX)
+                {
+                    if (context.Request.Form.Files.Count == 0)
+                    {
+                        await _antiforgery.ValidateRequestAsync(context);
+                    }
+                }
+                else
+                {   //Se nao for ajax fazer a critica
+                    await _antiforgery.ValidateRequestAsync(context);
+                }
+                           
             }
             await _next(context);
         }

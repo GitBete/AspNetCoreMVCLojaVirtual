@@ -1173,6 +1173,7 @@ C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção13\LojaVirtual\L
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção13\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\Razor\Areas\Colaborador\Views\Home\Login.cshtml.g.cs
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção13\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\Razor\Areas\Colaborador\Views\Home\Painel.cshtml.g.cs
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção13\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\Razor\Areas\Colaborador\Views\Home\RecuperarSenha.cshtml.g.cs
+C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção13\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\Razor\Areas\Colaborador\Views\Produto\Atualizar.cshtml.g.cs
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção13\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\Razor\Areas\Colaborador\Views\Produto\Cadastrar.cshtml.g.cs
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção13\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\Razor\Areas\Colaborador\Views\Produto\Index.cshtml.g.cs
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção13\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\Razor\Areas\Colaborador\Views\Shared\_Layout.cshtml.g.cs

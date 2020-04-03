@@ -52,5 +52,35 @@ namespace LojaVirtual.Areas.Colaborador.Controllers
             ViewBag.Categoria = _categoriaRepository.ObterTodasCategorias().Select(a => new SelectListItem(a.Nome, a.Id.ToString()));
             return View();
         }
+
+        [HttpGet]
+        public ActionResult Atualizar(int Id)
+        {
+            //Tela responsavel por exibir o produto escolhido
+
+            //joga a propriedade la para tela Cadastrar.cshtml - SelectListItem usado para ser compativel
+            ViewBag.Categorias = _categoriaRepository.ObterTodasCategorias().Select(a => new SelectListItem(a.Nome, a.Id.ToString()));
+
+            //Consulta produto
+            Produto produto = _produtoRepository.ObterProduto(Id);
+
+            return View(produto);
+        }
+
+        [HttpPost]
+        public ActionResult Atualizar(Produto produto, int Id)
+        {
+            if (ModelState.IsValid)
+            {
+                _produtoRepository.Atualizar(produto);
+
+                TempData["MSG_S"] = Mensagem.MSG_S001;
+
+                return RedirectToAction(nameof(Index));
+            }
+
+            ViewBag.Categoria = _categoriaRepository.ObterTodasCategorias().Select(a => new SelectListItem(a.Nome, a.Id.ToString()));
+            return View();
+        }
     }
 }

@@ -10,7 +10,7 @@ namespace LojaVirtual.Models
     {
 
         public int Id { get; set; }
-        public int Caminho { get; set; }
+        public string Caminho { get; set; }
        /*
         * Relacionamento com a tabela produto
         */        

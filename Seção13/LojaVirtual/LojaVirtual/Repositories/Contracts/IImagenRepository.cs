@@ -12,6 +12,7 @@ namespace LojaVirtual.Repositories.Contracts
         void Cadastrar(Imagem imagem);
         void Excluir(int Id);
         void ExcluirImagensDoProduto(int ProdutoId);
+        void CadastrarImagens(List<Imagem> ListaImagens, int ProdutoId);
 
     }
 }

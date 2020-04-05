@@ -17,6 +17,18 @@ namespace LojaVirtual.Repositories
             _banco = banco;
         }
 
+        public void CadastrarImagens(List<Imagem> ListaImagens, int ProdutoId )
+        {
+            if (ListaImagens != null && ListaImagens.Count > 0)
+            {
+                foreach (var Imagem in ListaImagens)
+                {
+                    Cadastrar(Imagem);
+                }
+            }
+           
+        }
+
         public void Cadastrar(Imagem imagem)
         {
             //Grava no Banco

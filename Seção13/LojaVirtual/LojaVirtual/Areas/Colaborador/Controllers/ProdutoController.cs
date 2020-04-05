@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using LojaVirtual.Libraries.Arquivos;
 using LojaVirtual.Libraries.Lang;
 using LojaVirtual.Models;
 using LojaVirtual.Repositories.Contracts;
@@ -16,11 +17,13 @@ namespace LojaVirtual.Areas.Colaborador.Controllers
     {
         private IProdutoRepository _produtoRepository;
         private ICategoriaRepository _categoriaRepository;
+        private IImagenRepository _imagenRepository;
 
-        public ProdutoController(IProdutoRepository produtoRepository, ICategoriaRepository categoriaRepository)
+        public ProdutoController(IProdutoRepository produtoRepository, ICategoriaRepository categoriaRepository, IImagenRepository imagenRepository)
         {
             _produtoRepository = produtoRepository;
             _categoriaRepository = categoriaRepository;
+            _imagenRepository = imagenRepository;
         } 
 
         public IActionResult Index(int? pagina, string pesquisa)
@@ -44,13 +47,23 @@ namespace LojaVirtual.Areas.Colaborador.Controllers
             {
                 _produtoRepository.Cadastrar(produto);
 
+                //posso pegar qualquer campo do formulario pelo Request.Form   
+                //pegar imagem no caminho temp e mover para cainho real
+                List<Imagem> ListaImagensDef = GerenciadorArquivo.MoverImagensProduto(new List<string>(Request.Form["imagem"]), produto.Id);
+                //Gravar o caminho das imagens no banco de dados
+                _imagenRepository.CadastrarImagens(ListaImagensDef, produto.Id);
+
                 TempData["MSG_S"] = Mensagem.MSG_S001;
 
                 return RedirectToAction(nameof(Index));
             }
-
-            ViewBag.Categoria = _categoriaRepository.ObterTodasCategorias().Select(a => new SelectListItem(a.Nome, a.Id.ToString()));
-            return View();
+            else
+            {
+                ViewBag.Categorias = _categoriaRepository.ObterTodasCategorias().Select(a => new SelectListItem(a.Nome, a.Id.ToString()));
+                produto.Imagens = new List<string>(Request.Form["imagem"]).Where(a=> a.Length >0).Select(a=>new Imagem() { Caminho = a }).ToList();                
+                return View(produto);
+            }
+                       
         }
 
         [HttpGet]

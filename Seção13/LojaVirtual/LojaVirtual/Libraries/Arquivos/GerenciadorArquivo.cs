@@ -58,42 +58,75 @@ namespace LojaVirtual.Libraries.Arquivos
                 Directory.CreateDirectory(CaminhoDefinitivoPastaProduto);
             }
                      
-
             List<Imagem> ListaCaminhoDef = new List<Imagem>();
 
             //Loop movendo a imgem da pasta temporaria para pasta com id do produto
             foreach (var CaminhoTemp in ListaCaminhoTemp)
             {
-                //uploads/temp/mouse-cosair.jpg
-                var NomeArquivo = Path.GetFileName(CaminhoTemp);
-                var CaminhoAbsolutoTemp = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads/temp", NomeArquivo);
-                var CaminhoAbsolutoDef = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads", ProdutoId.ToString(), NomeArquivo);
-                
                 //So fazer se foi escolhida a foto
                 if (!string.IsNullOrEmpty(CaminhoTemp))
-                {
-                   
-                    //Verificar se a a imagem estiver move, senao erro
-                    if (File.Exists(CaminhoAbsolutoTemp))
-                    {
-                        //Mover
-                        File.Copy(CaminhoAbsolutoTemp, CaminhoAbsolutoDef);
-                        if (File.Exists(CaminhoAbsolutoDef))
-                        {
-                            File.Delete(CaminhoAbsolutoTemp);
-                        }
+                {                
+                    var NomeArquivo = Path.GetFileName(CaminhoTemp);
 
-                        var imagem = new Imagem() { Caminho = Path.Combine("/uploads", ProdutoId.ToString(),  NomeArquivo).Replace("\\", "/"), ProdutoId = ProdutoId };
-                        ListaCaminhoDef.Add(imagem);
+                    var CaminhoDef = Path.Combine("/uploads", ProdutoId.ToString(), NomeArquivo).Replace("\\","/");
+                                      
+                    if (CaminhoDef != CaminhoTemp)
+                    {
+                        var CaminhoAbsolutoTemp = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads/temp", NomeArquivo);
+                        var CaminhoAbsolutoDef = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads", ProdutoId.ToString(), NomeArquivo);
+
+                        //Verificar se a a imagem estiver move, senao erro
+                        if (File.Exists(CaminhoAbsolutoTemp))
+                        {
+                            if (File.Exists(CaminhoAbsolutoDef))
+                            {//Copiar imagem
+                                
+                                File.Delete(CaminhoAbsolutoDef);
+                            }
+
+                            File.Copy(CaminhoAbsolutoTemp, CaminhoAbsolutoDef);
+
+                            if (File.Exists(CaminhoAbsolutoDef))
+                            {
+                                File.Delete(CaminhoAbsolutoTemp);
+                            }
+
+                            var imagem = new Imagem() { Caminho = Path.Combine("/uploads", ProdutoId.ToString(),  NomeArquivo).Replace("\\", "/"), ProdutoId = ProdutoId };
+                            ListaCaminhoDef.Add(imagem);
+                        }
+                        else
+                        {
+                            return null;
+                        }
                     }
                     else
                     {
-                        return null;
+                        var imagem = new Imagem() { Caminho = Path.Combine("/uploads", ProdutoId.ToString(), NomeArquivo).Replace("\\", "/"), ProdutoId = ProdutoId };
+                        ListaCaminhoDef.Add(imagem);
                     }
                 }
             }
 
             return ListaCaminhoDef;
+        }
+
+        public static void ExcluirImagensImagensProduto(List<Imagem> ListaImagem)
+        {
+            int ProdutoId = 0;
+            foreach (var Imagem in ListaImagem)
+            {
+               if (!string.IsNullOrEmpty(Imagem.Caminho))
+                {
+                    ExcluirImagemProduto(Imagem.Caminho);
+                    ProdutoId = Imagem.ProdutoId;
+                }
+               
+            }
+
+            var PastaProduto = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads", ProdutoId.ToString()).Replace("\\","/");
+            if (Directory.Exists(PastaProduto)){
+                Directory.Delete(PastaProduto);
+            }
         }
     }
 }

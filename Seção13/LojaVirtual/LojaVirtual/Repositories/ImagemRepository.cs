@@ -39,8 +39,12 @@ namespace LojaVirtual.Repositories
         public void Excluir(int Id)
         {
             Imagem imagem = _banco.Imagem.Find(Id);
-            _banco.Remove(imagem);
-            _banco.SaveChanges();
+            if (imagem != null)
+            {
+                _banco.Remove(imagem);
+                _banco.SaveChanges();
+            }
+           
         }
 
         public void ExcluirImagensDoProduto(int ProdutoId)

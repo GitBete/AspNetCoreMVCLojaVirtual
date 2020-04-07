@@ -96,16 +96,45 @@
         </div>
     </div>
 
+    @{
+        List<Imagem> Imagens = new List<Imagem>();
+        if (Model != null)
+        {
+            Imagens = Model.Imagens.ToList();
+        }
+
+    }
+
     <div class="row Imagens">
         @for (int i = 0; i < 12; i++)
         {
-            <div class="col-md-2">
-                <img src="~/img/imagem-padrao.png" class="img-thumbnail" />
-                <div class="btn btn-danger btn-imagem-excluir">X</div>
-            </div>
-        }
-    </div>
+            @if (Imagens.ElementAtOrDefault(i) != null)
+            {
+                <div class="col-md-2">
+                    <input type="file" class="input-file" />
+                    <div class="container-img-thumbnail">
+                        <span class="helper"></span>
+                        <img src="@Imagens.ElementAtOrDefault(i).Caminho" class="img-thumbnail img-upload" />
+                    </div>
+                    <div class="btn btn-danger btn-imagem-excluir ">X</div>
+                    <input type="hidden" name="imagem" value="@Imagens.ElementAtOrDefault(i).Caminho" />
+                </div>
+            }
+            else
+            {
+                <div class="col-md-2">
+                    <input type="file" class="input-file" />
+                    <div class="container-img-thumbnail">
+                       <span class="helper"></span> 
+                       <img src="~/img/imagem-padrao.png" class="img-thumbnail img-upload" />
+                    </div>
+                    <div class="btn btn-danger btn-imagem-excluir btn-ocultar">X</div>
+                    <input type="hidden" name="imagem" />
+                </div>
+            }
 
-    <button type="submit" class="btn btn-primary">Salvar</button>
-    <a asp-action="Index" class="btn btn-info">Voltar</a>
+        }
+
+        <button type="submit" class="btn btn-primary">Salvar</button>
+        <a asp-action="Index" class="btn btn-info">Voltar</a>
 </form>

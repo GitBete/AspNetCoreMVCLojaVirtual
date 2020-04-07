@@ -13,7 +13,7 @@
 
 function AjaxUploadImagemProduto() {  
     $(".img-upload").click(function () {
-        $(this).parent().find(".input-file").click();
+        $(this).parent().parent().find(".input-file").click();
     });
 
     $(".btn-imagem-excluir").click(function () {
@@ -41,6 +41,7 @@ function AjaxUploadImagemProduto() {
     });
 
     $(".input-file").change(function () {
+        
         //Criacao do formulario via java scritp
         var Formulario = new FormData();
         var Binario = $(this)[0].files[0];
@@ -50,6 +51,10 @@ function AjaxUploadImagemProduto() {
         var Imagem = $(this).parent().find(".img-upload");
         var btnExcluir = $(this).parent().find(".btn-imagem-excluir");
 
+        // apresenta imagem loading
+        Imagem.attr("src", "/img/loading.gif");
+        Imagem.addClass("thumb");
+
         //fazzer requisicao ajax
         $.ajax({
             type: "POST",
@@ -57,12 +62,16 @@ function AjaxUploadImagemProduto() {
             data: Formulario,
             contentType: false,
             processData: false,
-            error: function (jqXHR, textStatus, errorThrown) {
-                alert("Erro no envio do arquivo: " + textStatus);            }
+            error: function (jqXHR, textStatus, errorThrown) {                
+                Imagem.attr("src", "/img/imagem-padrao.png");  
+                Imagem.removeClass("thumb");
+                alert("Erro no envio do arquivo: " + textStatus);
+            }
             ,
             success: function (data) {
                 var caminho = data.caminho;  
                 Imagem.attr("src", caminho);
+                Imagem.removeClass("thumb");
                 CampoHidden.val(caminho);
                 btnExcluir.removeClass("btn-ocultar")
             }          

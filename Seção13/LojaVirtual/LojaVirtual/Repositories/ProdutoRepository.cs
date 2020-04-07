@@ -37,13 +37,6 @@ namespace LojaVirtual.Repositories
         }
 
 
-        public void Excluir(int Id)
-        {
-            Produto produto = ObterProduto(Id);
-            _banco.Remove(produto);
-            _banco.SaveChanges();
-        }
-
         public Produto ObterProduto(int Id)
         {
             //pegar a imagem em outra tabela
@@ -70,6 +63,14 @@ namespace LojaVirtual.Repositories
             //Include - incluindo caminho na imagem
             return bancoProduto.Include(a=>a.Imagens).ToPagedList<Produto>(NumeroPagina, RegistroPorPagina);
 
+        }
+
+
+        public void Excluir(int Id)
+        {
+            Produto produto = ObterProduto(Id);
+            _banco.Remove(produto);
+            _banco.SaveChanges();
         }
     }
 }

@@ -18,6 +18,6 @@ namespace LojaVirtual.Repositories.Contracts
         //IEnumerable<Colaborador> ObterTodosColaboradores();        
         Produto ObterProduto(int Id);
         IPagedList<Produto> ObterTodosProdutos(int? pagina,string pesquisa);
-
+       
     }
 }

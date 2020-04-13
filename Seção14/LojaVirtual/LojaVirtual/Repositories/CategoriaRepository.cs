@@ -69,5 +69,46 @@ namespace LojaVirtual.Repositories
         {
             return _banco.Categoria;
         }
+
+        public Categoria ObterCategoria(string slug)
+        {
+            return _banco.Categoria.Where(a => a.Slug == slug).FirstOrDefault();
+        }
+
+        private List<Categoria> Categorias;
+        private List<Categoria> ListaCategoriaRecursiva = new List<Categoria>();
+        public IEnumerable<Categoria> ObterCategoriasRecursivas(Categoria categoriaPai)
+        {
+            //Rotina Recursiva ............................................................. COVIT-19 domingo de pascoa
+            if (Categorias == null)
+            {
+                Categorias = ObterTodasCategorias().ToList();
+            }           
+
+            //verificar se o elemento ja existe na lista
+            if (!ListaCategoriaRecursiva.Exists(a => a.Id == categoriaPai.Id))
+            {
+                ListaCategoriaRecursiva.Add(categoriaPai);
+            }
+           
+            if (categoriaPai != null)
+            {
+                var ListaCategoriaFilho = Categorias.Where(a => a.CategoriaPaiId == categoriaPai.Id);
+                //receber uma lista de todas as categorias
+                if (Categorias.Where(a => a.CategoriaPaiId == categoriaPai.Id).Count() > 0)
+                {
+                    ListaCategoriaRecursiva.AddRange(ListaCategoriaFilho.ToList());
+                    foreach (var categoria in ListaCategoriaFilho)
+                    {
+                        ObterCategoriasRecursivas(categoria);
+                    }
+
+                }
+            }
+
+            return ListaCategoriaRecursiva;           
     }
+    }
+
+    
 }

@@ -1,9 +1,5 @@
-﻿@model LojaVirtual.Models.ViewModels.IndexViewModel
-@{
-    ViewData["Title"] = "Index";
-    var pesquisa = Context.Request.Query["pesquisa"];
-    var ordenacao = Context.Request.Query["ordenacao"].ToString();
-}
+﻿@model LojaVirtual.Models.NewsletterEmail
+
 
     <main role="main">
 
@@ -68,70 +64,15 @@
         </div>
 
 
-
-
         <!-- Lista de Produtos
-            ================================================== -->
+        ================================================== -->
         <!-- Wrap the rest of the page in another container to center all the content. -->
-        @if (Model.lista.Count > 0)
-        {
-            @*Div com os produtos*@
-            <div class="container" id="code_prod_complex">
-                <div class="row">
-                    <div class="offset-md-10" col-md-2>
-                        @* ordenacao alfabetica, maior e menor preco
-                        lista carregada pelo C#
-                        *@
-                        <select id="ordenacao" asp-for="@ordenacao" class="form-control" asp-items="Model.ordenacao"></select>
-                    </div>
-                </div>
-                <div class="row">
-                    @foreach (var produto in Model.lista)
-                    {
-                        <div class="col-md-3">
-                            <figure class="card card-product">
-                                <div class="img-wrap">
-                                    @if (produto.Imagens != null && produto.Imagens.Count() > 0)
-                                    {
-                                        <img src="@produto.Imagens.ElementAt(0).Caminho" />
-                                    }
-                                    else
-                                    {
-                                        <img src="~\img\imagem-padrao.png" />
-                                    }
+        @*/*
+        * chamar nosso componente Produto lista
+        */*@
+        <vc:produto-listagem></vc:produto-listagem>
 
-                                </div>
-                                <figcaption class="info-wrap">
-                                    <h4 class="title">@produto.Nome</h4>
-                                    <div class="rating-wrap">
-                                        <ul class="rating-stars">
-                                            <li style="width:80%" class="stars-active">
-                                                <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
-                                            </li>
-                                            <li>
-                                                <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
-                                            </li>
-                                        </ul>
-                                        <div class="label-rating">132 reviews</div>
-                                        <div class="label-rating">154 orders </div>
-                                    </div> <!-- rating-wrap.// -->
-                                </figcaption>
-                                <div class="bottom-wrap">
-                                    <a href="" class="btn btn-sm btn-primary float-right">Adicionar Carrinho</a>
-                                    <div class="price-wrap h5">
-                                        <span class="price-new">@produto.Valor.ToString("C")</span> <del class="price-old">@produto.Valor.ToString("C")</del>
-                                    </div> <!-- price-wrap.// -->
-                                </div> <!-- bottom-wrap.// -->
-                            </figure>
-                        </div> <!-- col // -->
-                        <!-- fim loop.// -->
-                    }
-                </div> <!-- row.// -->
-                <!-- output a paging control that lets the user navigation to the previous page, next page, etc -->
-                @Html.PagedListPager((IPagedList)Model.lista, pagina => Url.Action("Index", new { pagina = pagina, pesquisa = pesquisa, ordenacao = ordenacao }))
-            </div>
-        }
-        </main>
+    </main>
 @{ 
     /*
      * Razor - Motor de template do APS.NET
@@ -140,9 +81,7 @@
      * exemplo chamando um link = @Html.ActionLink("Texto","Index")
      */
 
-    /*
-    * URL: #Fragmento ... link do tipo ancora
-    */
+   
 }
 
 @using (Html.BeginForm(null, null, null, FormMethod.Post, true, new { @action = Url.Action("index", "home") + "#formulario" }))
@@ -165,9 +104,9 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fa fa-envelope"></i></span>
                     </div>
-                    @Html.EditorFor(m => m.newsletter.Email, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(m => m.Email, new { htmlAttributes = new { @class = "form-control" } })
                 </div> <!-- input-group.// -->
-                <span style="color: red;">@Html.ValidationMessageFor(m => m.newsletter.Email)</span>
+                <span style="color: red;">@Html.ValidationMessageFor(m => m.Email)</span>
             </div> <!-- form-group.// -->
         </div>
         <div class="col-sm-2">

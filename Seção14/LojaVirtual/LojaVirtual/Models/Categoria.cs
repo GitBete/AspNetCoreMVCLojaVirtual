@@ -25,6 +25,8 @@ namespace LojaVirtual.Models
          * url amigavel e com Slug: www.lojavirtual.com.br/categoria/informatica 
          * Slug:
          */
+
+            //Falta criar validacao para ser unico
         [Required(ErrorMessageResourceType = typeof(Mensagem), ErrorMessageResourceName = "MSG_E001")]
         [MinLength(4, ErrorMessageResourceType = typeof(Mensagem), ErrorMessageResourceName = "MSG_E002")]
         public string Slug { get; set; }

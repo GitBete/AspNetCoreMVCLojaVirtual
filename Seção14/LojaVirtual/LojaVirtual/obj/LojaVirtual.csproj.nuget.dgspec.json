@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\CursoProgramacao\\ASPNet_Core\\AspNetCoreMVCLojaVirtual\\Seção13\\LojaVirtual\\LojaVirtual\\LojaVirtual.csproj": {}
+    "C:\\CursoProgramacao\\ASPNet_Core\\AspNetCoreMVCLojaVirtual\\Seção14\\LojaVirtual\\LojaVirtual\\LojaVirtual.csproj": {}
   },
   "projects": {
-    "C:\\CursoProgramacao\\ASPNet_Core\\AspNetCoreMVCLojaVirtual\\Seção13\\LojaVirtual\\LojaVirtual\\LojaVirtual.csproj": {
+    "C:\\CursoProgramacao\\ASPNet_Core\\AspNetCoreMVCLojaVirtual\\Seção14\\LojaVirtual\\LojaVirtual\\LojaVirtual.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\CursoProgramacao\\ASPNet_Core\\AspNetCoreMVCLojaVirtual\\Seção13\\LojaVirtual\\LojaVirtual\\LojaVirtual.csproj",
+        "projectUniqueName": "C:\\CursoProgramacao\\ASPNet_Core\\AspNetCoreMVCLojaVirtual\\Seção14\\LojaVirtual\\LojaVirtual\\LojaVirtual.csproj",
         "projectName": "LojaVirtual",
-        "projectPath": "C:\\CursoProgramacao\\ASPNet_Core\\AspNetCoreMVCLojaVirtual\\Seção13\\LojaVirtual\\LojaVirtual\\LojaVirtual.csproj",
+        "projectPath": "C:\\CursoProgramacao\\ASPNet_Core\\AspNetCoreMVCLojaVirtual\\Seção14\\LojaVirtual\\LojaVirtual\\LojaVirtual.csproj",
         "packagesPath": "C:\\Users\\Administrador\\.nuget\\packages\\",
-        "outputPath": "C:\\CursoProgramacao\\ASPNet_Core\\AspNetCoreMVCLojaVirtual\\Seção13\\LojaVirtual\\LojaVirtual\\obj\\",
+        "outputPath": "C:\\CursoProgramacao\\ASPNet_Core\\AspNetCoreMVCLojaVirtual\\Seção14\\LojaVirtual\\LojaVirtual\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\",

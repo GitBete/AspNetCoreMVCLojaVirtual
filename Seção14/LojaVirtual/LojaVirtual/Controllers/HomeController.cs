@@ -37,13 +37,12 @@ namespace LojaVirtual.Controllers
         
         // GET: /<controller>/
         [HttpGet]
-        public IActionResult Index(int ? pagina , string pesquisa, string ordenacao)
+        public IActionResult Index()
         {
             //mostra no editor esse conteudo
             //var news = new NewsletterEmail() { Email = "bete@terra.com.br" };
 
-            var viewModel = new IndexViewModel() { lista = _produtoRepository.ObterTodosProdutos(pagina, pesquisa,ordenacao) };
-            return View(viewModel);
+            return View();
         }
 
         [HttpPost]
@@ -63,7 +62,6 @@ namespace LojaVirtual.Controllers
             }
             else
             {
-                var viewModel = new IndexViewModel() { lista = _produtoRepository.ObterTodosProdutos(pagina, pesquisa, ordenacao) };
                 return View();
             }
 

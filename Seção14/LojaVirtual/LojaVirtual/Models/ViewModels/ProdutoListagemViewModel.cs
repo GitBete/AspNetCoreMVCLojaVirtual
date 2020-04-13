@@ -7,9 +7,8 @@ using X.PagedList;
 
 namespace LojaVirtual.Models.ViewModels
 {
-    public class IndexViewModel
+    public class ProdutoListagemViewModel
     {
-
         public NewsletterEmail newsletter { get; set; }
         public IPagedList<Produto> lista { get; set; }
         public List<SelectListItem> ordenacao

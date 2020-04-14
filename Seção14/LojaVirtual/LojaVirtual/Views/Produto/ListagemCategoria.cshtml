@@ -1,26 +1,16 @@
-﻿
+﻿@model Categoria 
 @{
-    ViewData["Title"] = "ListagemCategoria";
-    var slug = ViewContext.RouteData.Values["slug"];
+    ViewData["Title"] = "Categoria";
 }
 
-<h1>Listagem Categoria - @slug</h1>
+<br style="clear: both" />
 
-<ul>
-    @foreach (Categoria categoria in ViewBag.Categorias)
-    {
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <span id="breadcrumb">Categoria > @Model.Nome</span>
+        </div>
+    </div>
+</div>
 
-        @if (@categoria == null)
-        {
-            <li>Categoria não cadastrada</li>
-        }
-        else
-        {
-            <li>@categoria.Id - @categoria.Nome</li>
-        }
-
-    }
-
-</ul>
-
-
+<vc:produto-listagem></vc:produto-listagem>

@@ -1329,7 +1329,6 @@ C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção14\LojaVirtual\L
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção14\LojaVirtual\LojaVirtual\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.0\System.Runtime.Caching.dll
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção14\LojaVirtual\LojaVirtual\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção14\LojaVirtual\LojaVirtual\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
-C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção14\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\LojaVirtual.csprojAssemblyReference.cache
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção14\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\LojaVirtual.Libraries.Lang.Mensagem.resources
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção14\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\LojaVirtual.csproj.GenerateResource.cache
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção14\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\LojaVirtual.csproj.CoreCompileInputs.cache
@@ -1382,3 +1381,4 @@ C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção14\LojaVirtual\L
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção14\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\LojaVirtual.genruntimeconfig.cache
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção14\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Components\ProdutoListagem\Default.cshtml.g.cs
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção14\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\Razor\Views\Produto\ListagemCategoria.cshtml.g.cs
+C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção14\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\LojaVirtual.csprojAssemblyReference.cache

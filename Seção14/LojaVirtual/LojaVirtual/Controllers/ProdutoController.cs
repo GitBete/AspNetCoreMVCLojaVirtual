@@ -24,19 +24,9 @@ namespace LojaVirtual.Controllers
         [HttpGet]
         [Route("/Produto/Categoria/{slug}")]       
         public IActionResult ListagemCategoria(string slug)
-        {
-            Categoria CategoriaPrincipal = _categoriaRepository.ObterCategoria(slug);
-            //Criar o algoritmo recursivo que obtem uma lista com todas as categorias que estejam abaixo da escolhida para exibir os produtos
-            List<Categoria> lista = _categoriaRepository.ObterCategoriasRecursivas( CategoriaPrincipal).ToList();
-
-            ViewBag.Categorias = lista;
-
-            //Adaptar o produto repositorio para receber uma lista de categorias e listar os produtos dessa lista de categoria
-
-            return View();
+        {            
+            return View(_categoriaRepository.ObterCategoria(slug));
         }
-
-       
 
 
         /*--------------------------------------------------------------*/

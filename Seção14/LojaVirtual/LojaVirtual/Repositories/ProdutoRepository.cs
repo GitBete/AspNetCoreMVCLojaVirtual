@@ -63,7 +63,7 @@ namespace LojaVirtual.Repositories
             ////Include - incluindo caminho na imagem
             //return bancoProduto.Include(a=>a.Imagens).OrderBy(a => a.Nome).ToPagedList<Produto>(NumeroPagina, RegistroPorPagina);
 
-            return ObterTodosProdutos(pagina, pesquisa, "A");
+            return ObterTodosProdutos(pagina, pesquisa, "A", null);
 
         }
 
@@ -75,7 +75,7 @@ namespace LojaVirtual.Repositories
             _banco.SaveChanges();
         }
 
-        public IPagedList<Produto> ObterTodosProdutos(int? pagina, string pesquisa, string ordenacao)
+        public IPagedList<Produto> ObterTodosProdutos(int? pagina, string pesquisa, string ordenacao, IEnumerable<Categoria> categorias)
         {
             // return _banco.Clientes.ToList();
 
@@ -103,6 +103,13 @@ namespace LojaVirtual.Repositories
             if (ordenacao == "MA")
             {
                 bancoProduto = bancoProduto.OrderByDescending(a => a.Valor);
+            }
+            if (categorias != null && categorias.Count() > 0)
+            {
+                /*
+                 * IEnumarable de Categoria
+                 */
+                bancoProduto = bancoProduto.Where(a => categorias.Select(b => b.Id).Contains(a.CategoriaId));
             }
 
             //Include - incluindo caminho na imagem

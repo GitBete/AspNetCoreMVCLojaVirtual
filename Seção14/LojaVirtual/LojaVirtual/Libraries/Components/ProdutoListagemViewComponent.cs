@@ -1,4 +1,5 @@
-﻿using LojaVirtual.Models.ViewModels;
+﻿using LojaVirtual.Models;
+using LojaVirtual.Models.ViewModels;
 using LojaVirtual.Repositories.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.Operations;
@@ -12,10 +13,12 @@ namespace LojaVirtual.Libraries.Components
     public class ProdutoListagemViewComponent: ViewComponent
     {
         private IProdutoRepository _produtoRepository;
+        private ICategoriaRepository _categoriaRepository;
 
-        public ProdutoListagemViewComponent(IProdutoRepository produtoRepository)
+        public ProdutoListagemViewComponent(IProdutoRepository produtoRepository, ICategoriaRepository categoriaRepository)
         {
             _produtoRepository = produtoRepository;
+            _categoriaRepository = categoriaRepository;
         }
 
         //Logica componente
@@ -24,6 +27,8 @@ namespace LojaVirtual.Libraries.Components
             int? pagina = 1;
             string pesquisa = "";
             string ordenacao = "A";
+
+            IEnumerable<Categoria> categorias = null;
 
             if (HttpContext.Request.Query.ContainsKey("pagina"))
             {
@@ -37,8 +42,17 @@ namespace LojaVirtual.Libraries.Components
             {
                 ordenacao = HttpContext.Request.Query["ordenacao"].ToString();
             }
+            if (ViewContext.RouteData.Values.ContainsKey("slug"))
+            {
+                //foi escolhida uma categoria
+                string slug = ViewContext.RouteData.Values["slug"].ToString();
+                Categoria CategoriaPrincipal = _categoriaRepository.ObterCategoria(slug);
+                //chama algoritmo recursivo que obtem uma lista com todas as categorias que estejam abaixo da escolhida para exibir os produtos
+                categorias = _categoriaRepository.ObterCategoriasRecursivas(CategoriaPrincipal).ToList();
 
-            var viewModel = new ProdutoListagemViewModel(){lista = _produtoRepository.ObterTodosProdutos(pagina, pesquisa, ordenacao)};           
+            }
+
+            var viewModel = new ProdutoListagemViewModel(){lista = _produtoRepository.ObterTodosProdutos(pagina, pesquisa, ordenacao, categorias) };           
             return View(viewModel);
         }
     }

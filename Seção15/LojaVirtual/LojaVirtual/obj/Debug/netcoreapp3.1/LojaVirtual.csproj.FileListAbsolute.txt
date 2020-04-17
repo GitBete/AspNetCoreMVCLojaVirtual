@@ -1393,6 +1393,8 @@ C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção15\LojaVirtual\L
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção15\LojaVirtual\LojaVirtual\bin\Debug\netcoreapp3.1\LojaVirtual.pdb
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção15\LojaVirtual\LojaVirtual\bin\Debug\netcoreapp3.1\LojaVirtual.Views.dll
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção15\LojaVirtual\LojaVirtual\bin\Debug\netcoreapp3.1\LojaVirtual.Views.pdb
+C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção15\LojaVirtual\LojaVirtual\bin\Debug\netcoreapp3.1\AutoMapper.dll
+C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção15\LojaVirtual\LojaVirtual\bin\Debug\netcoreapp3.1\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção15\LojaVirtual\LojaVirtual\bin\Debug\netcoreapp3.1\EntityFramework.SqlServer.dll
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção15\LojaVirtual\LojaVirtual\bin\Debug\netcoreapp3.1\EntityFramework.dll
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção15\LojaVirtual\LojaVirtual\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.JsonPatch.dll
@@ -1539,8 +1541,9 @@ C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção15\LojaVirtual\L
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção15\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\Razor\Areas\Colaborador\Views\Shared\_Layout.cshtml.g.cs
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção15\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\Razor\Areas\Colaborador\Views\_ViewImports.cshtml.g.cs
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção15\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\Razor\Areas\Colaborador\Views\_ViewStart.cshtml.g.cs
+C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção15\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\Razor\Views\CarrinhoCompra\Index.cshtml.g.cs
+C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção15\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\Razor\Views\CarrinhoCompra\NaoExisteItem.cshtml.g.cs
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção15\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\Razor\Views\Home\CadastroCliente.cshtml.g.cs
-C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção15\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\Razor\Views\Home\CarrinhoCompras.cshtml.g.cs
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção15\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\Razor\Views\Home\Categoria.cshtml.g.cs
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção15\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\Razor\Views\Home\Contato.cshtml.g.cs
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção15\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\Razor\Views\Home\Index.cshtml.g.cs

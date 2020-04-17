@@ -1,10 +1,10 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Mail;
-using System.Threading.Tasks;
+using AutoMapper;
 using LojaVirtual.Database;
+using LojaVirtual.Libraries.AutoMapper;
+using LojaVirtual.Libraries.CarrinhoCompra;
 using LojaVirtual.Libraries.Email;
 using LojaVirtual.Libraries.Login;
 using LojaVirtual.Libraries.Middleware;
@@ -13,8 +13,6 @@ using LojaVirtual.Repositories;
 using LojaVirtual.Repositories.Contracts;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -36,6 +34,10 @@ namespace LojaVirtual
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            /*
+             *  AutoMapper
+             */
+            services.AddAutoMapper(typeof(MappingProfile));
             services.AddControllersWithViews();
 
             //Sessao
@@ -85,15 +87,17 @@ namespace LojaVirtual
             services.AddMemoryCache(); //Guardar os dados na memoria
             services.AddSession(options =>
             {
-                options.IdleTimeout = TimeSpan.FromMinutes(1);
+                options.IdleTimeout = TimeSpan.FromMinutes(5);
             });
 
             //services.AddMvc().SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0);
 
             //Sessao - injetar a classe sessao em todas as outras
-            services.AddScoped<Sessao>();
+            services.AddScoped<Sessao>();            
             services.AddScoped<LoginCliente>();
             services.AddScoped<LoginColaborador>();
+            services.AddScoped<LojaVirtual.Libraries.Cookie.Cookie>();
+            services.AddScoped<CarrinhoCompra>();
 
             //Associar o contexto a conexao com o banco de dados
             //Apos isso poderafazer as Migrations ... Add Microsoft.EntityFramework.Tools

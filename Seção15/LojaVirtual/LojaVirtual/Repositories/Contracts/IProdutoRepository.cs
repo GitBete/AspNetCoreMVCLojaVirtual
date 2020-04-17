@@ -1,5 +1,6 @@
 ﻿
 using LojaVirtual.Models;
+using LojaVirtual.Models.ProdutoAgregador;
 using System;
 using System.Collections.Generic;
 using System.Linq;

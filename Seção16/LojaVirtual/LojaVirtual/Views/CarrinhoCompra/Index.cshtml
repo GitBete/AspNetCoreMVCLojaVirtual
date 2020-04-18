@@ -1,0 +1,140 @@
+﻿@model List<LojaVirtual.Models.ProdutoAgregador.ProdutoItem>
+@{
+    ViewData["Title"] = "Index";
+}
+
+    <div class="container">
+
+        <section class="container" id="order" style="margin-top: 50px">
+
+            <h2 class="title-doc">Carrinho de compras </h2>
+
+            <div id="code_cart">
+                <div class="card">
+                    <table class="table table-hover shopping-cart-wrap">
+                        <thead class="text-muted">
+                            <tr>
+                                <th scope="col">Produto</th>
+                                <th scope="col" width="140">Quantidade</th>
+                                <th scope="col" width="160">Preço</th>
+                                <th scope="col" width="140" class="text-right">Ação</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        <figure class="media">
+                                            <div class="img-wrap"><img src="images/items/1.jpg" class="img-thumbnail img-sm"></div>
+                                            <figcaption class="media-body">
+                                                <h6 class="title text-truncate">@item.Nome </h6>
+                                                <dl class="dlist-inline small">
+                                                    <dt>Size: </dt>
+                                                    <dd>XXL</dd>
+                                                </dl>
+                                                <dl class="dlist-inline small">
+                                                    <dt>Quantidade: </dt>
+                                                    <dd>@item.QuantidadeProdutoCarrinho</dd>
+                                                </dl>
+                                            </figcaption>
+                                        </figure>
+                                    </td>
+                                    <td>
+                                        <div class="quantidade-auto">
+                                            
+                                                <div class="input-group mb-2">
+                                                    <input type="hidden" class="inputProdutoId" value="@item.Id" />
+                                                    <input type="hidden" class="inputProdutoQuantidadeEstoque" value="@item.Quantidade" />
+                                                    <input type="hidden" class="inputProdutoValorUnit" value="@item.Valor" />
+
+                                                    <div class="input-group-prepend">
+                                                        <a href="#" class="btn btn-primary diminuir">-</a>
+                                                    </div>
+                                                    <input type="text" readonly="readonly" class="form-control inputProdutoQuantidadeCarrinho text-center" value="@item.QuantidadeProdutoCarrinho">
+                                                    <div class="input-group-append">
+                                                        <a href="#" class="btn btn-primary aumentar">+</a>
+                                                    </div>
+                                                </div>
+                                           
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        <div class="price-wrap">
+                                            <var class="price">@((item.Valor * item.QuantidadeProdutoCarrinho).ToString("C"))</var>
+                                            <small class="text-muted">(@item.Valor.ToString("C") cada)</small>
+                                        </div> <!-- price-wrap .// -->
+                                    </td>
+                                    <td class="text-right">
+                                        @*<a title="" href="" class="btn btn-outline-success" data-toggle="tooltip"
+                                           data-original-title="Save to Wishlist"> <i class="fa fa-heart"></i></a>*@
+                                        <a asp-controller="CarrinhoCompra" asp-action="RemoverItem" asp-route-id="@item.Id" class="btn btn-outline-danger"> × Remove</a>
+                                    </td>
+                                </tr>
+                             }                           
+                        </tbody>
+                    </table>
+                </div> <!-- card.// -->
+            </div> <!-- code-wrap.// -->
+        </section>
+
+        <br />
+
+        <br />
+        <br />
+        <section id="parameters">
+           
+            <h2 class="title-doc">#Description Lists</h2>
+            <div class="row">
+                <aside class="col-md-4">
+                    <h4 class="subtitle-doc">
+                        Frete
+                    </h4>
+                    <div id="code_desc_align">
+                        <div class="box">
+                            <dl class="dlist-align">
+                                <dt>CEP:</dt>
+                                <dd><input type="text" name="cep" class="form-control" /></dd>
+                            </dl>
+                            <dl class="dlist-align">
+                                <dt><input type="radio" name="frete" value="sedex" /></dt>
+                                <dd>SEDEX - R$ 99,86</dd>
+                            </dl>
+                            <dl class="dlist-align">
+                                <dt><input type="radio" name="frete" value="pac" /></dt>
+                                <dd>PAC - R$ 66,86</dd>
+                            </dl>
+                        </div>
+                    </div>
+                </aside>
+
+                <aside class="col-md-4">
+                    <h4 class="subtitle-doc">
+                        Resumo
+                        <a href="#" data-html="code_desc_right" class="showcode" >[code]</a>
+                    </h4>
+                    <div id="code_desc_align">
+                        <div class="box">
+                            <dl class="dlist-align">
+                                <dt>Sub-Total:</dt>
+                                <dd class="text-right">R$ 120,00</dd>
+                            </dl>
+                            <dl class="dlist-align">
+                                <dt>Frete:</dt>
+                                <dd class="text-right">R$ 66,00</dd>
+                            </dl>
+                            <dl class="dlist-align">
+                                <dt>Total:</dt>
+                                <dd class="text-right">R$ 200,00</dd>
+                            </dl>
+                        </div>
+                    </div>
+                </aside>
+
+            </div>                          
+        </section>
+
+
+    </div>

@@ -66,6 +66,7 @@ namespace LojaVirtual.Libraries.CarrinhoCompra
 
         public List<ProdutoItem> Consultar()
         {
+           
             if (_cookie.Existe(key))
             {
                 string valor = _cookie.Consultar(key);

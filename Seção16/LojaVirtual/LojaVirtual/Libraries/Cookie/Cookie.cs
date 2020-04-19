@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿
+using LojaVirtual.Libraries.Seguranca;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch.Internal;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,13 +12,14 @@ namespace LojaVirtual.Libraries.Cookie
 {
     public class Cookie
     {
-
         //incluir o servico: AddHttpContextAccessor
         private IHttpContextAccessor _context;
+        private IConfiguration _configuration;
 
-        public Cookie(IHttpContextAccessor context)
+        public Cookie(IHttpContextAccessor context,IConfiguration configuration)
         {
             _context = context;
+            _configuration = configuration;
         }
 
         //CRUD - Cadsatrar/Atualizar/Consultar/Remover - RemoverTodos/Exist
@@ -28,7 +32,10 @@ namespace LojaVirtual.Libraries.Cookie
             Options.Expires = DateTime.Now.AddDays(7);
             Options.IsEssential = true;
 
-            _context.HttpContext.Response.Cookies.Append(key, valor, Options);            
+            //inserir a criptografia
+            var ValorCrypt = StringCipher.Encrypt(valor, _configuration.GetValue<string>("KeyCrypt"));
+
+            _context.HttpContext.Response.Cookies.Append(key, ValorCrypt, Options);            
         }
 
         public void Atualizar(string key, string valor)
@@ -47,7 +54,12 @@ namespace LojaVirtual.Libraries.Cookie
 
         public String Consultar(string key)
         {
-            return _context.HttpContext.Request.Cookies[key];
+            //inserir a criptografia
+            var ValorCrypt = _context.HttpContext.Request.Cookies[key];
+
+            var ValorDeCrypy = StringCipher.Decrypt(ValorCrypt, _configuration.GetValue<string>("KeyCrypt"));
+
+            return ValorDeCrypy;
         }
 
         public bool Existe(string key)

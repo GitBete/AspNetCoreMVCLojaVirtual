@@ -2,63 +2,119 @@
     MoverScrollOrdenacao();
     MudarOrdenacao();
     MudarImagemPrincipalProduto();
-    MudarQuantidadeProdutoCarrinho();
+    MudarCamposNoCarrinhoCompras();
 });
 
-function MudarQuantidadeProdutoCarrinho() {
+function MudarCamposNoCarrinhoCompras() {
     $("#order .btn-primary").click(function () {
        //var pai = $(this).parent().parent()
+
+        OcutarMensagemErroCarrinho("");
 
         if ($(this).hasClass("diminuir")) {
             
             //var id = pai.find(".inputProdutoId").val();
 
-            LoginaMudarQuantidadeProdutoUnitarioCarrinho("diminuir",$(this))
+            OrquestradorMudancasCarrinhoCompras("diminuir",$(this))
         }
         if ($(this).hasClass("aumentar")) {
             //var id = pai.find(".inputProdutoId").val();
 
             //alert("clicou botal + " + id);
-            LoginaMudarQuantidadeProdutoUnitarioCarrinho("aumentar", $(this))
+            OrquestradorMudancasCarrinhoCompras("aumentar", $(this))
         }
     });
 }
 
-function LoginaMudarQuantidadeProdutoUnitarioCarrinho(operacao, botao) {
+
+function OrquestradorMudancasCarrinhoCompras(operacao, botao) {
+    /*
+     * Carregamento dos valores
+    */
     var pai = botao.parent().parent();
 
     var produtoId = pai.find(".inputProdutoId").val();
-    var QuantidadeEstoque = parseInt(pai.find(".inputProdutoQuantidadeEstoque").val());
-    var ValorUnitario = parseFloat(pai.find(".inputProdutoValorUnit").val().replace(",","."));
+    var quantidadeEstoque = parseInt(pai.find(".inputProdutoQuantidadeEstoque").val());
+    var valorUnitario = parseFloat(pai.find(".inputProdutoValorUnit").val().replace(",","."));
 
-    var CampoinputProdutoQuantidadeCarrinho = pai.find(".inputProdutoQuantidadeCarrinho");
-    var QuantidadeCarrinho = parseInt(CampoinputProdutoQuantidadeCarrinho.val());
+    var campoQuantidadeProdutoCarrinho = pai.find(".inputProdutoQuantidadeCarrinho");
+    var quantidadeProdutoCarrinhoAntiga = parseInt(campoQuantidadeProdutoCarrinho.val());
 
-    var CampoTotal = botao.parent().parent().parent().parent().parent().find(".price");
+    var campoValor = botao.parent().parent().parent().parent().parent().find(".price");
 
-    //Adicionar validacoes
+    var produto = new ProdutoQuantidadeEValor(produtoId, quantidadeEstoque, valorUnitario, quantidadeProdutoCarrinhoAntiga, 0, campoQuantidadeProdutoCarrinho, campoValor);
+
+    /*
+    * Chamada de Métodos
+    */
+    CarrinhoComprasAtualizacaoVisual(produto, operacao);
+}
+
+function CarrinhoComprasAtualizacaoVisual(produto, operacao) {
+/*
+ * Carregamento dos valores
+*/
 
     if (operacao == "aumentar") {
-        if (QuantidadeCarrinho == QuantidadeEstoque) {
-            alert("Ops! Não possuimos estoque suficiente para a quantidade que você deseja comprar!");
-        } else {
-            QuantidadeCarrinho++; 
+        //if (produto.quantidadeProdutoCarrinhoAntiga == produto.QuantidadeEstoque) {
+        //    alert("Ops! Não possuimos estoque suficiente para a quantidade que você deseja comprar!");
+        //} else
+        {
+            produto.quantidadeProdutoCarrinhoNova = produto.quantidadeProdutoCarrinhoAntiga + 1;  
+            CarrinhoComprasAtualizacaoQtdeEValor(produto);
+
+            AJAXEnviaAtualizacaoProdutoNoCarrinho(produto);
         }
-              
-    } else if (operacao == "diminuir") {        
+    } else if (operacao == "diminuir") {
 
-        if (QuantidadeCarrinho == 1) {
-            alert("Ops! Caso não deseje este produto clique no botão Remover.");
-        } else {
-            QuantidadeCarrinho--;
+        //if (produto.quantidadeProdutoCarrinhoAntiga == 1) {
+        //    alert("Ops! Caso não deseje este produto clique no botão Remover.");
+        //} else
+        {
+            produto.quantidadeProdutoCarrinhoNova = produto.quantidadeProdutoCarrinhoAntiga - 1;
+            CarrinhoComprasAtualizacaoQtdeEValor(produto);
+
+            AJAXEnviaAtualizacaoProdutoNoCarrinho(produto);
         }
-    }
+    }   
+}
 
-    CampoinputProdutoQuantidadeCarrinho.val(QuantidadeCarrinho);
-    var resultado = numberToReal(ValorUnitario * QuantidadeCarrinho);
-    CampoTotal.text(resultado);
+function AJAXEnviaAtualizacaoProdutoNoCarrinho(produto){
 
-    //Atualizar depois o valor total
+    $.ajax({
+        type: "GET",
+        url: "/CarrinhoCompra/AlterarQuantidade?id=" + produto.produtoId + "&quantidade=" + produto.quantidadeProdutoCarrinhoNova,
+        error: function (data) {
+            //alert("Opps! Tivemos um erro!" + data.responseJSON.mensagem);
+            //Console.info(data);
+
+            MostrarMensagemErroCarrinho(data.responseJSON.mensagem);
+
+            //Rollback
+            produto.quantidadeProdutoCarrinhoNova = produto.quantidadeProdutoCarrinhoAntiga;
+            CarrinhoComprasAtualizacaoQtdeEValor(produto);
+        }
+        ,
+        success: function () {
+           
+        }
+
+    });
+}
+
+function MostrarMensagemErroCarrinho(mensagem) {
+    $(".alert-danger").css("display", "block");
+    $(".alert-danger").text(mensagem);
+}
+function OcutarMensagemErroCarrinho(mensagem) {
+    $(".alert-danger").css("display", "none");
+}
+
+function CarrinhoComprasAtualizacaoQtdeEValor(produto) {   
+    produto.campoQuantidadeProdutoCarrinho.val(produto.quantidadeProdutoCarrinhoNova);
+
+    var resultado = produto.valorUnitario * produto.quantidadeProdutoCarrinhoNova;
+    produto.campoValor.text(numberToReal(resultado));
 }
 
 function numberToReal(numero) {
@@ -114,3 +170,30 @@ function MudarOrdenacao() {
         window.location.href = URLComParametros;
     });
 }
+
+
+/*
+* Classes
+*/
+
+
+/*
+ * Class com dados do carrinho de compras
+ */
+class ProdutoQuantidadeEValor {
+    constructor(produtoId, quantidadeEstoque, valorUnitario, quantidadeProdutoCarrinhoAntiga, quantidadeProdutoCarrinhoNova, campoQuantidadeProdutoCarrinho, campoValor) {
+        //receve valores
+        this.produtoId = produtoId;
+        this.quantidadeEstoque = quantidadeEstoque;
+        this.valorUnitario = valorUnitario;
+
+        this.quantidadeProdutoCarrinhoAntiga = quantidadeProdutoCarrinhoAntiga;
+        this.quantidadeProdutoCarrinhoNova = quantidadeProdutoCarrinhoNova;
+
+        //recebe objetos
+        this.campoQuantidadeProdutoCarrinho = campoQuantidadeProdutoCarrinho;
+        this.campoValor = campoValor;
+    }
+}
+
+

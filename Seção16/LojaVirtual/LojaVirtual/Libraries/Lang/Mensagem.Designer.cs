@@ -115,6 +115,24 @@ namespace LojaVirtual.Libraries.Lang {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Quantidade não pode ser 0(zero). Se quizer delete o item do carrinho..
+        /// </summary>
+        public static string MSG_E007 {
+            get {
+                return ResourceManager.GetString("MSG_E007", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Quantidade de produto solicitada maior que nosso estoque deste produto..
+        /// </summary>
+        public static string MSG_E008 {
+            get {
+                return ResourceManager.GetString("MSG_E008", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Registro salvo com sucesso!.
         /// </summary>
         public static string MSG_S001 {

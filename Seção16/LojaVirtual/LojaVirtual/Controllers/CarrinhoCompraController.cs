@@ -5,6 +5,7 @@ using System.Runtime.Serialization;
 using System.Threading.Tasks;
 using AutoMapper;
 using LojaVirtual.Libraries.CarrinhoCompra;
+using LojaVirtual.Libraries.Lang;
 using LojaVirtual.Models;
 using LojaVirtual.Models.ProdutoAgregador;
 using LojaVirtual.Repositories.Contracts;
@@ -80,12 +81,24 @@ namespace LojaVirtual.Controllers
         {
 
             //Nao deixar alterar se nao tiver quantidade suficiente no estoque
+            Produto produto = _produtoRepository.ObterProduto(id);
+            if (quantidade < 1)
+            {
+                return BadRequest(new { mensagem = Mensagem.MSG_E007 });
+            }else if (quantidade > produto.Quantidade)
+            {
+                return BadRequest(new { mensagem = Mensagem.MSG_E008 });
+            }
+            else
+            {
+                //Tudo certo
+                var item = new ProdutoItem() { Id = id, QuantidadeProdutoCarrinho = quantidade };
+                _carrinhoCompra.Atualizar(item);
 
+                return RedirectToAction(nameof(Index));
+            }
 
-            var  item = new ProdutoItem() { Id = id, QuantidadeProdutoCarrinho = quantidade };
-            _carrinhoCompra.Atualizar(item);
-
-            return RedirectToAction(nameof(Index));
+           
         }
 
         public IActionResult RemoverItem(int id)

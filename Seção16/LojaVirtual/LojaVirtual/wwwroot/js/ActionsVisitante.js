@@ -115,6 +115,23 @@ function CarrinhoComprasAtualizacaoQtdeEValor(produto) {
 
     var resultado = produto.valorUnitario * produto.quantidadeProdutoCarrinhoNova;
     produto.campoValor.text(numberToReal(resultado));
+
+    AtualizarSubTotalCarrinho(); 
+}
+
+function AtualizarSubTotalCarrinho() {
+    var Subtotal = 0;
+    var TagsComPrice = $(".price");
+
+    TagsComPrice.each(function () {
+        var ValorReais = parseFloat($(this).text().replace("R$", "").replace(".", "").replace(" ", "").replace(",", "."));
+
+        Subtotal += ValorReais;
+    })
+
+    $(".subtotal").text(numberToReal(Subtotal));
+
+    
 }
 
 function numberToReal(numero) {

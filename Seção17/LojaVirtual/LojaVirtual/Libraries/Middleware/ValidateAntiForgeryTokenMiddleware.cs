@@ -23,7 +23,7 @@ namespace LojaVirtual.Libraries.Middleware
 
             if (HttpMethods.IsPost(context.Request.Method) )
             {
-                if ( AJAX)
+                if (AJAX)
                 {
                     if (context.Request.Form.Files.Count == 0)
                     {

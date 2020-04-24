@@ -35,7 +35,7 @@ namespace LojaVirtual.Libraries.Gerenciador.Frete
                      * Regras do correio - Para criar novo pacote
                      * maior que 30kg e dimensao > 200cm
                      */
-                    if (peso > 30 || dimensao > 200)
+                    if (peso > 30 || dimensao > 200 || altura > 105 || comprimento > 105 || largura > 105)
                     {
                         //guardar pacote anterior
                         pacotes.Add(pacote);

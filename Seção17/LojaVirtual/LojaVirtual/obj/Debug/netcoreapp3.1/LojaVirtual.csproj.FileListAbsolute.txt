@@ -1751,6 +1751,7 @@ C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção16\LojaVirtual\L
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção16\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\LojaVirtual.csprojAssemblyReference.cache
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção17\LojaVirtual\LojaVirtual\bin\Debug\netcoreapp3.1\appsettings.Development.json
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção17\LojaVirtual\LojaVirtual\bin\Debug\netcoreapp3.1\appsettings.json
+C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção17\LojaVirtual\LojaVirtual\bin\Debug\netcoreapp3.1\Connected Services\WSCorreios\ConnectedService.json
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção17\LojaVirtual\LojaVirtual\bin\Debug\netcoreapp3.1\Properties\launchSettings.json
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção17\LojaVirtual\LojaVirtual\bin\Debug\netcoreapp3.1\LojaVirtual.exe
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção17\LojaVirtual\LojaVirtual\bin\Debug\netcoreapp3.1\LojaVirtual.deps.json
@@ -1812,8 +1813,15 @@ C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção17\LojaVirtual\L
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção17\LojaVirtual\LojaVirtual\bin\Debug\netcoreapp3.1\System.Composition.TypedParts.dll
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção17\LojaVirtual\LojaVirtual\bin\Debug\netcoreapp3.1\System.Configuration.ConfigurationManager.dll
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção17\LojaVirtual\LojaVirtual\bin\Debug\netcoreapp3.1\System.Data.SqlClient.dll
+C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção17\LojaVirtual\LojaVirtual\bin\Debug\netcoreapp3.1\System.Net.Http.WinHttpHandler.dll
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção17\LojaVirtual\LojaVirtual\bin\Debug\netcoreapp3.1\System.Runtime.Caching.dll
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção17\LojaVirtual\LojaVirtual\bin\Debug\netcoreapp3.1\System.Security.Cryptography.ProtectedData.dll
+C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção17\LojaVirtual\LojaVirtual\bin\Debug\netcoreapp3.1\System.ServiceModel.Duplex.dll
+C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção17\LojaVirtual\LojaVirtual\bin\Debug\netcoreapp3.1\System.ServiceModel.Http.dll
+C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção17\LojaVirtual\LojaVirtual\bin\Debug\netcoreapp3.1\System.ServiceModel.NetTcp.dll
+C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção17\LojaVirtual\LojaVirtual\bin\Debug\netcoreapp3.1\System.ServiceModel.Primitives.dll
+C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção17\LojaVirtual\LojaVirtual\bin\Debug\netcoreapp3.1\System.ServiceModel.dll
+C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção17\LojaVirtual\LojaVirtual\bin\Debug\netcoreapp3.1\System.ServiceModel.Security.dll
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção17\LojaVirtual\LojaVirtual\bin\Debug\netcoreapp3.1\X.PagedList.dll
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção17\LojaVirtual\LojaVirtual\bin\Debug\netcoreapp3.1\X.PagedList.Mvc.Core.dll
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção17\LojaVirtual\LojaVirtual\bin\Debug\netcoreapp3.1\X.PagedList.Web.Common.dll
@@ -1876,12 +1884,17 @@ C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção17\LojaVirtual\L
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção17\LojaVirtual\LojaVirtual\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\sni.dll
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção17\LojaVirtual\LojaVirtual\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção17\LojaVirtual\LojaVirtual\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção17\LojaVirtual\LojaVirtual\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Net.Http.WinHttpHandler.dll
+C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção17\LojaVirtual\LojaVirtual\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netstandard2.0\System.Private.ServiceModel.dll
+C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção17\LojaVirtual\LojaVirtual\bin\Debug\netcoreapp3.1\runtimes\win7\lib\netstandard2.0\System.Private.ServiceModel.dll
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção17\LojaVirtual\LojaVirtual\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.0\System.Runtime.Caching.dll
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção17\LojaVirtual\LojaVirtual\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção17\LojaVirtual\LojaVirtual\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
-C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção17\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\LojaVirtual.csprojAssemblyReference.cache
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção17\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\LojaVirtual.Libraries.Lang.Mensagem.resources
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção17\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\LojaVirtual.csproj.GenerateResource.cache
+C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção17\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\LojaVirtual.csproj.CoreCompileInputs.cache
+C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção17\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\LojaVirtual.MvcApplicationPartsAssemblyInfo.cs
+C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção17\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\LojaVirtual.MvcApplicationPartsAssemblyInfo.cache
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção17\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\LojaVirtual.RazorAssemblyInfo.cache
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção17\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\LojaVirtual.RazorAssemblyInfo.cs
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção17\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\LojaVirtual.AssemblyInfoInputs.cache
@@ -1930,3 +1943,4 @@ C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção17\LojaVirtual\L
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção17\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\LojaVirtual.dll
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção17\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\LojaVirtual.pdb
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção17\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\LojaVirtual.genruntimeconfig.cache
+C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção17\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\LojaVirtual.csprojAssemblyReference.cache

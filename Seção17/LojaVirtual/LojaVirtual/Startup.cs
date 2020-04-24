@@ -99,6 +99,9 @@ namespace LojaVirtual
             services.AddScoped<LojaVirtual.Libraries.Cookie.Cookie>();
             services.AddScoped<CarrinhoCompra>();
 
+            services.AddScoped<WSCorreiosCalcularFrete>();
+            services.AddScoped<CalcularPacote>();
+
             //COVIT-19 23/04/2020
             services.AddScoped<CalcPrecoPrazoWSSoap>(options =>
             {

@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace LojaVirtual.Libraries.CarrinhoCompra
 {
-    public class CarrinhoCompra
+    public class CookieCarrinhoCompra
     {
         private string key = "Carrinho.Compras";
         private Cookie.Cookie _cookie;
 
-        public CarrinhoCompra(Cookie.Cookie cookie)
+        public CookieCarrinhoCompra(Cookie.Cookie cookie)
         {
             _cookie = cookie;
         }

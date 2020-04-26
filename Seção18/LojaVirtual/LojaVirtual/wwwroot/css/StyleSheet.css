@@ -116,3 +116,22 @@
     .container-frete{
         text-align:center;
     }
+
+.control-inline {
+    flex-wrap: nowrap;
+}
+
+.dlist-align dt {
+    width: 75px;
+}
+.dlist-align dd {
+    margin-left: 75px;
+    text-align: left;
+}
+
+.btn-continuar {
+    width: 100%;
+    min-height:70px;
+    font-size: 36px;
+
+}

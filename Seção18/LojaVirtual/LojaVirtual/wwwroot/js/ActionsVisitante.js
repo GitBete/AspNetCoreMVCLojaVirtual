@@ -22,6 +22,8 @@ function AcaoCalcularFreteBTN() {
 }
 
 function AJAXCalcularFrete(callByButton) {
+    $(".btn-continuar").addClass("disabled");
+
     if (callByButton == false) {
         if ($.cookie('Carrinho.CEP') != undefined){
             $(".cep").val($.cookie('Carrinho.CEP'));
@@ -29,6 +31,8 @@ function AJAXCalcularFrete(callByButton) {
     }
 
     var cep = $(".cep").val().replace(".", "").replace("-", "");
+    $.removeCookie("Carrinho.TipoFrete")
+
 
     if (cep.length == 8) {
 
@@ -36,7 +40,9 @@ function AJAXCalcularFrete(callByButton) {
 
         html = "<img src='\\img\\loading4.gif'/>";
         $(".container-frete").html(html);
-
+        $(".frete").text("R$ 0,00");
+        $(".total").text("R$ 0,00");        
+        
         //requisicao AJAX
         $.ajax({
             type: "GET",
@@ -54,16 +60,32 @@ function AJAXCalcularFrete(callByButton) {
                     var valor = data[i].valor;
                     var prazo = data[i].prazo;
 
-                    html += "<dl class=\"dlist-align\"><dt><input type=\"radio\"name=\"frete\" value=\"" + tipofrete + "\" /></dt><dd>" + tipofrete + " - " + numberToReal(valor) + " (" + prazo + " dias úteis)</dd></dl>"
+                    html += "<dl class=\"dlist-align\"><dt><input type=\"radio\"name=\"frete\" value=\"" + tipofrete + "\" /><input type=\"hidden\" name=\"valor\" value=\"" + valor + "\" /></dt><dd>" + tipofrete + " - " + numberToReal(valor) + " (" + prazo + " dias úteis)</dd></dl>"
                 }
 
                 $(".container-frete").html(html);
+                $(".container-frete").find("input[type=radio]").change(function () {
+
+                    $.cookie("Carrinho.TipoFrete", $(this).val());
+                    $(".btn-continuar").removeClass("disabled");
+
+                    //alert($(this).val());
+                    var valorFrete = parseFloat($(this).parent().find("input[type=hidden]").val());
+                    $(".frete").text(numberToReal(valorFrete));
+
+                    var Subtotal = parseFloat($(".subtotal").text().replace("R$", "").replace(".", "").replace(",", "."))
+                    var valorTotal = valorFrete + Subtotal;
+
+                    $(".total").text(numberToReal(valorTotal));
+
+                });
                 //console.info(data);
             }
 
         });
     } else {
         if (callByButton == true) {
+            $(".container-frete").html("");
             MostrarMensagemErroCarrinho("Digite o CEP para calcular o Frete!");
         }
     }

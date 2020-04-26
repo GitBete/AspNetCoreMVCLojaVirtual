@@ -18,21 +18,23 @@ namespace LojaVirtual.Controllers
 {
     public class CarrinhoCompraController : Controller
     {
-        private CarrinhoCompra _carrinhoCompra;
+        private CookieCarrinhoCompra _cookieCarrinhoCompra;
         private IProdutoRepository _produtoRepository;
         private IMapper _mapper;
 
         //para calculo do frete
         private WSCorreiosCalcularFrete _wscorreios;
         private CalcularPacote _calcularPacote;
+        private CookieValorPrazoFrete _cookieValorPrazoFrete;
 
-        public CarrinhoCompraController(CarrinhoCompra carrinhoCompra, IProdutoRepository produtoRepository, IMapper mapper, WSCorreiosCalcularFrete wscorreios, CalcularPacote calcularPacote)
+        public CarrinhoCompraController(CookieCarrinhoCompra cookiecarrinhoCompra, IProdutoRepository produtoRepository, IMapper mapper, WSCorreiosCalcularFrete wscorreios, CalcularPacote calcularPacote, CookieValorPrazoFrete cookieValorPrazoFrete)
         {
-            _carrinhoCompra = carrinhoCompra;
+            _cookieCarrinhoCompra = cookiecarrinhoCompra;
             _produtoRepository = produtoRepository;
             _mapper = mapper;
             _wscorreios = wscorreios;
             _calcularPacote = calcularPacote;
+            _cookieValorPrazoFrete = cookieValorPrazoFrete;
         }
 
         public IActionResult Index()
@@ -58,7 +60,7 @@ namespace LojaVirtual.Controllers
             {
                 //caso o produto já exista adicionar a quantidade ao ja existente no lugar de adicionar mais um objeto a lista
                 var item = new ProdutoItem() { Id = id, QuantidadeProdutoCarrinho = 1 };
-                _carrinhoCompra.Cadastrar(item);
+                _cookieCarrinhoCompra.Cadastrar(item);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -81,7 +83,7 @@ namespace LojaVirtual.Controllers
             {
                 //Tudo certo
                 var item = new ProdutoItem() { Id = id, QuantidadeProdutoCarrinho = quantidade };
-                _carrinhoCompra.Atualizar(item);
+                _cookieCarrinhoCompra.Atualizar(item);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -91,7 +93,7 @@ namespace LojaVirtual.Controllers
 
         public IActionResult RemoverItem(int id)
         {
-            _carrinhoCompra.Remover(new ProdutoItem() { Id = id });
+            _cookieCarrinhoCompra.Remover(new ProdutoItem() { Id = id });
             return RedirectToAction(nameof(Index));
         }
 
@@ -120,12 +122,17 @@ namespace LojaVirtual.Controllers
 
                 if (valorPAC != null) lista.Add(valorPAC);                
                 if (valorSEDEX != null) lista.Add(valorSEDEX);                 
-                if (valorSEDEX10 != null) lista.Add(valorSEDEX10);               
+                if (valorSEDEX10 != null) lista.Add(valorSEDEX10);
+
+                //guardar cookie, criar nova class
+                _cookieValorPrazoFrete.Cadastrar(lista);
 
                 return Ok(lista);
             }
                 catch (Exception e)
             {
+                _cookieValorPrazoFrete.Remover();
+
                 return BadRequest(e);
             }
         }
@@ -136,7 +143,7 @@ namespace LojaVirtual.Controllers
         private List<ProdutoItem> CarregarProdutoDB()
         {
             //Verificar se tem registro no carrinho de compras, seriealizada com Id e quantidade
-            List<ProdutoItem> produtoItemCarrinho = _carrinhoCompra.Consultar();
+            List<ProdutoItem> produtoItemCarrinho = _cookieCarrinhoCompra.Consultar();
             List<ProdutoItem> produtoItemComplento = new List<ProdutoItem>();
 
             //para cada item escolhido consultar na tabela produto

@@ -97,7 +97,8 @@ namespace LojaVirtual
             services.AddScoped<LoginCliente>();
             services.AddScoped<LoginColaborador>();
             services.AddScoped<LojaVirtual.Libraries.Cookie.Cookie>();
-            services.AddScoped<CarrinhoCompra>();
+            services.AddScoped<CookieCarrinhoCompra>();
+            services.AddScoped<CookieValorPrazoFrete>();
 
             services.AddScoped<WSCorreiosCalcularFrete>();
             services.AddScoped<CalcularPacote>();

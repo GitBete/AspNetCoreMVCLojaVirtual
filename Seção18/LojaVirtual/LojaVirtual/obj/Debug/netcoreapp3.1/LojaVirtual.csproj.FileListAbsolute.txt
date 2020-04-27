@@ -2139,3 +2139,4 @@ C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção18\LojaVirtual\L
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção18\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\LojaVirtual.pdb
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção18\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\LojaVirtual.genruntimeconfig.cache
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção18\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\LojaVirtual.csprojAssemblyReference.cache
+C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção18\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\Razor\Views\Pagamento\Index.cshtml.g.cs

@@ -286,7 +286,8 @@ function MudarOrdenacao() {
  * Class com dados do carrinho de compras
  */
 class ProdutoQuantidadeEValor {
-    constructor(produtoId, quantidadeEstoque, valorUnitario, quantidadeProdutoCarrinhoAntiga, quantidadeProdutoCarrinhoNova, campoQuantidadeProdutoCarrinho, campoValor) {
+    constructor(produtoId, quantidadeEstoque, valorUnitario, quantidadeProdutoCarrinhoAntiga, quantidadeProdutoCarrinhoNova, campoQuantidadeProdutoCarrinho, campoValor)
+    {
         //receve valores
         this.produtoId = produtoId;
         this.quantidadeEstoque = quantidadeEstoque;

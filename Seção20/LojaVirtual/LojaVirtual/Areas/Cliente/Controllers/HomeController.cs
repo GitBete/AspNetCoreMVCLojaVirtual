@@ -8,6 +8,8 @@ using LojaVirtual.Libraries.Login;
 using LojaVirtual.Repositories.Contracts;
 using LojaVirtual.Repositories;
 using LojaVirtual.Libraries.Filtro;
+using LojaVirtual.Models;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace LojaVirtual.Areas.Cliente.Controllers
 {
@@ -17,11 +19,13 @@ namespace LojaVirtual.Areas.Cliente.Controllers
        
         private LoginCliente _loginCliente;
         private IClienteRepository _repositoryCliente;
+        private IEnderecoEntregaRepository _enderecoEntregaRepository;
 
-        public HomeController(LoginCliente loginCliente, IClienteRepository repositoryCliente)
+        public HomeController(LoginCliente loginCliente, IClienteRepository repositoryCliente, IEnderecoEntregaRepository enderecoEntregaRepository)
         {
             _loginCliente = loginCliente;
             _repositoryCliente = repositoryCliente;
+            _enderecoEntregaRepository = enderecoEntregaRepository;
         }
 
       
@@ -112,6 +116,33 @@ namespace LojaVirtual.Areas.Cliente.Controllers
 
             }
 
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult CadastroEnderecoEntrega()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult CadastroEnderecoEntrega([FromForm] EnderecoEntrega enderecoEntrega,string returnUrl =null)
+        {
+            if (ModelState.IsValid)
+            {
+                enderecoEntrega.ClienteId = _loginCliente.GetCliente().Id;
+
+                _enderecoEntregaRepository.Cadastrar(enderecoEntrega);
+
+                if (returnUrl == null)
+                {
+                    //listagem de endereco
+                }
+                else
+                {
+                    return LocalRedirectPermanent(returnUrl);
+                }
+            }
             return View();
         }
     }

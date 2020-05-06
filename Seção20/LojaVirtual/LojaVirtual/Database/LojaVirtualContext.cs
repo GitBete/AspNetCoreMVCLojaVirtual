@@ -25,8 +25,11 @@ namespace LojaVirtual.Database
         //Classe criada em Models, precisa de tabela para essa classe
         //dai ele vai criar as tabelas necessarias
         public DbSet<Cliente>Clientes { get; set; }
+        public DbSet<EnderecoEntrega> EnderecosEntrega { get; set; }
         public DbSet<NewsletterEmail> NewsletterEmails { get; set; }
+
         public DbSet<Colaborador> Colaboradores { get; set; }
+
         public DbSet<Categoria> Categoria { get; set; }
         public DbSet<Produto> Produto { get; set; }
         public DbSet<Imagem> Imagem { get; set; }

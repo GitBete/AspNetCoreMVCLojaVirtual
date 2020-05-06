@@ -47,6 +47,7 @@ namespace LojaVirtual
              *  padrao repository  ..
              */
             services.AddScoped<IClienteRepository, ClienteRepository>();
+            services.AddScoped<IEnderecoEntregaRepository, EnderecoEntregaRepository>();
             services.AddScoped<INewsletterRepository, NewsletterRepository>();
             services.AddScoped<IColaboradorRepository, ColaboradorRepository>();
             services.AddScoped<ICategoriaRepository, CategoriaRepository>();

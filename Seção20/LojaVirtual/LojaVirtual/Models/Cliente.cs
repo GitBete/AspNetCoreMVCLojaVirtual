@@ -71,6 +71,7 @@ namespace LojaVirtual.Models
         [Display(Name = "Situação")]
         public string Situacao { get; set; }
 
-
+        [ForeignKey("ClienteId")]
+        public virtual ICollection<EnderecoEntrega> EnderecosEntrega { get; set; }
     }
 }

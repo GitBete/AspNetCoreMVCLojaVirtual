@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 using AutoMapper;
 using LojaVirtual.Controllers.Base;
 using LojaVirtual.Libraries.CarrinhoCompra;
+using LojaVirtual.Libraries.Filtro;
 using LojaVirtual.Libraries.Gerenciador.Frete;
 using LojaVirtual.Libraries.Lang;
+using LojaVirtual.Libraries.Login;
 using LojaVirtual.Models;
 using LojaVirtual.Models.Constants;
 using LojaVirtual.Models.ProdutoAgregador;
@@ -19,11 +21,13 @@ namespace LojaVirtual.Controllers
 {
     public class CarrinhoCompraController : BaseController
     {
-      
+        private LoginCliente _loginCliente;
+        private IEnderecoEntregaRepository _enderecoEntregaRepository;
 
-        public CarrinhoCompraController(CookieCarrinhoCompra cookiecarrinhoCompra, IProdutoRepository produtoRepository, IMapper mapper, WSCorreiosCalcularFrete wscorreios, CalcularPacote calcularPacote, CookieValorPrazoFrete cookieValorPrazoFrete):base(cookiecarrinhoCompra,produtoRepository,mapper,wscorreios,calcularPacote,cookieValorPrazoFrete)
+        public CarrinhoCompraController(LoginCliente loginCliente, IEnderecoEntregaRepository enderecoEntregaRepository,CookieCarrinhoCompra cookiecarrinhoCompra, IProdutoRepository produtoRepository, IMapper mapper, WSCorreiosCalcularFrete wscorreios, CalcularPacote calcularPacote, CookieValorPrazoFrete cookieValorPrazoFrete) : base(cookiecarrinhoCompra, produtoRepository, mapper, wscorreios, calcularPacote, cookieValorPrazoFrete)
         {
-          
+            _loginCliente = loginCliente;
+            _enderecoEntregaRepository = enderecoEntregaRepository;
         }
 
         public IActionResult Index()
@@ -34,13 +38,13 @@ namespace LojaVirtual.Controllers
             return View(produtoItemComplento);
         }
 
-       
+
 
         public IActionResult AdicionarItem(int id)
         {
             Produto produto = _produtoRepository.ObterProduto(id);
 
-            if (produto ==null)
+            if (produto == null)
             {
                 //Produto nao existe
                 return View("NaoExisteItem");
@@ -64,7 +68,7 @@ namespace LojaVirtual.Controllers
             if (quantidade < 1)
             {
                 return BadRequest(new { mensagem = Mensagem.MSG_E007 });
-            }else if (quantidade > produto.Quantidade)
+            } else if (quantidade > produto.Quantidade)
             {
                 return BadRequest(new { mensagem = Mensagem.MSG_E008 });
             }
@@ -77,7 +81,7 @@ namespace LojaVirtual.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-           
+
         }
 
         public IActionResult RemoverItem(int id)
@@ -85,6 +89,20 @@ namespace LojaVirtual.Controllers
             _cookieCarrinhoCompra.Remover(new ProdutoItem() { Id = id });
             return RedirectToAction(nameof(Index));
         }
+
+        [ClienteAutorizacao]
+        public IActionResult EnderecoEntrega()
+        {
+            Cliente cliente =  _loginCliente.GetCliente();
+            IList<EnderecoEntrega> enderecos = _enderecoEntregaRepository.ObterTodosEnderecoEntregaCliente(cliente.Id);
+
+            ViewBag.Cliente = cliente;
+            ViewBag.Enderecos = enderecos;
+
+            return View();
+        }
+
+       
 
         public async Task<IActionResult> CalcularFrete(int cepDestino)
         {

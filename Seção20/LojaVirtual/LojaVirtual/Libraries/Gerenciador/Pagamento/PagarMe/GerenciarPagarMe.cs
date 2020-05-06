@@ -84,6 +84,8 @@ namespace LojaVirtual.Libraries.Gerenciador.Pagamento.PagarMe
 
         public void GerarPagCartaoCredito(CartaoCredito cartao)
         {
+            Cliente cliente = _loginCliente.GetCliente();
+
             PagarMeService.DefaultApiKey = _configuration.GetValue<String>("Pagamento:PagarMe:ApiKey");
             PagarMeService.DefaultEncryptionKey = _configuration.GetValue<String>("Pagamento:PagarMe:EncryptionKey");
 
@@ -93,6 +95,7 @@ namespace LojaVirtual.Libraries.Gerenciador.Pagamento.PagarMe
             card.ExpirationDate =cartao.Vencimento;
             card.Cvv = cartao.CodigoSeguranca;
 
+            card.Save();
 
             Transaction transaction = new Transaction();
 
@@ -100,49 +103,49 @@ namespace LojaVirtual.Libraries.Gerenciador.Pagamento.PagarMe
             transaction.Card = new Card
             {
                 //Id = "card_cj95mc28g0038cy6ewbwtwwx2"
-                Id = card.Id
+                Id = card.Number
             };
+                        
 
             transaction.Customer = new Customer
             {
-                ExternalId = "#3311",
-                Name = "Rick",
+                ExternalId = card.Cvv,
+                Name = card.HolderName,
                 Type = CustomerType.Individual,
                 Country = "br",
-                Email = "rick@morty.com",
+                Email = cliente.Email,
                 Documents = new[]
               {
                 new Document{
                   Type = DocumentType.Cpf,
-                  Number = "11111111111"
-                },
-                new Document{
-                  Type = DocumentType.Cnpj,
-                  Number = "83134932000154"
+                  Number = Mascara.Remover(cliente.CPF)
+                //},
+                //new Document{
+                //  Type = DocumentType.Cnpj,
+                //  Number = "83134932000154"
                 }
               },
             PhoneNumbers = new string[]
             {
-                "+5511982738291",
-                "+5511829378291"
+                "+55" + Mascara.Remover(cliente.Telefone)
               },
-                Birthday = new DateTime(1991, 12, 12).ToString("yyyy-MM-dd")
+                Birthday = cliente.Nascimento.ToString("yyyy-MM-dd")
             };
 
-            //endereco da pessoa pagante
+            //endereco da pessoa pagante           
 
             transaction.Billing = new Billing
             {
-                Name = "Morty",
+                Name = cliente.Nome,
                 Address = new Address()
                 {
                     Country = "br",
-                    State = "sp",
-                    City = "Cotia",
-                    Neighborhood = "Rio Cotia",
-                    Street = "Rua Matrix",
-                    StreetNumber = "213",
-                    Zipcode = "04250000"
+                    State = cliente.UF,
+                    City = cliente.Cidade,
+                    Neighborhood = cliente.Bairro,
+                    Street = cliente.Logradouro + " " + cliente.Complemento,
+                    StreetNumber = cliente.LogradouroNumr,
+                    Zipcode = Mascara.Remover(cliente.CEP)
                 }
             };
 

@@ -8,8 +8,86 @@
     AJAXBuscarCEP();
     AcaoCalcularFreteBTN();
     AJAXCalcularFrete(false);
+
+    AJAXEnderecoEntregaCalcularFrete();
     
 });
+
+function AJAXEnderecoEntregaCalcularFrete() {
+    $("input[name=endereco]").change(function () {
+
+        $.cookie("Carrinho.Endereco", $(this).val(), { path: "/" });
+
+        var cep = "";
+
+        if ($(this).parent().find("input[name=cep]").val() != undefined) {           
+            cep = RemoverMascara($(this).parent().find("input[name=cep]").val());
+        }
+
+        EnderecoEntregaCardsLimpar();
+        EnderecoEntregaLimparValor();
+        EnderecoEntregaCardsLoading();
+        $(".btn-continuar").addClass("disabled");
+
+        if (cep.length == 8) {
+
+            //requisicao AJAX
+            $.ajax({
+                type: "GET",
+                url: "/CarrinhoCompra/CalcularFrete?cepDestino=" + cep,
+                error: function (data) {
+                    MostrarMensagemErro("Ops!!! Obtemos um erro ao obter o Frete ..." + data.mensagem);
+
+                    EnderecoEntregaCardsLimpar();
+                }
+                ,
+                success: function (data) {
+
+                    EnderecoEntregaCardsLimpar();
+
+                    html = "";
+
+                    for (var i = 0; i < data.listaValores.length; i++) {
+                        var tipofrete = data.listaValores[i].tipoFrete;
+                        var valor = data.listaValores[i].valor;
+                        var prazo = data.listaValores[i].prazo;
+
+                        $(".card-title")[i].innerHTML = "<label for='" + tipofrete + "'>" + tipofrete + "</label>";
+                        $(".card-text")[i].innerHTML = "<label for='" + tipofrete + "'>Prazo de " + prazo + " dias.</label>";
+                        $(".card-footer .text-muted")[i].innerHTML = "<input type=\"radio\" name=\"frete\" value=\"" + tipofrete + "\" id ='" + tipofrete + "' /> <strong><label for='" + tipofrete + "'>" + numberToReal(valor) + "</strong>";
+
+
+                        if ($.cookie("Carrinho.TipoFrete") != undefined && $.cookie("Carrinho.TipoFrete")  == tipofrete) {
+                            $(".card-footer .text-muted  input[name=frete]").eq(i).attr("checked", "checked");  
+
+                            EnderecoEntregaCardsSelecionarStyle($(".card-footer .text-muted input[name=frete]").eq(i));  
+                            $(".btn-continuar").removeClass("disabled");
+
+                        }
+                    }
+
+                    $(".card-footer .text-muted").find("input[name=frete]").change(function () {
+                        $.cookie("Carrinho.TipoFrete", $(this).val(), { path: '/' });  
+                                                                        
+                        EnderecoEntregaCardsSelecionarStyle($(this));  
+                        $(".btn-continuar").removeClass("disabled"); 
+                    });
+
+                }
+
+            });
+        } else {
+            if (callByButton == true) {
+                $(".container-frete").html("");
+                MostrarMensagemErro("Digite o CEP para calcular o Frete!");
+            }
+        }
+
+
+
+    });
+}
+       
 
 function MascaraCEP() {
     $(".cep").mask("00.000-000");
@@ -68,12 +146,10 @@ function AJAXCalcularFrete(callByButton) {
 
     var cep = '';
     if ($(".cep").val() != undefined) {
-        cep = $(".cep").val().replace(".", "").replace("-", "");
+        cep = RemoverMascara( $(".cep").val());
     }
-
-   
+       
     $.removeCookie("Carrinho.TipoFrete")
-
 
     if (cep.length == 8) {
 
@@ -94,12 +170,13 @@ function AJAXCalcularFrete(callByButton) {
             }
             ,
             success: function (data) {
+                
                 html = "";
 
-                for (var i = 0; i < data.length; i++) {
-                    var tipofrete = data[i].tipoFrete;
-                    var valor = data[i].valor;
-                    var prazo = data[i].prazo;
+                for (var i = 0; i < data.listaValores.length; i++) {
+                    var tipofrete = data.listaValores[i].tipoFrete;
+                    var valor = data.listaValores[i].valor;
+                    var prazo = data.listaValores[i].prazo;
 
                     html += "<dl class=\"dlist-align\"><dt><input type=\"radio\"name=\"frete\" value=\"" + tipofrete + "\" /><input type=\"hidden\" name=\"valor\" value=\"" + valor + "\" /></dt><dd>" + tipofrete + " - " + numberToReal(valor) + " (" + prazo + " dias úteis)</dd></dl>"
                 }
@@ -320,6 +397,51 @@ function RemoverMascara(valor) {
     return valor.replace(".", "").replace("-", "");
 }
 
+function EnderecoEntregaCardsSelecionarStyle(obj) {
+    
+    $(".card-body").css("background-color", "white");
+    $(".card-footer").css("background-color", "rgba(0,0,0,.03)");
+
+    obj.parent().parent().parent().find(".card-body").css("background-color", "#D7EAFF");
+    obj.parent().parent().parent().find(".card-footer").css("background-color", "#D7EAFF");
+
+    EnderecoEntregaAtualizarValor();
+}
+
+function EnderecoEntregaCardsLoading() {    
+    for (var i = 0; i < 3; i++) {
+        $(".card-text")[i].innerHTML  = "<br /><br /><img src='\\img\\loading4.gif' />";
+    }
+}
+
+function EnderecoEntregaCardsLimpar() {
+    for (var i = 0; i < 3; i++) {
+        $(".card-title")[i].innerHTML = "-";
+        $(".card-text")[i].innerHTML = "-";
+        $(".card-footer .text-muted")[i].innerHTML = "-" ;
+    }
+}
+
+function EnderecoEntregaAtualizarValor() {
+
+    EnderecoEntregaLimparValor();
+   
+    var frete = parseFloat($(".card-footer input[name=frete]:checked").parent().find("label").text().replace("R$", "").replace(".", "").replace(" ", "").replace(",", "."));
+    var tproduto = parseFloat($(".texto-produto").text().replace("R$", "").replace(".", "").replace(" ", "").replace(",", "."));
+
+    var total = tproduto + frete;
+
+    $(".texto-frete").text(numberToReal(frete));
+    $(".texto-total").text(numberToReal(total));
+}
+
+function EnderecoEntregaLimparValor() {
+
+    $(".texto-frete").text("-");
+    $(".texto-total").text("-");
+}
+
+
 /*
 * Classes
 */
@@ -327,6 +449,8 @@ function RemoverMascara(valor) {
 /*
  * Class com dados do carrinho de compras
  */
+
+
 
 class ProdutoQuantidadeEValor
 {

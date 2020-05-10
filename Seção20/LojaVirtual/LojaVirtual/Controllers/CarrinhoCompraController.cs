@@ -10,24 +10,26 @@ using LojaVirtual.Libraries.Filtro;
 using LojaVirtual.Libraries.Gerenciador.Frete;
 using LojaVirtual.Libraries.Lang;
 using LojaVirtual.Libraries.Login;
+using LojaVirtual.Libraries.Seguranca;
 using LojaVirtual.Models;
 using LojaVirtual.Models.Constants;
 using LojaVirtual.Models.ProdutoAgregador;
 using LojaVirtual.Repositories.Contracts;
 using Microsoft.AspNetCore.JsonPatch.Internal;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace LojaVirtual.Controllers
 {
     public class CarrinhoCompraController : BaseController
     {
-        private LoginCliente _loginCliente;
-        private IEnderecoEntregaRepository _enderecoEntregaRepository;
+        //private LoginCliente _loginCliente;
+        //private IEnderecoEntregaRepository _enderecoEntregaRepository;
 
-        public CarrinhoCompraController(LoginCliente loginCliente, IEnderecoEntregaRepository enderecoEntregaRepository,CookieCarrinhoCompra cookiecarrinhoCompra, IProdutoRepository produtoRepository, IMapper mapper, WSCorreiosCalcularFrete wscorreios, CalcularPacote calcularPacote, CookieValorPrazoFrete cookieValorPrazoFrete) : base(cookiecarrinhoCompra, produtoRepository, mapper, wscorreios, calcularPacote, cookieValorPrazoFrete)
+        public CarrinhoCompraController(LoginCliente loginCliente, IEnderecoEntregaRepository enderecoEntregaRepository,CookieCarrinhoCompra cookiecarrinhoCompra, IProdutoRepository produtoRepository, IMapper mapper, WSCorreiosCalcularFrete wscorreios, CalcularPacote calcularPacote, CookieFrete cookieValorPrazoFrete) : base(loginCliente,cookiecarrinhoCompra, enderecoEntregaRepository, produtoRepository, mapper, wscorreios, calcularPacote, cookieValorPrazoFrete)
         {
-            _loginCliente = loginCliente;
-            _enderecoEntregaRepository = enderecoEntregaRepository;
+            //_loginCliente = loginCliente;
+            //_enderecoEntregaRepository = enderecoEntregaRepository;
         }
 
         public IActionResult Index()
@@ -96,13 +98,19 @@ namespace LojaVirtual.Controllers
             Cliente cliente =  _loginCliente.GetCliente();
             IList<EnderecoEntrega> enderecos = _enderecoEntregaRepository.ObterTodosEnderecoEntregaCliente(cliente.Id);
 
+            ViewBag.Produtos = CarregarProdutoDB();
             ViewBag.Cliente = cliente;
             ViewBag.Enderecos = enderecos;
 
             return View();
         }
 
-       
+        public IActionResult EnderecoEntregaRemover(int id)
+        {
+            _enderecoEntregaRepository.Excluir(id);
+            return View();
+        }
+
 
         public async Task<IActionResult> CalcularFrete(int cepDestino)
         {
@@ -110,36 +118,54 @@ namespace LojaVirtual.Controllers
 
             try
             {
-           
-                //Captura cokkie carrinho e pesquisa os produtos no banco de dados
-                List<ProdutoItem> produtoItemComplento = CarregarProdutoDB();
-
-                //Calcula os pacotes
-                List<Pacote> pacotes = _calcularPacote.CalcularPacotesProdutos(produtoItemComplento);
-
-                //TipoFreteConstant
-                ValorPrazoFrete valorPAC = await _wscorreios.CalcularFrete(cepDestino.ToString(), TipoFreteConstant.PAC,  pacotes);
-                ValorPrazoFrete valorSEDEX = await _wscorreios.CalcularFrete(cepDestino.ToString(), TipoFreteConstant.SEDEX, pacotes);
-                //so existe em algumas regioes - ou ate regioees proximas
-                ValorPrazoFrete valorSEDEX10 = await _wscorreios.CalcularFrete(cepDestino.ToString(), TipoFreteConstant.SEDEX10, pacotes);
+                //consultar no cookie se ja existe uma consulta de cep
+                Frete frete = _cookieFrete.Consultar().Where(a => a.CEP == cepDestino && a.CodCarrinho == GerarHash(_cookieCarrinhoCompra.Consultar())).FirstOrDefault();
+                if (frete != null)
+                {
+                    return Ok(frete);
+                }
+                else
+                {
 
 
-                //se deu tudo certo, tem que entregar esses dados para javascript - JSON
-                List<ValorPrazoFrete> lista = new List<ValorPrazoFrete>();
+                    //Captura cokkie carrinho e pesquisa os produtos no banco de dados
+                    List<ProdutoItem> produtoItemComplento = CarregarProdutoDB();
 
-                if (valorPAC != null) lista.Add(valorPAC);                
-                if (valorSEDEX != null) lista.Add(valorSEDEX);                 
-                if (valorSEDEX10 != null) lista.Add(valorSEDEX10);
+                    //Calcula os pacotes
+                    List<Pacote> pacotes = _calcularPacote.CalcularPacotesProdutos(produtoItemComplento);
 
-                //guardar cookie, criar nova class
-                _cookieValorPrazoFrete.Cadastrar(lista);
+                    //TipoFreteConstant
+                    ValorPrazoFrete valorPAC = await _wscorreios.CalcularFrete(cepDestino.ToString(), TipoFreteConstant.PAC, pacotes);
+                    ValorPrazoFrete valorSEDEX = await _wscorreios.CalcularFrete(cepDestino.ToString(), TipoFreteConstant.SEDEX, pacotes);
+                    //so existe em algumas regioes - ou ate regioees proximas
+                    ValorPrazoFrete valorSEDEX10 = await _wscorreios.CalcularFrete(cepDestino.ToString(), TipoFreteConstant.SEDEX10, pacotes);
 
-                return Ok(lista);
+
+                    //se deu tudo certo, tem que entregar esses dados para javascript - JSON
+                    List<ValorPrazoFrete> lista = new List<ValorPrazoFrete>();
+
+                    if (valorPAC != null) lista.Add(valorPAC);
+                    if (valorSEDEX != null) lista.Add(valorSEDEX);
+                    if (valorSEDEX10 != null) lista.Add(valorSEDEX10);
+
+
+                    frete = new Frete()
+                    {
+                        CEP = cepDestino,
+                        CodCarrinho = GerarHash(_cookieCarrinhoCompra.Consultar()),
+                        ListaValores = lista
+                    };
+
+
+                    //guardar cookie, criar nova class
+                    _cookieFrete.Cadastrar(frete);
+
+                    return Ok(frete);
+                }
             }
                 catch (Exception e)
             {
-                _cookieValorPrazoFrete.Remover();
-
+               
                 return BadRequest(e);
             }
         }

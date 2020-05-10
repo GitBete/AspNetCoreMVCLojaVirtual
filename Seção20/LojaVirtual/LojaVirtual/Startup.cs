@@ -101,7 +101,7 @@ namespace LojaVirtual
             services.AddScoped<LoginColaborador>();
             services.AddScoped<LojaVirtual.Libraries.Cookie.Cookie>();
             services.AddScoped<CookieCarrinhoCompra>();
-            services.AddScoped<CookieValorPrazoFrete>();
+            services.AddScoped<CookieFrete>();
 
             services.AddScoped<WSCorreiosCalcularFrete>();
             services.AddScoped<CalcularPacote>();

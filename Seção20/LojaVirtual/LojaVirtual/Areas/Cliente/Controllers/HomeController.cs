@@ -122,6 +122,9 @@ namespace LojaVirtual.Areas.Cliente.Controllers
         [HttpGet]
         public IActionResult CadastroEnderecoEntrega()
         {
+            //essa tela deve iniciar com a opcao de cep selecionada na tela anterior
+            //desenvolver a opcao de excluir
+            //retirar a opcao de sex selecionada que ja esta exibindo na pagina
             return View();
         }
 

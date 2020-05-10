@@ -92,7 +92,7 @@ namespace LojaVirtual.Libraries.Gerenciador.Pagamento.PagarMe
             Card card = new Card();
             card.Number = cartao.NumeroCartao ;
             card.HolderName = cartao.NomeNoCartao;
-            card.ExpirationDate =cartao.Vencimento;
+            card.ExpirationDate =cartao.VencimentoMM + cartao.VencimentoYY;
             card.Cvv = cartao.CodigoSeguranca;
 
             card.Save();

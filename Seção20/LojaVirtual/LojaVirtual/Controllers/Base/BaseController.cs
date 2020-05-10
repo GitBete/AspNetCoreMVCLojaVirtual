@@ -5,10 +5,13 @@ using System.Threading.Tasks;
 using AutoMapper;
 using LojaVirtual.Libraries.CarrinhoCompra;
 using LojaVirtual.Libraries.Gerenciador.Frete;
+using LojaVirtual.Libraries.Login;
+using LojaVirtual.Libraries.Seguranca;
 using LojaVirtual.Models.ProdutoAgregador;
 using LojaVirtual.Repositories.Contracts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace LojaVirtual.Controllers.Base
 {
@@ -16,21 +19,25 @@ namespace LojaVirtual.Controllers.Base
     public class BaseController : Controller 
     {
 
-        public CookieCarrinhoCompra _cookieCarrinhoCompra;
-        public IProdutoRepository _produtoRepository;
-        public IMapper _mapper;
-        public WSCorreiosCalcularFrete _wscorreios;
-        public CalcularPacote _calcularPacote;
-        public CookieValorPrazoFrete _cookieValorPrazoFrete;
+        protected LoginCliente _loginCliente;
+        protected CookieCarrinhoCompra _cookieCarrinhoCompra;
+        protected IProdutoRepository _produtoRepository;
+        protected IMapper _mapper;
+        protected WSCorreiosCalcularFrete _wscorreios;
+        protected CalcularPacote _calcularPacote;
+        protected CookieFrete _cookieFrete;
+        protected IEnderecoEntregaRepository _enderecoEntregaRepository;
 
-        public BaseController(CookieCarrinhoCompra cookiecarrinhoCompra, IProdutoRepository produtoRepository, IMapper mapper, WSCorreiosCalcularFrete wscorreios, CalcularPacote calcularPacote, CookieValorPrazoFrete cookieValorPrazoFrete)
+        public BaseController(LoginCliente loginCliente, CookieCarrinhoCompra cookiecarrinhoCompra, IEnderecoEntregaRepository enderecoEntregaRepository, IProdutoRepository produtoRepository, IMapper mapper, WSCorreiosCalcularFrete wscorreios, CalcularPacote calcularPacote, CookieFrete cookieFrete)
         {
+            _loginCliente = loginCliente;
             _cookieCarrinhoCompra = cookiecarrinhoCompra;
             _produtoRepository = produtoRepository;
             _mapper = mapper;
             _wscorreios = wscorreios;
             _calcularPacote = calcularPacote;
-            _cookieValorPrazoFrete = cookieValorPrazoFrete;
+            _cookieFrete = cookieFrete;
+            _enderecoEntregaRepository = enderecoEntregaRepository;
         }
 
         public List<ProdutoItem> CarregarProdutoDB()
@@ -64,6 +71,9 @@ namespace LojaVirtual.Controllers.Base
             return produtoItemComplento;
         }
 
-      
+      protected string GerarHash(object obj)
+        {
+           return  StringMD5.MD5Hash(JsonConvert.SerializeObject(obj));
+        }
     }
 }

@@ -48,7 +48,7 @@ using LojaVirtual.Models.ProdutoAgregador;
 #line hidden
 #nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"70b96cc0e54800bbe74ae5fc136121e105cc4326", @"/Views/Home/Categoria.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"2a17999865a57f7b98c67658c82d8a5f3a32fae1", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"b46e2aa1bd6a2749e2ff871bf879768657b1eafe", @"/Views/_ViewImports.cshtml")]
     public class Views_Home_Categoria : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<dynamic>
     {
         #pragma warning disable 1998

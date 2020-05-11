@@ -7,7 +7,7 @@
 
     @foreach (ProdutoItem produto in produtos)
     {
-        decimal resultado = produto.Valor *  produto.QuantidadeProdutoCarrinho;
+        decimal resultado = produto.Valor * produto.QuantidadeProdutoCarrinho;
         total += resultado;
     }
 }
@@ -18,8 +18,10 @@
     <br />
     <div class="row">
         <div class="col-md-12">
-            @*listar os enderecos do cliente*@
-
+            @if (ViewData["MSG_E"] != null)
+            {
+                <p class="alert alert-danger">@Html.Raw(ViewData["MSG_E"])</p>
+            }
 
             <table class="table table-hover">
 
@@ -41,7 +43,7 @@
                         </td>
                         <td>
                             @*<a asp-action="Atualizar" asp-route-id="0" class="btn btn-secondary btn-sm">Atualizar</a>
-                            <a asp-action="Excluir" asp-route-id="0" class="btn btn-danger btn-sm">Excluir</a>*@
+                                <a asp-action="Excluir" asp-route-id="0" class="btn btn-danger btn-sm">Excluir</a>*@
                         </td>
                     </tr>
 
@@ -64,7 +66,7 @@
                             </td>
                             <td>
                                 @*<a asp-action="Atualizar" asp-route-id="@enderecoEntrega.Id" class="btn btn-secondary btn-sm">Atualizar</a>*@
-                                <a asp-action="EnderecoEntregaRemover" asp-route-id="@enderecoEntrega.Id" class="btn btn-danger btn-sm">Excluir</a>
+                                <a asp-action="EnderecoEntregaExcluir" asp-route-id="@enderecoEntrega.Id"  class="btn btn-danger btn-sm">Excluir</a>
                             </td>
                         </tr>
                     }
@@ -148,6 +150,6 @@
 
             <a asp-action="Index" asp-controller="Pagamento" class="btn btn-primary btn-continuar disabled">Continuar</a>
         </div>
-       
+
     </div>
 </div>

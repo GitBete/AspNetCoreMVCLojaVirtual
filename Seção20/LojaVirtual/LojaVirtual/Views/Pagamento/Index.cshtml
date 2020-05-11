@@ -14,7 +14,6 @@
 
             <div class="row">
 
-
                 <div class="col-lg-6 mx-auto">
 
                     <div id="code-itemside_img2">
@@ -103,19 +102,16 @@
                                 <!-- credit card info-->
                                 <div id="credit-card" class="tab-pane fade show active pt-3">
                                     <p class="alert alert-danger">Some text sucesso or error</p>
-                                    <form role="form">
+
+                                    <form role="form"  method="post">
                                         <div class="form-group">
-                                            <label asp-for="NomeNoCartao">Nome</label>
+                                            <label asp-for="NomeNoCartao"></label>
                                             <input type="text" asp-for="NomeNoCartao" class="form-control" placeholder="">
-                                            <span asp-validation-for="NomeNoCartao"></span>
-                                            @*<label for="username">
-                                                <h6>Nome (no cartão)</h6>
-                                            </label>
-                                            <input type="text" name="username" placeholder="Nome impresso no cartão" required class="form-control ">*@
+                                            <span asp-validation-for="NomeNoCartao"></span>                                           
                                         </div>
 
                                         <div class="form-group">
-                                            <label asp-for="NumeroCartao">Número do cartão</label>
+                                            <label asp-for="NumeroCartao"></label>
                                             <div class="input-group">
                                                 <input type="text" asp-for="NumeroCartao" class="form-control" placeholder="">
                                                                                               
@@ -133,14 +129,12 @@
                                         <div class="row">
                                             <div class="col-sm-8">
                                                 <div class="form-group">
-                                                    <label>
-                                                        <span class="hidden-xs">
-                                                            <<label for="VencimentoMM" class="hidden-xs">Vencimento</label>
-                                                        </span>
+                                                    <label>                                                       
+                                                        <<label for="VencimentoMM" class="hidden-xs"></label>                                                       
                                                     </label>
                                                     <div class="input-group">
-                                                        <input type="number" placeholder="MM" asp-for="VencimentoMM" class="form-control" required>
-                                                        <input type="number" placeholder="YY" asp-for="VencimentoYY" class="form-control" required>
+                                                        <input type="number" placeholder="MM" asp-for="VencimentoMM" class="form-control" >
+                                                        <input type="number" placeholder="YY" asp-for="VencimentoYY" class="form-control" >
                                                     </div>
                                                 </div>
                                                 <span asp-validation-for="VencimentoMM"></span>
@@ -149,14 +143,18 @@
 
                                             <div class="col-sm-4">
                                                 <div class="form-group mb-4">
-                                                    <label asp-for="CodigoSeguranca" data-toggle="tooltip" title="Código de Segurança no verso do Cartão">Código Segurança<i class="fa fa-question-circle d-inline"></i></label>
+                                                    <label asp-for="CodigoSeguranca" data-toggle="tooltip" title="Código de Segurança no verso do Cartão">
+                                                        <i class="fa fa-question-circle d-inline"></i>
+                                                    </label>
                                                     <input type="number" asp-for="CodigoSeguranca" class="form-control" placeholder="">
                                                     <span asp-validation-for="CodigoSeguranca"></span>
                                                 </div>
                                             </div>
 
                                         </div>
-                                        <div class="card-footer"> <button type="button" class="subscribe btn btn-primary btn-block shadow-sm">Confirma Pagamento </button>
+                                        <div class="card-footer"> 
+                                            <button type="submit" class="subscribe btn btn-primary btn-block shadow-sm">Confirma Pagamento </button>
+                                        </div>
                                     </form>
                                 </div>
                             </div> <!-- End -->

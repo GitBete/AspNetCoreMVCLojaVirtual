@@ -48,7 +48,7 @@ using LojaVirtual.Models.ProdutoAgregador;
 #line hidden
 #nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"6786c611c3fbc013cde6769757a7440274552a1a", @"/Views/Shared/Components/ProdutoListagem/Default.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"2a17999865a57f7b98c67658c82d8a5f3a32fae1", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"b46e2aa1bd6a2749e2ff871bf879768657b1eafe", @"/Views/_ViewImports.cshtml")]
     public class Views_Shared_Components_ProdutoListagem_Default : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<ProdutoListagemViewModel>
     {
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("id", new global::Microsoft.AspNetCore.Html.HtmlString("ordenacao"), global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);

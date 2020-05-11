@@ -47,8 +47,8 @@ namespace LojaVirtual.Controllers
             _cookie = cookie;
         }
 
-        [ClienteAutorizacao]
         [HttpGet]
+        [ClienteAutorizacao]        
         public IActionResult Index()
         {
 
@@ -81,7 +81,7 @@ namespace LojaVirtual.Controllers
                     List<ProdutoItem> produtoItemComplento = CarregarProdutoDB();
                     ViewBag.Produtos = produtoItemComplento;
 
-                    return View("index");
+                    return View();
 
                 }
                 else
@@ -95,8 +95,8 @@ namespace LojaVirtual.Controllers
 
         }
 
-        [ClienteAutorizacao]
-        [HttpGet]
+        [HttpPost]
+        [ClienteAutorizacao]        
         public IActionResult Index([FromForm]CartaoCredito cartaoCredito)
         {
 

@@ -105,10 +105,10 @@ namespace LojaVirtual.Controllers
             return View();
         }
 
-        public IActionResult EnderecoEntregaRemover(int id)
+        public IActionResult EnderecoEntregaExcluir(int id)
         {
             _enderecoEntregaRepository.Excluir(id);
-            return View();
+            return RedirectToAction(nameof(EnderecoEntrega));
         }
 
 

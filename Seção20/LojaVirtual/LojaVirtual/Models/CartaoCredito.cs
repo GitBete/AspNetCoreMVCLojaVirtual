@@ -9,6 +9,7 @@ namespace LojaVirtual.Models
 {
     public class CartaoCredito
     {
+
         [Display(Name = "Número cartão")]
         [Required(ErrorMessageResourceType = typeof(Mensagem), ErrorMessageResourceName = "MSG_E001")]
         public string NumeroCartao { get; set; }
@@ -25,9 +26,8 @@ namespace LojaVirtual.Models
         [Required(ErrorMessageResourceType = typeof(Mensagem), ErrorMessageResourceName = "MSG_E001")]
         public string VencimentoYY { get; set; }
 
-        [Display(Name ="Cód Segurança")]
+        [Display(Name = "Cód Segurança")]
         [Required(ErrorMessageResourceType = typeof(Mensagem), ErrorMessageResourceName = "MSG_E001")]
         public string CodigoSeguranca { get; set; }
-
     }
 }

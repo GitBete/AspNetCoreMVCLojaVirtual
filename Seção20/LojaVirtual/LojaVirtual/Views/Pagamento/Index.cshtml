@@ -1,4 +1,4 @@
-﻿@model CartaoCredito
+﻿@model LojaVirtual.Models.CartaoCredito
 @{
     ViewData["Title"] = "Index";
     decimal Subtotal = 0;
@@ -81,18 +81,24 @@
                 </div>
 
 
+                <div class="col-md-6 mx-auto">
+                    @{ await Html.RenderPartialAsync("~/Views/Shared/_Mensagem.cshtml");}
 
-                <div class="col-lg-6 mx-auto">
-                    <div class="card ">
+                    <div class="card" id="cod_payment2">
+
                         <div class="card-header">
                             <div class="bg-white shadow-sm pt-4 pl-2 pr-2 pb-2">
                                 <!-- Credit card form tabs -->
                                 <ul role="tablist" class="nav bg-light nav-pills rounded nav-fill mb-3">
-                                    <li class="nav-item"> <a data-toggle="pill" href="#credit-card" class="nav-link active "> 
-                                        <i class="fas fa-credit-card mr-2"></i>Cartão de Crédito</a> 
+                                    <li class="nav-item">
+                                        <a data-toggle="pill" href="#credit-card" class="nav-link active ">
+                                            <i class="fas fa-credit-card mr-2"></i>Cartão de Crédito
+                                        </a>
                                     </li>
-                                    <li class="nav-item"> <a data-toggle="pill" href="#paypal" class="nav-link "> 
-                                        <i class="fab fa-paypal mr-2"></i>Boleto Bancário</a> 
+                                    <li class="nav-item">
+                                        <a data-toggle="pill" href="#paypal" class="nav-link ">
+                                            <i class="fab fa-paypal mr-2"></i>Boleto Bancário
+                                        </a>
                                     </li>
 
                                 </ul>
@@ -101,40 +107,39 @@
                             <div class="tab-content">
                                 <!-- credit card info-->
                                 <div id="credit-card" class="tab-pane fade show active pt-3">
-                                    <p class="alert alert-danger">Some text sucesso or error</p>
+                                    @*<p class="alert alert-danger">Some text sucesso or error</p>*@
 
-                                    <form role="form"  method="post">
+                                    <form role="form" method="post">
                                         <div class="form-group">
                                             <label asp-for="NomeNoCartao"></label>
                                             <input type="text" asp-for="NomeNoCartao" class="form-control" placeholder="">
-                                            <span asp-validation-for="NomeNoCartao"></span>                                           
+                                            <span asp-validation-for="NomeNoCartao"></span>
                                         </div>
 
                                         <div class="form-group">
                                             <label asp-for="NumeroCartao"></label>
                                             <div class="input-group">
                                                 <input type="text" asp-for="NumeroCartao" class="form-control" placeholder="">
-                                                                                              
-                                                <div class="input-group-append"> 
-                                                    <span class="input-group-text text-muted"> 
-                                                            <i class="fab fa-cc-visa mx-1"></i> 
-                                                            <i class="fab fa-cc-mastercard mx-1"></i> 
-                                                            <i class="fab fa-cc-amex mx-1"></i> 
-                                                     </span> 
-                                                </div>                                               
-                                             </div>
-                                            <span asp-validation-for="NumeroCartao"></span>  
+
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text text-muted">
+                                                        <i class="fab fa-cc-visa mx-1"></i>
+                                                        <i class="fab fa-cc-mastercard mx-1"></i>
+                                                        <i class="fab fa-cc-amex mx-1"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <span asp-validation-for="NumeroCartao"></span>
                                         </div>
 
                                         <div class="row">
                                             <div class="col-sm-8">
                                                 <div class="form-group">
-                                                    <label>                                                       
-                                                        <<label for="VencimentoMM" class="hidden-xs"></label>                                                       
-                                                    </label>
+                                                    <<label for="VencimentoMM" class="hidden-xs">Vencimento</label>
+
                                                     <div class="input-group">
-                                                        <input type="number" placeholder="MM" asp-for="VencimentoMM" class="form-control" >
-                                                        <input type="number" placeholder="YY" asp-for="VencimentoYY" class="form-control" >
+                                                        <input type="number" placeholder="MM" asp-for="VencimentoMM" class="form-control">
+                                                        <input type="number" placeholder="YY" asp-for="VencimentoYY" class="form-control">
                                                     </div>
                                                 </div>
                                                 <span asp-validation-for="VencimentoMM"></span>
@@ -152,8 +157,8 @@
                                             </div>
 
                                         </div>
-                                        <div class="card-footer"> 
-                                            <button type="submit" class="subscribe btn btn-primary btn-block shadow-sm">Confirma Pagamento </button>
+                                        <div class="card-footer">
+                                            <button class="subscribe btn btn-primary btn-block shadow-sm" type="submit">Confirma Pagamento </button>
                                         </div>
                                     </form>
                                 </div>

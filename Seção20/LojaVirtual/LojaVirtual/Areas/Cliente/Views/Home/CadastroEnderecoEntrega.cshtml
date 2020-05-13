@@ -17,14 +17,16 @@
                                 <h4 class="card-title mt-2">Cadastro</h4>
                             </header>
                             <article class="card-body">
-                                @if (TempData["MSG_S"] != null)
-                                {
-                                    <p class="alert alert-info">@Html.Raw(TempData["MSG_S"])</p>
-                                }
+                                @*@if (TempData["MSG_S"] != null)
+        {
+            <p class="alert alert-info">@Html.Raw(TempData["MSG_S"])</p>
+        }*@
+
+                                @{ await Html.RenderPartialAsync("~/Views/Shared/_Mensagem.cshtml");}
 
                                 <div class="form-group">
                                     <label asp-for="Nome">Nome do endereço</label>
-                                    <input type="text" asp-for="Nome"  class="form-control" placeholder="">
+                                    <input type="text" asp-for="Nome" class="form-control" placeholder="">
                                     <span asp-validation-for="Nome"></span>
                                 </div>
 

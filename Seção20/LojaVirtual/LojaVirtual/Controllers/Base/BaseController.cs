@@ -41,8 +41,7 @@ namespace LojaVirtual.Controllers.Base
         }
 
         public List<ProdutoItem> CarregarProdutoDB()
-        {
-         
+        {         
 
             //Verificar se tem registro no carrinho de compras, seriealizada com Id e quantidade
             List<ProdutoItem> produtoItemCarrinho = _cookieCarrinhoCompra.Consultar();

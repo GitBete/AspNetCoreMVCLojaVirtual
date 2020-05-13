@@ -7,9 +7,11 @@ using LojaVirtual.Libraries.AutoMapper;
 using LojaVirtual.Libraries.CarrinhoCompra;
 using LojaVirtual.Libraries.Email;
 using LojaVirtual.Libraries.Gerenciador.Frete;
+using LojaVirtual.Libraries.Gerenciador.Pagamento.PagarMe;
 using LojaVirtual.Libraries.Login;
 using LojaVirtual.Libraries.Middleware;
 using LojaVirtual.Libraries.Sessao;
+using LojaVirtual.Models;
 using LojaVirtual.Repositories;
 using LojaVirtual.Repositories.Contracts;
 using Microsoft.AspNetCore.Builder;
@@ -99,13 +101,15 @@ namespace LojaVirtual
             services.AddScoped<Cookie>();
             services.AddScoped<LoginCliente>();
             services.AddScoped<LoginColaborador>();
+            services.AddScoped<GerenciarPagarMe>();
+
             services.AddScoped<LojaVirtual.Libraries.Cookie.Cookie>();
             services.AddScoped<CookieCarrinhoCompra>();
             services.AddScoped<CookieFrete>();
 
             services.AddScoped<WSCorreiosCalcularFrete>();
             services.AddScoped<CalcularPacote>();
-
+           
             //COVIT-19 23/04/2020
             services.AddScoped<CalcPrecoPrazoWSSoap>(options =>
             {

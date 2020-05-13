@@ -2,6 +2,7 @@
 using LojaVirtual.Libraries.Login;
 using LojaVirtual.Libraries.Texto;
 using LojaVirtual.Models;
+using LojaVirtual.Models.ProdutoAgregador;
 using Microsoft.Extensions.Configuration;
 using PagarMe;
 using System;
@@ -23,6 +24,8 @@ namespace LojaVirtual.Libraries.Gerenciador.Pagamento.PagarMe
             _loginCliente = loginCliente;
         }
 
+
+        //BOLETO BANCARIO
         public object GerarBoleto(decimal valor)
         {
             try
@@ -75,42 +78,45 @@ namespace LojaVirtual.Libraries.Gerenciador.Pagamento.PagarMe
                 //dados do boleto
                 return new { BoletoURL = transaction.BoletoUrl, BarCode = transaction.BoletoBarcode, Expiracao = transaction.BoletoExpirationDate };
 
-            } catch(Exception e)
-                {
-                return new { Erro = e.Message, CodErro =e.HResult };
+            }
+            catch (Exception e)
+            {
+                return new { Erro = e.Message, CodErro = e.HResult };
             }
         }
 
-
-        public void GerarPagCartaoCredito(CartaoCredito cartao)
+        //CARTAO CREDITO
+        public object GerarPagCartaoCredito(CartaoCredito cartao, EnderecoEntrega enderecoEntrega, ValorPrazoFrete valorFrete, List<ProdutoItem> produtos)
         {
             Cliente cliente = _loginCliente.GetCliente();
 
             PagarMeService.DefaultApiKey = _configuration.GetValue<String>("Pagamento:PagarMe:ApiKey");
             PagarMeService.DefaultEncryptionKey = _configuration.GetValue<String>("Pagamento:PagarMe:EncryptionKey");
 
-            Card card = new Card();
-            card.Number = cartao.NumeroCartao ;
-            card.HolderName = cartao.NomeNoCartao;
-            card.ExpirationDate =cartao.VencimentoMM + cartao.VencimentoYY;
-            card.Cvv = cartao.CodigoSeguranca;
+            Card card = new Card
+            {
+                Number = cartao.NumeroCartao,
+                HolderName = cartao.NomeNoCartao,
+                ExpirationDate = cartao.VencimentoMM + cartao.VencimentoYY,
+                Cvv = cartao.CodigoSeguranca
+            };
 
             card.Save();
 
             Transaction transaction = new Transaction();
 
-            transaction.Amount = 2100;
+            //transaction.Amount = 2100;
             transaction.Card = new Card
             {
                 //Id = "card_cj95mc28g0038cy6ewbwtwwx2"
-                Id = card.Number
+                Id = card.Id
             };
-                        
+
 
             transaction.Customer = new Customer
             {
-                ExternalId = card.Cvv,
-                Name = card.HolderName,
+                ExternalId = cliente.Id.ToString(),
+                Name = cliente.Nome,
                 Type = CustomerType.Individual,
                 Country = "br",
                 Email = cliente.Email,
@@ -125,7 +131,7 @@ namespace LojaVirtual.Libraries.Gerenciador.Pagamento.PagarMe
                 //  Number = "83134932000154"
                 }
               },
-            PhoneNumbers = new string[]
+                PhoneNumbers = new string[]
             {
                 "+55" + Mascara.Remover(cliente.Telefone)
               },
@@ -150,48 +156,56 @@ namespace LojaVirtual.Libraries.Gerenciador.Pagamento.PagarMe
             };
 
             var Today = DateTime.Now;
+            int diasPreparoFrete = _configuration.GetValue<int>("Frete:DiasPreparoEnvio");
+
+            decimal valorTotal = Convert.ToDecimal(valorFrete.Valor);
 
             //endereco de entrega
             transaction.Shipping = new Shipping
             {
-                Name = "Rick",
-                Fee = 100,
-                DeliveryDate = Today.AddDays(4).ToString("yyyy-MM-dd"),
+                Name = enderecoEntrega.Nome,
+                Fee = Mascara.ConverterValorPagarMe(Convert.ToDecimal(valorFrete.Valor)),
+                //pode adicionar mais dias a essa data
+                DeliveryDate = Today.AddDays(diasPreparoFrete).AddDays(valorFrete.Prazo).ToString("yyyy-MM-dd"),
                 Expedited = false,
                 Address = new Address()
                 {
                     Country = "br",
-                    State = "sp",
-                    City = "Cotia",
-                    Neighborhood = "Rio Cotia",
-                    Street = "Rua Matrix",
-                    StreetNumber = "213",
-                    Zipcode = "04250000"
+                    State = enderecoEntrega.UF,
+                    City = enderecoEntrega.Cidade,
+                    Neighborhood = enderecoEntrega.Bairro,
+                    Street = enderecoEntrega.Logradouro + " " + enderecoEntrega.Complemento,
+                    StreetNumber = enderecoEntrega.LogradouroNumr,
+                    Zipcode = Mascara.Remover(enderecoEntrega.CEP)
                 }
             };
 
-            //produto adquirido pelo cliente
-            transaction.Item = new[]
+            Item[] itens = new Item[produtos.Count];           
+
+            for (var i = 0; i < produtos.Count; i++)
             {
-              new Item()
-              {
-                Id = "1",
-                Title = "Little Car",
-                Quantity = 1,
-                Tangible = true,
-                UnitPrice = 1000
-              },
-              new Item()
-              {
-                Id = "2",
-                Title = "Baby Crib",
-                Quantity = 1,
-                Tangible = true,
-                UnitPrice = 1000
-              }
-            };
+                var item = produtos[i];
+
+                var ItemA = new Item()
+                {
+                    Id = item.Id.ToString(),
+                    Title = item.Nome,
+                    Quantity = Mascara.ConverterValorPagarMe(item.QuantidadeProdutoCarrinho),
+                    Tangible = true,
+                    UnitPrice = Mascara.ConverterValorPagarMe(item.Valor)
+                };
+                               
+                valorTotal += (item.Valor * item.QuantidadeProdutoCarrinho);
+                itens[i] = ItemA;
+            }
+
+            //produto adquirido pelo cliente
+            transaction.Item = itens;
+            transaction.Amount = Mascara.ConverterValorPagarMe (valorTotal);
 
             transaction.Save();
+
+            return new { TransactionId = transaction.Id };
         }
 
     }

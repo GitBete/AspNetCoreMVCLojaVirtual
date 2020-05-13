@@ -20,10 +20,11 @@
 <br />
 <br />
 
-@if (TempData["MSG_S"] != null)
-{
-    <p class="alert alert-info">@Html.Raw(TempData["MSG_S"])</p>
-}
+@*@if (TempData["MSG_S"] != null)
+    {
+        <p class="alert alert-info">@Html.Raw(TempData["MSG_S"])</p>
+    }*@
+@{ await Html.RenderPartialAsync("~/Views/Shared/_Mensagem.cshtml");}
 
 <a asp-action="Cadastrar" class="btn btn-primary">Cadastrar</a>
 <br />
@@ -46,18 +47,18 @@
             <tbody>
                 @foreach (Produto produto in Model)
                 {
-                <tr>
-                    <th scope="row">@produto.Id</th>
-                    <td>@produto.Nome</td>
-                    <td>@produto.CategoriaId</td>
-                    <td>@produto.Valor</td>
-                    <td>
-                        <a asp-action="Atualizar" asp-route-id="@produto.Id" class="btn btn-secondary btn-sm">Atualizar</a>
-                        <a asp-action="Excluir" asp-route-id="@produto.Id" class="btn btn-danger btn-sm">Excluir</a>
-                    </td>
-                </tr>
+                    <tr>
+                        <th scope="row">@produto.Id</th>
+                        <td>@produto.Nome</td>
+                        <td>@produto.CategoriaId</td>
+                        <td>@produto.Valor</td>
+                        <td>
+                            <a asp-action="Atualizar" asp-route-id="@produto.Id" class="btn btn-secondary btn-sm">Atualizar</a>
+                            <a asp-action="Excluir" asp-route-id="@produto.Id" class="btn btn-danger btn-sm">Excluir</a>
+                        </td>
+                    </tr>
                 }
-           
+
             </tbody>
         </table>
     </div>

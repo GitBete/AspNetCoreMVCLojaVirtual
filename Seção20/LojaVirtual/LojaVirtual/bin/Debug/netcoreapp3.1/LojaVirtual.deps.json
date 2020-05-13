@@ -32,12 +32,12 @@
           "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": "1.9.10",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.1.2",
           "Newtonsoft.Json": "12.0.3",
-          "Pagar.me": "2.6.15",
           "System.ServiceModel.Duplex": "4.4.4",
           "System.ServiceModel.Http": "4.4.4",
           "System.ServiceModel.NetTcp": "4.4.4",
           "System.ServiceModel.Security": "4.4.4",
           "X.PagedList.Mvc.Core": "7.9.1",
+          "PagarMeCore": "1.0.0.0",
           "Microsoft.AspNetCore.Antiforgery.Reference": "3.1.0.0",
           "Microsoft.AspNetCore.Authentication.Abstractions.Reference": "3.1.0.0",
           "Microsoft.AspNetCore.Authentication.Cookies": "3.1.0.0",
@@ -345,17 +345,6 @@
         },
         "compile": {
           "lib/netstandard2.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll": {}
-        }
-      },
-      "BouncyCastle/1.7.0": {
-        "runtime": {
-          "lib/Net40-Client/BouncyCastle.Crypto.dll": {
-            "assemblyVersion": "1.7.4137.9688",
-            "fileVersion": "1.7.4137.9688"
-          }
-        },
-        "compile": {
-          "lib/Net40-Client/BouncyCastle.Crypto.dll": {}
         }
       },
       "EntityFramework/6.4.0": {
@@ -1448,21 +1437,6 @@
         },
         "compile": {
           "lib/netstandard1.6/NuGet.Frameworks.dll": {}
-        }
-      },
-      "Pagar.me/2.6.15": {
-        "dependencies": {
-          "BouncyCastle": "1.7.0",
-          "Newtonsoft.Json": "12.0.3"
-        },
-        "runtime": {
-          "lib/net45/PagarMe.dll": {
-            "assemblyVersion": "2.0.7251.31571",
-            "fileVersion": "2.0.7251.31571"
-          }
-        },
-        "compile": {
-          "lib/net45/PagarMe.dll": {}
         }
       },
       "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {},
@@ -2697,6 +2671,17 @@
         },
         "compile": {
           "lib/netstandard2.0/X.PagedList.Web.Common.dll": {}
+        }
+      },
+      "PagarMeCore/1.0.0.0": {
+        "runtime": {
+          "PagarMeCore.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        },
+        "compile": {
+          "PagarMeCore.dll": {}
         }
       },
       "Microsoft.AspNetCore.Antiforgery.Reference/3.1.0.0": {
@@ -4347,13 +4332,6 @@
       "path": "automapper.extensions.microsoft.dependencyinjection/7.0.0",
       "hashPath": "automapper.extensions.microsoft.dependencyinjection.7.0.0.nupkg.sha512"
     },
-    "BouncyCastle/1.7.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-yvrW1NCFBC+l53Kchlk1iRYlnafpZ+o6oy0tFpFM2G28gz3H0PubyJFLc8KoYys3N0UPYo6TN2NRegpouDxRTw==",
-      "path": "bouncycastle/1.7.0",
-      "hashPath": "bouncycastle.1.7.0.nupkg.sha512"
-    },
     "EntityFramework/6.4.0": {
       "type": "package",
       "serviceable": true,
@@ -4955,13 +4933,6 @@
       "sha512": "sha512-qbXaB76XYUVLocLBs8Z9TS/ERGK2wm797feO+0JEPFvT7o7MRadOR77mqaSD4J1k8G+DlZQyq+MlkCuxrkr3ag==",
       "path": "nuget.frameworks/4.7.0",
       "hashPath": "nuget.frameworks.4.7.0.nupkg.sha512"
-    },
-    "Pagar.me/2.6.15": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-9DsvqNINVJ/TAnkcET6POzIKlmX18QBiFTZl02n7Vl58WVVtdkMSsivuL7FGaTkZ11egkOh1/DnFPYAce2nV5Q==",
-      "path": "pagar.me/2.6.15",
-      "hashPath": "pagar.me.2.6.15.nupkg.sha512"
     },
     "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
       "type": "package",
@@ -5823,6 +5794,11 @@
       "sha512": "sha512-u4kP6vKaCyfth/H+famPBfwliZp8t6g/BdG6tB4ZYUOZISNCTcvUJfXkoXQeGeLnFe3DkiqgHc0NE24++sPSTg==",
       "path": "x.pagedlist.web.common/7.9.1",
       "hashPath": "x.pagedlist.web.common.7.9.1.nupkg.sha512"
+    },
+    "PagarMeCore/1.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
     },
     "Microsoft.AspNetCore.Antiforgery.Reference/3.1.0.0": {
       "type": "referenceassembly",

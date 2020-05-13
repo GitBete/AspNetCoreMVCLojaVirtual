@@ -2352,7 +2352,6 @@ C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção20\LojaVirtual\L
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção20\LojaVirtual\LojaVirtual\bin\Debug\netcoreapp3.1\LojaVirtual.Views.pdb
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção20\LojaVirtual\LojaVirtual\bin\Debug\netcoreapp3.1\AutoMapper.dll
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção20\LojaVirtual\LojaVirtual\bin\Debug\netcoreapp3.1\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
-C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção20\LojaVirtual\LojaVirtual\bin\Debug\netcoreapp3.1\BouncyCastle.Crypto.dll
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção20\LojaVirtual\LojaVirtual\bin\Debug\netcoreapp3.1\EntityFramework.SqlServer.dll
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção20\LojaVirtual\LojaVirtual\bin\Debug\netcoreapp3.1\EntityFramework.dll
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção20\LojaVirtual\LojaVirtual\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.JsonPatch.dll
@@ -2395,7 +2394,6 @@ C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção20\LojaVirtual\L
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção20\LojaVirtual\LojaVirtual\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção20\LojaVirtual\LojaVirtual\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção20\LojaVirtual\LojaVirtual\bin\Debug\netcoreapp3.1\NuGet.Frameworks.dll
-C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção20\LojaVirtual\LojaVirtual\bin\Debug\netcoreapp3.1\PagarMe.dll
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção20\LojaVirtual\LojaVirtual\bin\Debug\netcoreapp3.1\System.CodeDom.dll
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção20\LojaVirtual\LojaVirtual\bin\Debug\netcoreapp3.1\System.Composition.AttributedModel.dll
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção20\LojaVirtual\LojaVirtual\bin\Debug\netcoreapp3.1\System.Composition.Convention.dll
@@ -2481,7 +2479,6 @@ C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção20\LojaVirtual\L
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção20\LojaVirtual\LojaVirtual\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.0\System.Runtime.Caching.dll
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção20\LojaVirtual\LojaVirtual\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção20\LojaVirtual\LojaVirtual\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
-C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção20\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\LojaVirtual.csprojAssemblyReference.cache
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção20\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\LojaVirtual.Libraries.Lang.Mensagem.resources
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção20\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\LojaVirtual.csproj.GenerateResource.cache
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção20\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\LojaVirtual.csproj.CoreCompileInputs.cache
@@ -2540,3 +2537,7 @@ C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção20\LojaVirtual\L
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção20\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\LojaVirtual.dll
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção20\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\LojaVirtual.pdb
 C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção20\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\LojaVirtual.genruntimeconfig.cache
+C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção20\LojaVirtual\LojaVirtual\bin\Debug\netcoreapp3.1\PagarMeCore.dll
+C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção20\LojaVirtual\LojaVirtual\bin\Debug\netcoreapp3.1\PagarMeCore.pdb
+C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção20\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\LojaVirtual.csprojAssemblyReference.cache
+C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção20\LojaVirtual\LojaVirtual\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_Mensagem.cshtml.g.cs

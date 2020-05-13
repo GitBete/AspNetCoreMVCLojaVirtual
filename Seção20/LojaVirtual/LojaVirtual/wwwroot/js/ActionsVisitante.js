@@ -61,13 +61,14 @@ function AJAXEnderecoEntregaCalcularFrete() {
                             $(".card-footer .text-muted  input[name=frete]").eq(i).attr("checked", "checked");  
 
                             EnderecoEntregaCardsSelecionarStyle($(".card-footer .text-muted input[name=frete]").eq(i));  
+
                             $(".btn-continuar").removeClass("disabled");
 
                         }
                     }
 
                     $(".card-footer .text-muted").find("input[name=frete]").change(function () {
-                        $.cookie("Carrinho.TipoFrete", $(this).val(), { path: '/' });  
+                        $.cookie("Carrinho.TipoFrete", $(this).val(), { path: "/" });
                                                                         
                         EnderecoEntregaCardsSelecionarStyle($(this));  
                         $(".btn-continuar").removeClass("disabled"); 
@@ -149,7 +150,7 @@ function AJAXCalcularFrete(callByButton) {
         cep = RemoverMascara( $(".cep").val());
     }
        
-    $.removeCookie("Carrinho.TipoFrete")
+    //$.removeCookie("Carrinho.TipoFrete")
 
     if (cep.length == 8) {
 
@@ -184,7 +185,8 @@ function AJAXCalcularFrete(callByButton) {
                 $(".container-frete").html(html);
                 $(".container-frete").find("input[type=radio]").change(function () {
 
-                    $.cookie("Carrinho.TipoFrete", $(this).val());
+                    //$.cookie("Carrinho.TipoFrete", $(this).val());
+                    $.cookie("Carrinho.TipoFrete", $(this).val(), { path: "/" }); 
                     $(".btn-continuar").removeClass("disabled");
 
                     //alert($(this).val());

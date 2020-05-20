@@ -27,7 +27,7 @@ namespace LojaVirtual.Libraries.Gerenciador.Pagamento.PagarMe
 
 
         //BOLETO BANCARIO
-        public Boleto GerarBoleto(decimal valor)
+        public Transaction GerarBoleto(decimal valor)
         {
             //try
             //{
@@ -65,7 +65,7 @@ namespace LojaVirtual.Libraries.Gerenciador.Pagamento.PagarMe
                 transaction.Save();
 
                 //dados do boleto
-                return new Boleto{ TransactionId = transaction.Id,BoletoURL = transaction.BoletoUrl, BarCode = transaction.BoletoBarcode, Expiracao = transaction.BoletoExpirationDate };
+                return transaction;
 
             //}
             //catch (Exception e)
@@ -75,7 +75,7 @@ namespace LojaVirtual.Libraries.Gerenciador.Pagamento.PagarMe
         }
 
         //CARTAO CREDITO
-        public object GerarPagCartaoCredito(CartaoCredito cartao, Parcelamento parcelamento, EnderecoEntrega enderecoEntrega, ValorPrazoFrete valorFrete, List<ProdutoItem> produtos)
+        public Transaction GerarPagCartaoCredito(CartaoCredito cartao, Parcelamento parcelamento, EnderecoEntrega enderecoEntrega, ValorPrazoFrete valorFrete, List<ProdutoItem> produtos)
         {
             Cliente cliente = _loginCliente.GetCliente();
 
@@ -93,6 +93,10 @@ namespace LojaVirtual.Libraries.Gerenciador.Pagamento.PagarMe
             card.Save();
 
             Transaction transaction = new Transaction();
+
+            //parametro importante para que seu site seja informado para todas as mudancas de status 
+            //ocorridas no Pagar.Me
+            transaction.PostbackUrl = "http://seusite.com.br/pagamento/postback";
 
             //transaction.Amount = 2100;
             transaction.Card = new Card
@@ -195,7 +199,7 @@ namespace LojaVirtual.Libraries.Gerenciador.Pagamento.PagarMe
 
             transaction.Save();
 
-            return new { TransactionId = transaction.Id };
+            return transaction;
         }
 
         public List<Parcelamento> CalcularPagamentoParcelado(decimal valor)

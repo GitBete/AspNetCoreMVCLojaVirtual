@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using LojaVirtual.Models;
 using LojaVirtual.Models.ProdutoAgregador;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,11 @@ namespace LojaVirtual.Libraries.AutoMapper
             //posibilidade de converter
             //Copiar -> dados do produdo para dentro de produto item
             CreateMap<Produto, ProdutoItem>();
+            CreateMap<Cliente, EnderecoEntrega>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(origem => 0))
+                .ForMember(dest => dest.Nome, opt => opt.MapFrom(
+                    origem => string.Format("Endereço Cliente ({0})", origem.Nome)
+                ));
         }
     }
 }

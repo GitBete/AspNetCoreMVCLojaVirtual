@@ -61,8 +61,15 @@ using LojaVirtual.Models.Constants;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 10 "C:\CursoProgramacao\ASPNet_Core\AspNetCoreMVCLojaVirtual\Seção22\LojaVirtual\LojaVirtual\Views\_ViewImports.cshtml"
+using LojaVirtual.Libraries.Texto;
+
+#line default
+#line hidden
+#nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"25bf92e2339a12f17ca93419f1d08305abf6d8dd", @"/Views/CarrinhoCompra/Index.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"2d4d6974dee910b9848e45ffb0607f74196bc413", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"39c94bc73b40f578d3062ac4f1b538bd4934d215", @"/Views/_ViewImports.cshtml")]
     public class Views_CarrinhoCompra_Index : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<List<LojaVirtual.Models.ProdutoAgregador.ProdutoItem>>
     {
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("src", new global::Microsoft.AspNetCore.Html.HtmlString("~/img/imagem-padrao.png"), global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
@@ -186,7 +193,7 @@ WriteAttributeValue("", 1842, item.Imagens.ElementAt(0).Caminho, 1842, 34, false
 #line hidden
 #nullable disable
             WriteLiteral("                                                    ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "25bf92e2339a12f17ca93419f1d08305abf6d8dd12026", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "25bf92e2339a12f17ca93419f1d08305abf6d8dd12258", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -325,7 +332,7 @@ WriteAttributeValue("", 4173, item.QuantidadeProdutoCarrinho, 4173, 31, false);
 #nullable disable
             WriteLiteral(" cada)</small>\r\n                                        </div> <!-- price-wrap .// -->\r\n                                    </td>\r\n                                    <td class=\"text-right\">\r\n");
             WriteLiteral("                                        ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "25bf92e2339a12f17ca93419f1d08305abf6d8dd20039", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "25bf92e2339a12f17ca93419f1d08305abf6d8dd20271", async() => {
                 WriteLiteral(" × Remove");
             }
             );
@@ -455,7 +462,7 @@ WriteAttributeValue("", 4173, item.QuantidadeProdutoCarrinho, 4173, 31, false);
 #line hidden
 #nullable disable
             WriteLiteral("                                <dl class=\"dlist-align\">\r\n                                    ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "25bf92e2339a12f17ca93419f1d08305abf6d8dd26562", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "25bf92e2339a12f17ca93419f1d08305abf6d8dd26794", async() => {
                 WriteLiteral(" Continuar");
             }
             );
@@ -502,7 +509,7 @@ WriteAttributeValue("", 4173, item.QuantidadeProdutoCarrinho, 4173, 31, false);
 #line hidden
 #nullable disable
             WriteLiteral("                                <dl class=\"dlist-align\">\r\n                                    ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "25bf92e2339a12f17ca93419f1d08305abf6d8dd29926", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "25bf92e2339a12f17ca93419f1d08305abf6d8dd30158", async() => {
                 WriteLiteral(" Continuar");
             }
             );
@@ -553,7 +560,7 @@ else
 
             Para continuar comprando, navegue pelas categorias do site ou faça uma busca pelo seu produto.
             ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "25bf92e2339a12f17ca93419f1d08305abf6d8dd32490", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "25bf92e2339a12f17ca93419f1d08305abf6d8dd32722", async() => {
                 WriteLiteral("Click aqui");
             }
             );
@@ -571,7 +578,7 @@ else
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral(" e comece a comprar.\r\n\r\n        </div>\r\n    </div>\r\n    <br />\r\n    <br />\r\n    <div class=\"row\">\r\n        <div class=\"col-md-6\">\r\n\r\n            ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "25bf92e2339a12f17ca93419f1d08305abf6d8dd34021", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "25bf92e2339a12f17ca93419f1d08305abf6d8dd34253", async() => {
                 WriteLiteral("Escolher Produtos");
             }
             );

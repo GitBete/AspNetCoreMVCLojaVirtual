@@ -25,9 +25,11 @@ namespace LojaVirtual.Libraries.Texto
         public static decimal ConverterPagarMeIntDecimal(int valor)
         {
             string valorPagarMe = valor.ToString();
-            string valorDecimalString =  valorPagarMe.Substring(0, valorPagarMe.Length - 2) + "." + valorPagarMe.Substring( valorPagarMe.Length - 2);
+            string valorDecimalString =  valorPagarMe.Substring(0, valorPagarMe.Length - 2) + "," + valorPagarMe.Substring( valorPagarMe.Length - 2);
 
-            return (decimal.Parse(valorDecimalString) / 100);
+            var valorDecimal = decimal.Parse(valorDecimalString);
+
+            return valorDecimal;
         }
     }
 }

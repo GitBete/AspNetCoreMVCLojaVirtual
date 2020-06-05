@@ -1,0 +1,78 @@
+﻿@model ProdutoListagemViewModel
+@{
+    ViewData["Title"] = "Index";
+    var pesquisa = Context.Request.Query["pesquisa"];
+    var ordenacao = Context.Request.Query["ordenacao"].ToString();
+    var action = ViewContext.RouteData.Values["action"].ToString();
+}
+
+@if (Model.lista.Count > 0)
+{
+    @*Div com os produtos*@
+    <div class="container" id="code_prod_complex">
+        <div class="row">
+            <div class="offset-md-10" col-md-2>
+                @* ordenacao alfabetica, maior e menor preco
+                    lista carregada pelo C#
+                *@
+                <select id="ordenacao" asp-for="@ordenacao" class="form-control" asp-items="Model.ordenacao"></select>
+            </div>
+        </div>
+        <div class="row">
+            @foreach (var produto in Model.lista)
+            {
+                <a asp-controller="Produto" asp-action="Visualizar" asp-route-id="@produto.Id">
+                    <div class="col-md-3">
+                        <figure class="card card-product">
+                            <div class="img-wrap">
+                                @if (produto.Imagens != null && produto.Imagens.Count() > 0)
+                                {
+                                    <img src=@produto.Imagens.ElementAt(0).Caminho />
+                                }
+                                else
+                                {
+                                    <img src="~\img\imagem-padrao.png" />
+                                }
+
+                            </div>
+                            <figcaption class="info-wrap">
+                                <h4 class="title">@produto.Nome</h4>
+                                <div class="rating-wrap">
+                                    <ul class="rating-stars">
+                                        <li style="width:80%" class="stars-active">
+                                            <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+                                        </li>
+                                    </ul>
+                                    <div class="label-rating">132 reviews</div>
+                                    <div class="label-rating">154 orders </div>
+                                </div> <!-- rating-wrap.// -->
+                            </figcaption>
+                            <div class="bottom-wrap">
+                                <!-- redirecionamento para rota adicionar item  -->
+                                <a asp-controller="CarrinhoCompra" asp-action="AdicionarItem" asp-route-id="@produto.Id" class="btn btn-sm btn-primary float-right">Adicionar Carrinho</a>
+                                <div class="price-wrap h5">
+                                    <span class="price-new">@produto.Valor.ToString("C")</span> <del class="price-old">@produto.Valor.ToString("C")</del>
+                                </div> <!-- price-wrap.// -->
+                            </div> <!-- bottom-wrap.// -->
+                        </figure>
+                    </div> <!-- col // -->
+                    <!-- fim loop.// -->
+                </a>
+            }
+        </div> <!-- row.// -->
+        <!-- output a paging control that lets the user navigation to the previous page, next page, etc -->
+        @Html.PagedListPager((IPagedList)Model.lista, pagina => Url.Action(action, new { pagina = pagina, pesquisa = pesquisa, ordenacao = ordenacao }))
+    </div>
+}
+else
+{
+    <div class="container" id="code_prod_complex">
+        <br />
+        <div class="alert alert-info" role="alert">
+            <strong>Opsss!</strong>Não temos produtos para esta categoria!
+        </div>
+    </div>
+}

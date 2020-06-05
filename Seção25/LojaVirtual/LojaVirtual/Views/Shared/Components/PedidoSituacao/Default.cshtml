@@ -1,0 +1,29 @@
+﻿@model List<PedidoSituacaoStatus>
+@{
+    ViewData["Title"] = "Default";
+}
+
+@*@foreach (var pedidosSituacao in Model.PedidoSituacoes)
+{
+    <span>
+        @pedidosSituacao.Situacao
+        @pedidosSituacao.Data
+    </span>
+}*@
+
+
+    <ul class="timeline" id="timeline">
+        @foreach (var pedidosStatus in Model)
+        {
+            <li class="li @((@pedidosStatus.Concluido) ? "complete" : "")">
+                <div class="timestamp">                  
+                    <span class="date">@((@pedidosStatus.Data !=null)?pedidosStatus.Data.ToString() : "-")</span>
+                </div>
+                <div class="status">
+                    <h4> @pedidosStatus.Situacao </h4>
+                </div>
+            </li>
+
+        }
+
+    </ul>      

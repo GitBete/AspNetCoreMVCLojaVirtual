@@ -1,0 +1,90 @@
+﻿@model LojaVirtual.Models.EnderecoEntrega
+@{
+    ViewData["Title"] = "Cadastro de endereço";
+}
+<form method="post">
+    <main role="main">
+        <section class="container" style="margin-top: 50px">
+            <div class="row">
+                <aside class="col-sm-6">
+                    <h3 class="subtitle-doc">
+                        Cadastro de endereço
+                    </h3>
+
+                    <div id="code_register_1">
+                        <div class="card">
+                            <header class="card-header">
+                                <h4 class="card-title mt-2">Cadastro</h4>
+                            </header>
+                            <article class="card-body">
+                                @*@if (TempData["MSG_S"] != null)
+        {
+            <p class="alert alert-info">@Html.Raw(TempData["MSG_S"])</p>
+        }*@
+
+                                @{ await Html.RenderPartialAsync("~/Views/Shared/_Mensagem.cshtml");}
+
+                                <div class="form-group">
+                                    <label asp-for="Nome">Nome do endereço</label>
+                                    <input type="text" asp-for="Nome" class="form-control" placeholder="">
+                                    <span asp-validation-for="Nome"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="alert alert-danger" style="display:none" role="alert">
+                                        A simple danger alert-check it ut!
+                                    </div>
+
+                                    <label asp-for="CEP">CEP</label>
+                                    <input type="text" asp-for="CEP" class="no-cep cep form-control">
+                                    <span asp-validation-for="CEP"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="UF">UF</label>
+                                    <input type="text" asp-for="UF" readonly class="form-control">
+                                    <span asp-validation-for="UF"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Cidade">Cidade</label>
+                                    <input type="text" asp-for="Cidade" readonly class="form-control">
+                                    <span asp-validation-for="Cidade"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Logradouro">Endereço</label>
+                                    <input type="text" asp-for="Logradouro" class="form-control">
+                                    <span asp-validation-for="Logradouro"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Bairro">Bairro</label>
+                                    <input type="text" asp-for="Bairro" readonly class="form-control">
+                                    <span asp-validation-for="Bairro"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Complemento">Complemento</label>
+                                    <input type="text" asp-for="Complemento" class="form-control">
+                                    <span asp-validation-for="Complemento"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="LogradouroNumr">Número</label>
+                                    <input type="text" asp-for="LogradouroNumr" class="form-control">
+                                    <span asp-validation-for="LogradouroNumr"></span>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary btn-block"> Salvar </button>
+                                </div> <!-- form-group// -->
+
+                            </article> <!-- card-body end .// -->
+                            
+                        </div> <!-- card.// -->
+
+                    </div> <!-- code-wrap.// -->
+                </aside>
+            </div>
+        </section>
+
+
+    </main>
+
+</form>

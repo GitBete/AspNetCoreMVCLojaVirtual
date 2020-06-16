@@ -1,9 +1,9 @@
-﻿@model Pedido
+﻿@model VisualizarViewModel
 @{
     ViewData["Title"] = "Visualizar";
 
-    TransacaoPagarMe transacao = JsonConvert.DeserializeObject<TransacaoPagarMe>(Model.DadosTransaction);
-    List<ProdutoItem> produtos = JsonConvert.DeserializeObject<List<ProdutoItem>>(Model.DadosProdutos, new JsonSerializerSettings() { ContractResolver = new ProdutoItemResolver<List<ProdutoItem>>() });
+    TransacaoPagarMe transacao = JsonConvert.DeserializeObject<TransacaoPagarMe>(Model.Pedido.DadosTransaction);
+    List<ProdutoItem> produtos = JsonConvert.DeserializeObject<List<ProdutoItem>>(Model.Pedido.DadosProdutos, new JsonSerializerSettings() { ContractResolver = new ProdutoItemResolver<List<ProdutoItem>>() });
     var aniversario = DateTime.Parse(transacao.Customer.Birthday);
 }
 
@@ -14,7 +14,7 @@
     <div class="row">
         <div class="col-md-12" text-center>
 
-            <vc:pedido-situacao pedido="@Model"></vc:pedido-situacao>
+            <vc:pedido-situacao pedido="@Model.Pedido"></vc:pedido-situacao>
             <br />
             <br />
 
@@ -23,7 +23,7 @@
 
     <div class="row">
         <div class="col-md-12">
-            @if (Model.Situacao == PedidoSituacaoConstant.PAGAMENTO_APROVADO)
+            @if (Model.Pedido.Situacao == PedidoSituacaoConstant.PAGAMENTO_APROVADO)
             {
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#nfe">
                     Registrar NF-e
@@ -33,11 +33,32 @@
                 <br />
             }
 
-            @if (Model.Situacao == PedidoSituacaoConstant.NF_EMITIDA)
+            @if (Model.Pedido.Situacao == PedidoSituacaoConstant.NF_EMITIDA)
             {
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#rastreamento">
                     Registrar Código de Rastreamento
                 </button>
+
+                <br />
+                <br />
+            }
+
+            @if (Model.Pedido.Situacao == PedidoSituacaoConstant.NF_EMITIDA || Model.Pedido.Situacao == PedidoSituacaoConstant.PAGAMENTO_APROVADO)
+            {
+
+                if (Model.Pedido.FormaPagamento == MetodoPagamentoConstant.CartaoCredito)
+                {
+                    <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#cancelar-cartao">
+                        Cancelar
+                    </button>
+                }
+
+                if (Model.Pedido.FormaPagamento == MetodoPagamentoConstant.Boleto)
+                {
+                    <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#cancelar-boleto">
+                        Cancelar
+                    </button>
+                }
 
                 <br />
                 <br />
@@ -51,17 +72,17 @@
             <h3>Dados pedido</h3>
             <table class="table table-bordered">
                 <tr>
-                    <td colspan="2"><strong>Situação do pedido:</strong> @Model.Situacao </td>
+                    <td colspan="2"><strong>Situação do pedido:</strong> @Model.Pedido.Situacao </td>
                 </tr>
                 <tr>
                     <td><strong>Cliente:</strong> @transacao.Customer.Name </td>
                     <td><strong>Nascimento:</strong> @aniversario.ToString("dd/MM/yyyy")</td>
                 </tr>
                 <tr>
-                    <td><strong>Forma Pagamento:</strong> @Model.FormaPagamento </td>
+                    <td><strong>Forma Pagamento:</strong> @Model.Pedido.FormaPagamento </td>
                     <td>
                         <strong>Nota fiscal eletrônica:</strong>
-                        @Html.Raw(Model.NFe == null ? "-" : "<a href='" + Model.NFe + "' target='blank'>NF-e</a>")
+                        @Html.Raw(Model.Pedido.NFe == null ? "-" : "<a href='" + Model.Pedido.NFe + "' target='blank'>NF-e</a>")
                     </td>
                 </tr>
             </table>
@@ -88,12 +109,12 @@
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <strong>Transportadora:</strong> @Model.FreteEmpresa
+                        <strong>Transportadora:</strong> @Model.Pedido.FreteEmpresa
                     </td>
                     <td><strong>Valor do frete:</strong> @Mascara.ConverterPagarMeIntDecimal(@transacao.Shipping.Fee).ToString("C")</td>
                     <td>
                         <strong>Rastreamento:</strong>
-                        @Html.Raw(Model.FreteCodRastreamento == null ? "-" : "<a href='https://www.linkcorreios.com.br/" + Model.FreteCodRastreamento + "' target='blank'>" + Model.FreteCodRastreamento + "</a>")
+                        @Html.Raw(Model.Pedido.FreteCodRastreamento == null ? "-" : "<a href='https://www.linkcorreios.com.br/" + Model.Pedido.FreteCodRastreamento + "' target='blank'>" + Model.Pedido.FreteCodRastreamento + "</a>")
                     </td>
                 </tr>
             </table>
@@ -123,7 +144,7 @@
                 </tr>
                 <tr>
                     <td colspan="3"><strong>TOTAL</strong></td>
-                    <td>@Model.ValorTotal.ToString("C")</td>
+                    <td>@Model.Pedido.ValorTotal.ToString("C")</td>
                 </tr>
             </table>
             <br />
@@ -140,7 +161,7 @@
 
 
 @*Modal*@
-<form method="post" asp-action="NFE" asp-route-id="@Model.Id">
+<form method="post" asp-action="NFE" asp-route-id="@Model.Pedido.Id">
     <div class="modal fade" id="nfe" tabindex="-1" role="dialog" aria-labelledby="nfe" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -153,7 +174,7 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="control-nfe">Link da NF-e</label>
-                        <input type="url" class="form-control" id="control-nfe" name="nfe_url" placeholder="URL - NF-e">
+                        <input type="url" class="form-control" id="control-nfe" asp-for="@Model.NFE.NFE_URL" placeholder="URL - NF-e">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -166,7 +187,7 @@
 </form>
 
 @*Modal*@
-<form method="post" asp-action="RegistrarRastreamento" asp-route-id="@Model.Id">
+<form method="post" asp-action="RegistrarRastreamento" asp-route-id="@Model.Pedido.Id">
     <div class="modal fade" id="rastreamento" tabindex="-1" role="dialog" aria-labelledby="rastreamento" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -179,8 +200,102 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="cod_rastreamento">Código:</label>
-                        <input type="text" class="form-control" id="cod_rastreamento" name="cod_rastreamento" placeholder="Código rastreamento">
+                        <input type="text" class="form-control" id="cod_rastreamento" asp-for="@Model.CodigoRastreamento.Codigo" placeholder="Código rastreamento">
                     </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@*Modal*@
+<form method="post" asp-action="RegistrarCancelamentoPedidoCartaoCredito" asp-route-id="@Model.Pedido.Id">
+    <div class="modal fade" id="cancelar-cartao" tabindex="-1" role="dialog" aria-labelledby="cancelar-cartao" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Cancelar Pedido (Cartão de Crédito)</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="cod_rastreamento">Motivo:</label>
+                        <textarea class="form-control" id="motivo" asp-for="@Model.CartaoCredito.Motivo" placeholder="Motivo do cancelamento"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@*Modal*@
+<form method="post" asp-action="RegistrarCancelamentoPedidoBoleto" asp-route-id="@Model.Pedido.Id">
+    <div class="modal fade" id="cancelar-boleto" tabindex="-1" role="dialog" aria-labelledby="cancelar-boleto" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Cancelar Pedido (Boleto Bancário)</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label for="motivo">Motivo:</label>
+                        <textarea type="text" class="form-control" id="motivo" asp-for="@Model.BoletoBancario.Motivo" placeholder="Motivo"></textarea>
+                        <span asp-validation-for="@Model.BoletoBancario.Motivo" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cod_banco">Código Banco:</label>
+                        <input type="text" class="form-control" id="cod_banco" asp-for="@Model.BoletoBancario.BancoCodigo" placeholder="Código Banco">
+                        <span asp-validation-for="@Model.BoletoBancario.BancoCodigo" class="text-danger"></span>
+                        <a href="http://www.febraban.org.br/associados/utilitarios/Bancos.asp" target="_blank">Consultar</a>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="agencia">Agência:</label>
+                        <input type="text" class="form-control" id="agencia" asp-for="@Model.BoletoBancario.Agencia" placeholder="Agência">                        
+                        <input type="text" max="2" class="form-control" id="agencia_dv" asp-for="@Model.BoletoBancario.AgenciaDV" placeholder="">
+                        
+                        <span asp-validation-for="@Model.BoletoBancario.Agencia" class="text-danger"></span>
+                        <span asp-validation-for="@Model.BoletoBancario.AgenciaDV" class="text-danger"></span>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="cc">Conta corrente:</label>
+                        <input type="text" class="form-control" id="cc" asp-for="@Model.BoletoBancario.Conta" placeholder="Conta">
+                        <input type="text" max="2" class="form-control" id="cc_dv" asp-for="@Model.BoletoBancario.ContaDV" placeholder="">
+
+                        <span asp-validation-for="@Model.BoletoBancario.Conta" class="text-danger"></span>
+                        <span asp-validation-for="@Model.BoletoBancario.ContaDV" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nome">Titular da conta:</label>
+                        <input type="text" class="form-control" id="nome" asp-for="@Model.BoletoBancario.Nome" placeholder="Titular da conta">
+                        <span asp-validation-for="@Model.BoletoBancario.Nome" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cpf">CPF do Titular:</label>
+                        <input type="text" class="form-control" id="cpf" asp-for="@Model.BoletoBancario.CPF" placeholder="CPF do Títular">
+                        <span asp-validation-for="@Model.BoletoBancario.CPF" class="text-danger"></span>
+                    </div>
+
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>

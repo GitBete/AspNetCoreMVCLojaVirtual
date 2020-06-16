@@ -1,4 +1,5 @@
 ﻿
+using AutoMapper;
 using LojaVirtual.Libraries.Login;
 using LojaVirtual.Libraries.Texto;
 using LojaVirtual.Models;
@@ -18,11 +19,13 @@ namespace LojaVirtual.Libraries.Gerenciador.Pagamento.PagarMe
     {     
         private IConfiguration _configuration;
         private LoginCliente _loginCliente;
+        private IMapper _mapper;
 
-        public GerenciarPagarMe(IConfiguration configuration, LoginCliente loginCliente)
+        public GerenciarPagarMe(IConfiguration configuration, LoginCliente loginCliente, IMapper mapper)
         {
             _configuration = configuration;
             _loginCliente = loginCliente;
+            _mapper = mapper;
         }
 
         
@@ -298,12 +301,49 @@ namespace LojaVirtual.Libraries.Gerenciador.Pagamento.PagarMe
 
 
         public Transaction ObterTransacao(string transactionId)
+        {          
+            PagarMeService.DefaultApiKey = _configuration.GetValue<String>("Pagamento:PagarMe:ApiKey");
+
+            var transaction = PagarMeService.GetDefaultService().Transactions.Find(transactionId);
+
+            return transaction;
+        }
+
+        public Transaction EstornoCartaoCredito(string transactionId)
         {
             PagarMeService.DefaultApiKey = _configuration.GetValue<String>("Pagamento:PagarMe:ApiKey");
 
-            Transaction retornoTransacaoPagarMe = PagarMeService.GetDefaultService().Transactions.Find(transactionId);
+            Transaction transaction = PagarMeService.GetDefaultService().Transactions.Find(transactionId);
 
-            return retornoTransacaoPagarMe;
+            transaction.Refund();
+
+            return transaction;
+        }
+
+        public Transaction EstornoBoletoBancario(string transactionId,DadosCancelamento boletoBancario )
+        {
+            PagarMeService.DefaultApiKey = _configuration.GetValue<String>("Pagamento:PagarMe:ApiKey");
+           
+            var transaction = PagarMeService.GetDefaultService().Transactions.Find(transactionId);
+
+            var bankAccount = _mapper.Map<DadosCancelamento, BankAccount>(boletoBancario);
+
+            //BankAccount bankAccount = new BankAccount();
+            //bankAccount.Agencia = dadosCancelamento.Agencia;
+            //bankAccount.AgenciaDv = dadosCancelamento.AgenciaDV;
+            //bankAccount.Conta = dadosCancelamento.Conta;
+            //bankAccount.ContaDv = dadosCancelamento.ContaDV;
+            //bankAccount.BankCode = dadosCancelamento.BancoCodigo;
+            //bankAccount.DocumentNumber = dadosCancelamento.CPF;
+            //bankAccount.LegalName = dadosCancelamento.Nome;
+
+            transaction.Refund(bankAccount);
+
+            TransactionStatus status = transaction.Status;
+
+            transaction.Refund();
+
+            return transaction;
         }
 
     }

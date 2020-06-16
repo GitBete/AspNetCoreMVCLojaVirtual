@@ -186,9 +186,9 @@ namespace LojaVirtual
             var provider = app.ApplicationServices;
             provider.UseScheduler(scheduler =>
             {
-                scheduler.Schedule<PedidoPagamentoSituacaoJob>().EveryFiveMinutes();
+                scheduler.Schedule<PedidoPagamentoSituacaoJob>().EveryMinute();
                 scheduler.Schedule<PedidoEntregueJob>().EveryFiveMinutes();
-                scheduler.Schedule<PedidoFinalizadoJob>().EveryMinute();
+                scheduler.Schedule<PedidoFinalizadoJob>().EveryTenMinutes();
 
                 //scheduler.Schedule(
                 //    () => Console.WriteLine("Every minute during the week.")

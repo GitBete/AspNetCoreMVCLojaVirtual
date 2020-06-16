@@ -53,6 +53,17 @@ namespace LojaVirtual.Libraries.AutoMapper
                  .ForMember(dest => dest.Dados, opt => opt.MapFrom(origem => JsonConvert.SerializeObject(origem.Item2, new JsonSerializerSettings() { ContractResolver = new ProdutoItemResolver<TransactionProduto>() })))
                  ;
 
+            CreateMap<DadosCancelamento,BankAccount>()
+                 .ForMember(dest => dest.BankCode, opt => opt.MapFrom(origem => origem.BancoCodigo))
+                 .ForMember(dest => dest.Agencia, opt => opt.MapFrom(origem => origem.Agencia))
+                 .ForMember(dest => dest.AgenciaDv, opt => opt.MapFrom(origem => origem.AgenciaDV ))
+                 .ForMember(dest => dest.Conta, opt => opt.MapFrom(origem => origem.Conta))
+                 .ForMember(dest => dest.ContaDv, opt => opt.MapFrom(origem => origem.ContaDV))
+                 .ForMember(dest => dest.LegalName, opt => opt.MapFrom(origem => origem.Nome))
+                 .ForMember(dest => dest.DocumentNumber, opt => opt.MapFrom(origem => origem.CPF))
+                 ;
+
+
             //CreateMap<TransacaoPagarMe, Pedido>()
             //    .ForMember(dest => dest.Id, opt => opt.MapFrom(origem => 0))
             //    .ForMember(dest => dest.ClienteId, opt => opt.MapFrom(origem => int.Parse(origem.Customer.ExternalId)))

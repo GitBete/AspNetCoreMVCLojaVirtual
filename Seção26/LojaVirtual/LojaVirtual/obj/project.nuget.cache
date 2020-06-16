@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "IgUHRUNosYNnPw0oSM4EMC2BcWn0WVcKxChhj+hy7BaJTGgGL8733VmerlIO3pwJtN7kRMq1Q3tswThQk/Iy8Q==",
+  "dgSpecHash": "jOIWvSBAhmnw0LY+HQCgARCA6FxjPH+a4c9d1q3NfAOYhYNiozQpzp1vYl7wfErocYIFKrSDg+tzXBaV0IjDBw==",
   "success": true,
-  "projectFilePath": "C:\\CursoProgramacao\\ASPNet_Core\\AspNetCoreMVCLojaVirtual\\Seção25\\LojaVirtual\\LojaVirtual\\LojaVirtual.csproj",
+  "projectFilePath": "C:\\CursoProgramacao\\ASPNet_Core\\AspNetCoreMVCLojaVirtual\\Seção26\\LojaVirtual\\LojaVirtual\\LojaVirtual.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Administrador\\.nuget\\packages\\anglesharp\\0.14.0\\anglesharp.0.14.0.nupkg.sha512",
     "C:\\Users\\Administrador\\.nuget\\packages\\automapper\\9.0.0\\automapper.9.0.0.nupkg.sha512",

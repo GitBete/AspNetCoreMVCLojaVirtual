@@ -1,0 +1,538 @@
+﻿@model VisualizarViewModel
+@{
+    ViewData["Title"] = "Visualizar";
+
+    TransacaoPagarMe transacao = JsonConvert.DeserializeObject<TransacaoPagarMe>(Model.Pedido.DadosTransaction);
+    List<ProdutoItem> produtos = JsonConvert.DeserializeObject<List<ProdutoItem>>(Model.Pedido.DadosProdutos, new JsonSerializerSettings() { ContractResolver = new ProdutoItemResolver<List<ProdutoItem>>() });
+    var aniversario = DateTime.Parse(transacao.Customer.Birthday);
+}
+
+@section script{
+
+    @if (ViewBag.MODAL_NFE != null)
+    {
+        <script type="text/javascript">
+            $('#nfe').modal();
+        </script>
+    }
+
+    @if (ViewBag.MODAL_RASTREAMENTO != null)
+    {
+        <script type="text/javascript">
+            $('#rastreamento').modal();
+        </script>
+    }
+
+    @if (ViewBag.MODAL_CARTAOCREDITO != null)
+    {
+        <script type="text/javascript">
+            $('#cancelar-cartao').modal();
+        </script>
+    }
+
+    @if (ViewBag.MODAL_BOLETOBANCARIO != null)
+    {
+        <script type="text/javascript">
+            $('#cancelar-boleto').modal();
+        </script>
+    }
+    @if (ViewBag.MODAL_DEVOLVER != null)
+    {
+        <script type="text/javascript">
+            $('#devolver').modal();
+        </script>
+    }
+    @if (ViewBag.MODAL_DEVOLVER_REJEITAR != null)
+    {
+        <script type="text/javascript">
+            $('#devolver-rejeitar').modal();
+        </script>
+    }
+
+    @if (ViewBag.MODAL_DEVOLVER_BOLETOBANCARIO != null)
+    {
+        <script type="text/javascript">
+            $('#devolver-aprovar-boleto').modal();
+        </script>
+    }
+
+}
+
+<br />
+<br />
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12" text-center>
+
+            <vc:pedido-situacao pedido="@Model.Pedido"></vc:pedido-situacao>
+            <br />
+            <br />
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 text-center">
+            @if (Model.Pedido.Situacao == PedidoSituacaoConstant.PAGAMENTO_APROVADO)
+            {
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#nfe">
+                    Registrar NF-e
+                </button>
+            }
+
+            @if (Model.Pedido.Situacao == PedidoSituacaoConstant.NF_EMITIDA)
+            {
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#rastreamento">
+                    Registrar Código de Rastreamento
+                </button>
+            }
+
+            @if (Model.Pedido.Situacao == PedidoSituacaoConstant.NF_EMITIDA || Model.Pedido.Situacao == PedidoSituacaoConstant.PAGAMENTO_APROVADO)
+            {
+                if (Model.Pedido.FormaPagamento == MetodoPagamentoConstant.CartaoCredito)
+                {
+                    <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#cancelar-cartao">
+                        Cancelar
+                    </button>
+                }
+
+                if (Model.Pedido.FormaPagamento == MetodoPagamentoConstant.Boleto)
+                {
+                    <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#cancelar-boleto">
+                        Cancelar
+                    </button>
+                }
+
+            }
+
+            @if (Model.Pedido.Situacao == PedidoSituacaoConstant.ENTREGUE)
+            {
+                var pedidoSituacao = Model.Pedido.PedidoSituacoes.FirstOrDefault(a => a.Situacao == PedidoSituacaoConstant.ENTREGUE);
+
+                if (pedidoSituacao != null && DateTime.Now <= pedidoSituacao.Data.AddDays(7))
+                {
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#devolver">
+                        Devolver
+                    </button>
+                }
+            }
+
+            @if (Model.Pedido.Situacao == PedidoSituacaoConstant.DEVOLVER_ENTREGUE)
+            {
+                if (Model.Pedido.FormaPagamento == MetodoPagamentoConstant.CartaoCredito)
+                {<button type="button" class="btn btn-primary" asp-action="RegistrarDevoluvaoPedidoAprovadoCartao" asp-route-id="@Model.Pedido.Id">
+                        Aceitar devolução
+                    </button>
+                }
+                if (Model.Pedido.FormaPagamento == MetodoPagamentoConstant.Boleto)
+                {
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#devolver-aprovar-boleto">
+                        Aceitar devolução
+                    </button>
+                }
+
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#devolver-rejeitar">
+                    Rejeitar devolução
+                </button>
+            }
+        </div>
+    </div>
+
+    <br />
+    <br />
+
+    <div class="row">
+        <div class="col-md-12">
+
+            <h3>Dados pedido</h3>
+            <table class="table table-bordered">
+                <tr>
+                    <td colspan="2"><strong>Situação do pedido:</strong> @Model.Pedido.Situacao </td>
+                </tr>
+                <tr>
+                    <td><strong>Cliente:</strong> @transacao.Customer.Name </td>
+                    <td><strong>Nascimento:</strong> @aniversario.ToString("dd/MM/yyyy")</td>
+                </tr>
+                <tr>
+                    <td><strong>Forma Pagamento:</strong> @Model.Pedido.FormaPagamento </td>
+                    <td>
+                        <strong>Nota fiscal eletrônica:</strong>
+                        @Html.Raw(Model.Pedido.NFe == null ? "-" : "<a href='" + Model.Pedido.NFe + "' target='blank'>NF-e</a>")
+                    </td>
+                </tr>
+            </table>
+
+            <h3>Entrega</h3>
+            <table class="table table-bordered">
+                <tr>
+                    <td colspan="4">
+                        <strong>Endereço de entrega:</strong> @transacao.Shipping.Name
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>CEP:</strong> @transacao.Shipping.Address.Zipcode </td>
+                    <td><strong>UF:</strong> @transacao.Shipping.Address.State</td>
+                    <td><strong>Cidade:</strong> @transacao.Shipping.Address.City</td>
+                    <td><strong>Bairro:</strong> @transacao.Shipping.Address.Neighborhood</td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <strong>Logradouro:</strong> @transacao.Shipping.Address.Street
+                    </td>
+                    <td><strong>Complemento:</strong> @transacao.Shipping.Address.Complementary</td>
+                    <td><strong>Número:</strong> @transacao.Shipping.Address.StreetNumber</td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <strong>Transportadora:</strong> @Model.Pedido.FreteEmpresa
+                    </td>
+                    <td><strong>Valor do frete:</strong> @Mascara.ConverterPagarMeIntDecimal(@transacao.Shipping.Fee).ToString("C")</td>
+                    <td>
+                        <strong>Rastreamento:</strong>
+                        @Html.Raw(Model.Pedido.FreteCodRastreamento == null ? "-" : "<a href='https://www.linkcorreios.com.br/" + Model.Pedido.FreteCodRastreamento + "' target='blank'>" + Model.Pedido.FreteCodRastreamento + "</a>")
+                    </td>
+                </tr>
+            </table>
+
+            @if (Model.Pedido.Situacao == PedidoSituacaoConstant.DEVOLVER_ENTREGUE)
+            {
+                var devolucao = Model.Pedido.PedidoSituacoes.FirstOrDefault(a => a.Situacao == PedidoSituacaoConstant.DEVOLVER);
+                DadosDevolucao dadosDevolucao = JsonConvert.DeserializeObject<DadosDevolucao>(devolucao.Dados);
+
+                var devolucaoEntrega = Model.Pedido.PedidoSituacoes.FirstOrDefault(a => a.Situacao == PedidoSituacaoConstant.DEVOLVER_ENTREGUE);
+                var dadosCorreiosDevolucao = JsonConvert.DeserializeObject<Correios.NET.Models.Package>(devolucaoEntrega.Dados);
+
+                <h3>Devolução</h3>
+                <table class="table table-bordered">
+                    <tr>
+                        <td><strong>Transportadora:</strong> @Model.Pedido.FreteEmpresa</td>
+                        <td>
+                            <strong>Rastreamento:</strong>
+                            @Html.Raw(dadosDevolucao.CodigoRastreamento == null ? "-" : "<a href='https://www.linkcorreios.com.br/" + dadosDevolucao.CodigoRastreamento + "' target='blank'>" + dadosDevolucao.CodigoRastreamento + "</a>")
+                        </td>
+                        <td><strong>Dada devolução:</strong> @dadosCorreiosDevolucao.DeliveryDate.ToString() </td>
+                    </tr>
+                </table>
+            }
+
+
+            <h3>Lista de produto</h3>
+            <table class="table table-bordered">
+                <tr>
+                    <td><strong>Quantidade</strong></td>
+                    <td><strong>Nome</strong></td>
+                    <td><strong>Valor</strong></td>
+                    <td><strong>TOTAL</strong></td>
+                </tr>
+                @foreach (var produto in produtos)
+                {
+                    <tr>
+                        <td>@produto.QuantidadeProdutoCarrinho</td>
+                        <td>@produto.Nome</td>
+                        <td>@produto.Valor.ToString("C")</td>
+                        <td>@((produto.Valor * produto.QuantidadeProdutoCarrinho).ToString("C"))</td>
+                    </tr>
+                }
+
+                <tr>
+                    <td colspan="3"><strong>FRETE</strong></td>
+                    <td>@Mascara.ConverterPagarMeIntDecimal(@transacao.Shipping.Fee).ToString("C")</td>
+                </tr>
+                <tr>
+                    <td colspan="3"><strong>TOTAL</strong></td>
+                    <td>@Model.Pedido.ValorTotal.ToString("C")</td>
+                </tr>
+            </table>
+            <br />
+            <br />
+
+            <button class="btn btn-outline-primary btn-lg btn-imprimir">Imprimir</button>
+
+        </div>
+    </div>
+
+
+</div>
+
+
+
+@*Modal*@
+<form method="post" asp-action="NFE" asp-route-id="@Model.Pedido.Id">
+    <div class="modal fade" id="nfe" tabindex="-1" role="dialog" aria-labelledby="nfe" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Nota Fiscal Eletrônica</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="control-nfe">Link da NF-e</label>
+                        <input type="url" class="form-control" id="control-nfe" asp-for="@Model.NFE.NFE_URL" placeholder="URL - NF-e">
+                        <span asp-validation-for="@Model.NFE.NFE_URL" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@*Modal*@
+<form method="post" asp-action="RegistrarRastreamento" asp-route-id="@Model.Pedido.Id">
+    <div class="modal fade" id="rastreamento" tabindex="-1" role="dialog" aria-labelledby="rastreamento" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Código de rastreamento</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="cod_rastreamento">Código:</label>
+                        <input type="text" class="form-control" id="cod_rastreamento" asp-for="@Model.CodigoRastreamento.Codigo" placeholder="Código rastreamento">
+                        <span asp-validation-for="@Model.CodigoRastreamento.Codigo" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@*Modal*@
+<form method="post" asp-action="RegistrarCancelamentoPedidoCartaoCredito" asp-route-id="@Model.Pedido.Id">
+    <div class="modal fade" id="cancelar-cartao" tabindex="-1" role="dialog" aria-labelledby="cancelar-cartao" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Cancelar Pedido (Cartão de Crédito)</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="cod_rastreamento">Motivo:</label>
+                        <textarea class="form-control" id="motivo" asp-for="@Model.CartaoCredito.Motivo" placeholder="Motivo do cancelamento"></textarea>
+                        <span asp-validation-for="@Model.CartaoCredito.Motivo" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@*Modal*@
+<form method="post" asp-action="RegistrarCancelamentoPedidoBoleto" asp-route-id="@Model.Pedido.Id">
+    <div class="modal fade" id="cancelar-boleto" tabindex="-1" role="dialog" aria-labelledby="cancelar-boleto" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Cancelar Pedido (Boleto Bancário)</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label for="motivo">Motivo:</label>
+                        <textarea type="text" class="form-control" id="motivo" asp-for="@Model.BoletoBancario.Motivo" placeholder="Motivo"></textarea>
+                        <span asp-validation-for="@Model.BoletoBancario.Motivo" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cod_banco">Código Banco:</label>
+                        <input type="text" class="form-control" id="cod_banco" asp-for="@Model.BoletoBancario.BancoCodigo" placeholder="Código Banco">
+                        <span asp-validation-for="@Model.BoletoBancario.BancoCodigo" class="text-danger"></span>
+                        <a href="http://www.febraban.org.br/associados/utilitarios/Bancos.asp" target="_blank">Consultar</a>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="agencia">Agência:</label>
+                        <input type="text" class="form-control" id="agencia" asp-for="@Model.BoletoBancario.Agencia" placeholder="Agência">
+                        -
+                        <input type="text" maxlength="2" class="form-control" id="agencia_dv" asp-for="@Model.BoletoBancario.AgenciaDV" placeholder="">
+
+                        <span asp-validation-for="@Model.BoletoBancario.Agencia" class="text-danger"></span>
+                        <span asp-validation-for="@Model.BoletoBancario.AgenciaDV" class="text-danger"></span>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="cc">Conta corrente:</label>
+                        <input type="text" class="form-control" id="cc" asp-for="@Model.BoletoBancario.Conta" placeholder="Conta">
+                        -
+                        <input type="text" maxlength="2" class="form-control" id="cc_dv" asp-for="@Model.BoletoBancario.ContaDV" placeholder="">
+
+                        <span asp-validation-for="@Model.BoletoBancario.Conta" class="text-danger"></span>
+                        <span asp-validation-for="@Model.BoletoBancario.ContaDV" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nome">Titular da conta:</label>
+                        <input type="text" class="form-control" id="nome" asp-for="@Model.BoletoBancario.Nome" placeholder="Titular da conta">
+                        <span asp-validation-for="@Model.BoletoBancario.Nome" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cpf">CPF do Titular:</label>
+                        <input type="text" class="form-control" id="cpf" asp-for="@Model.BoletoBancario.CPF" placeholder="CPF do Títular">
+                        <span asp-validation-for="@Model.BoletoBancario.CPF" class="text-danger"></span>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+@*Modal*@
+<form method="post" asp-action="RegistrarDevoluvaoPedidoJaEntregue" asp-route-id="@Model.Pedido.Id">
+    <div class="modal fade" id="devolver" tabindex="-1" role="dialog" aria-labelledby="devolver" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Devolver</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label asp-for="@Model.Devolucao.Motivo"></label>
+                        <textarea class="form-control" id="motivo" asp-for="@Model.Devolucao.Motivo" placeholder="Motivo da devolução"></textarea>
+                        <span asp-validation-for="@Model.Devolucao.Motivo" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="form-group">
+                            <label asp-for="@Model.Devolucao.CodigoRastreamento"></label>
+                            <input type="text" class="form-control" asp-for="@Model.Devolucao.CodigoRastreamento" placeholder="Código rastreamento">
+                            <span asp-validation-for="@Model.Devolucao.CodigoRastreamento" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@*Modal*@
+<form method="post" asp-action="RegistrarDevoluvaoPedidoRejeicao" asp-route-id="@Model.Pedido.Id">
+    <div class="modal fade" id="devolver-rejeitar" tabindex="-1" role="dialog" aria-labelledby="devolver-rejeitar" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Rejeitar devolução</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label asp-for="@Model.Devolucao.Motivo"></label>
+                        <textarea class="form-control" id="motivo" asp-for="@Model.Devolucao.Motivo" placeholder="Motivo da devolução"></textarea>
+                        <span asp-validation-for="@Model.Devolucao.Motivo" class="text-danger"></span>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+@*Modal*@
+<form method="post" asp-action="RegistrarDevoluvaoPedidoAprovadoBoleto" asp-route-id="@Model.Pedido.Id">
+    <div class="modal fade" id="devolver-aprovar-boleto" tabindex="-1" role="dialog" aria-labelledby="devolver-aprovar-boleto" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Devolver (Boleto Bancário)</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label for="cod_banco">Código Banco:</label>
+                        <input type="text" class="form-control" id="cod_banco" asp-for="@Model.BoletoBancario.BancoCodigo" placeholder="Código Banco">
+                        <span asp-validation-for="@Model.BoletoBancario.BancoCodigo" class="text-danger"></span>
+                        <a href="http://www.febraban.org.br/associados/utilitarios/Bancos.asp" target="_blank">Consultar</a>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="agencia">Agência:</label>
+                        <input type="text" class="form-control" id="agencia" asp-for="@Model.BoletoBancario.Agencia" placeholder="Agência">
+                        -
+                        <input type="text" maxlength="2" class="form-control" id="agencia_dv" asp-for="@Model.BoletoBancario.AgenciaDV" placeholder="">
+
+                        <span asp-validation-for="@Model.BoletoBancario.Agencia" class="text-danger"></span>
+                        <span asp-validation-for="@Model.BoletoBancario.AgenciaDV" class="text-danger"></span>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="cc">Conta corrente:</label>
+                        <input type="text" class="form-control" id="cc" asp-for="@Model.BoletoBancario.Conta" placeholder="Conta">
+                        -
+                        <input type="text" maxlength="2" class="form-control" id="cc_dv" asp-for="@Model.BoletoBancario.ContaDV" placeholder="">
+
+                        <span asp-validation-for="@Model.BoletoBancario.Conta" class="text-danger"></span>
+                        <span asp-validation-for="@Model.BoletoBancario.ContaDV" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nome">Titular da conta:</label>
+                        <input type="text" class="form-control" id="nome" asp-for="@Model.BoletoBancario.Nome" placeholder="Titular da conta">
+                        <span asp-validation-for="@Model.BoletoBancario.Nome" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cpf">CPF do Titular:</label>
+                        <input type="text" class="form-control" id="cpf" asp-for="@Model.BoletoBancario.CPF" placeholder="CPF do Títular">
+                        <span asp-validation-for="@Model.BoletoBancario.CPF" class="text-danger"></span>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
